@@ -262,6 +262,7 @@
     <ClCompile Include="SourceCode\Shape\3DShape\cone.cpp" />
     <ClCompile Include="SourceCode\Shape\3DShape\sphere.cpp" />
     <ClCompile Include="SourceCode\Sound\sound.cpp" />
+    <ClCompile Include="SourceCode\Sound\sound_volume_settings.cpp" />
     <ClCompile Include="SourceCode\Sound\sound_player.cpp" />
     <ClCompile Include="SourceCode\Sound\sound_pool.cpp" />
     <ClCompile Include="SourceCode\State\PlayerState\player_aim_gun.cpp" />
@@ -389,6 +390,7 @@
     <ClInclude Include="SourceCode\Data\humanoid_arm_ray_data.hpp" />
     <ClInclude Include="SourceCode\Data\single_button_prompt_data.hpp" />
     <ClInclude Include="SourceCode\Data\button_prompt_data.hpp" />
+    <ClInclude Include="SourceCode\Data\sound_volume_data.hpp" />
     <ClInclude Include="SourceCode\Data\warning_tab_data.hpp" />
     <ClInclude Include="SourceCode\Data\mission_ui_data.hpp" />
     <ClInclude Include="SourceCode\Data\sound_data.hpp" />
@@ -538,6 +540,7 @@
     <ClInclude Include="SourceCode\InverseKinematics\ik_solver.hpp" />
     <ClInclude Include="SourceCode\JSON\json_loader.hpp" />
     <ClInclude Include="SourceCode\Kind\rot_dir_kind.hpp" />
+    <ClInclude Include="SourceCode\Kind\sound_kind.hpp" />
     <ClInclude Include="SourceCode\Kind\time_scale_layer_kind.hpp" />
     <ClInclude Include="SourceCode\Kind\axis_kind.hpp" />
     <ClInclude Include="SourceCode\Kind\mixamo_axis_kind.hpp" />
@@ -675,6 +678,7 @@
     <ClInclude Include="SourceCode\Shape\3DShape\cone.hpp" />
     <ClInclude Include="SourceCode\Shape\3DShape\sphere.hpp" />
     <ClInclude Include="SourceCode\Sound\sound.hpp" />
+    <ClInclude Include="SourceCode\Sound\sound_volume_settings.hpp" />
     <ClInclude Include="SourceCode\Sound\sound_player.hpp" />
     <ClInclude Include="SourceCode\Sound\sound_pool.hpp" />
     <ClInclude Include="SourceCode\State\PlayerState\player_aim_gun.hpp" />
@@ -762,6 +766,7 @@
     <None Include="Data\JSON\animator.json" />
     <None Include="Data\JSON\button_prompt_data.json" />
     <None Include="Data\JSON\model_arm_angle_limits.json" />
+    <None Include="Data\JSON\sound_volume.json" />
     <None Include="Data\JSON\tab_data.json" />
     <None Include="Data\JSON\text_data.json" />
     <None Include="data\JSON\gun_data.json" />

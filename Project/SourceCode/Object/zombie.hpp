@@ -41,7 +41,7 @@ public:
 
 
 	#pragma region Humanoid
-	[[nodiscard]] const std::shared_ptr<const HumanoidFrameGetter>& GetHumanoidFrame() const override { return m_humanoid_frame; }
+	[[nodiscard]] const std::shared_ptr<const HumanoidFrameGetter> GetHumanoidFrame() const override { return m_humanoid_frame; }
 	#pragma endregion
 	
 

@@ -604,6 +604,9 @@
     <ClCompile Include="SourceCode\Base\player_state_base.cpp">
       <Filter>SourceCode\Base</Filter>
     </ClCompile>
+    <ClCompile Include="SourceCode\Sound\sound_volume_settings.cpp">
+      <Filter>SourceCode\Sound</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="SourceCode\Base\character_base.hpp">
@@ -1791,6 +1794,15 @@
     <ClInclude Include="SourceCode\Animator\animator.hpp">
       <Filter>SourceCode\Animator</Filter>
     </ClInclude>
+    <ClInclude Include="SourceCode\Kind\sound_kind.hpp">
+      <Filter>SourceCode\Kind</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCode\Data\sound_volume_data.hpp">
+      <Filter>SourceCode\Data</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCode\Sound\sound_volume_settings.hpp">
+      <Filter>SourceCode\Sound</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="SourceCode">
@@ -2006,6 +2018,9 @@
       <Filter>JSON</Filter>
     </None>
     <None Include="Data\JSON\animator.json">
+      <Filter>JSON</Filter>
+    </None>
+    <None Include="Data\JSON\sound_volume.json">
       <Filter>JSON</Filter>
     </None>
   </ItemGroup>

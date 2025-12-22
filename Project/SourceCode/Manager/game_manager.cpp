@@ -76,6 +76,7 @@ void GameManager::Run()
 		m_scene_manager->Draw();
 
 		GameTimeManager::GetInstance()->WaitTime();
+		GameTimeManager::GetInstance()->Draw();
 		ScreenFlip();
 	}
 }

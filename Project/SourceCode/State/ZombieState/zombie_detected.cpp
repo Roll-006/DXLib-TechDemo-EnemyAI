@@ -1,4 +1,5 @@
 ﻿#include "../../Object/zombie.hpp"
+#include "../../Kind/zombie_anim_kind.hpp"
 #include "../../Animator/animator.hpp"
 #include "../../Event/event_system.hpp"
 #include "../../Kind/zombie_state_kind.hpp"

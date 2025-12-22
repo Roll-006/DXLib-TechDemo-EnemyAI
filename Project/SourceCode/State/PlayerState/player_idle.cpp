@@ -1,4 +1,5 @@
 ﻿#include "../../Object/player.hpp"
+#include "../../Kind/player_anim_kind.hpp"
 #include "../../Animator/animator.hpp"
 #include "../../Kind/player_state_kind.hpp"
 #include "player_state.hpp"
@@ -28,7 +29,7 @@ void player_state::Idle::LateUpdate()
 
 void player_state::Idle::Enter()
 {
-	// m_non_move_time = 0.0f;
+	m_animator->AttachResultAnim(static_cast<int>(PlayerAnimKind::kIdle));
 }
 
 void player_state::Idle::Exit()

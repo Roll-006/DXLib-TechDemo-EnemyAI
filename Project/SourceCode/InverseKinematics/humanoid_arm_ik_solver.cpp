@@ -49,8 +49,8 @@ HumanoidArmIKSolver::~HumanoidArmIKSolver()
 
 void HumanoidArmIKSolver::Init()
 {
-	ChangeLeftArmOriginMatrix	();
-	ChangeRightArmOriginMatrix	();
+	ChangeLeftArmOriginMatrix();
+	ChangeRightArmOriginMatrix();
 }
 
 void HumanoidArmIKSolver::Update()

@@ -1,4 +1,5 @@
 ﻿#include "../../Object/player.hpp"
+#include "../../Kind/player_anim_kind.hpp"
 #include "../../Animator/animator.hpp"
 #include "../../Event/event_system.hpp"
 #include "../../Kind/player_state_kind.hpp"
