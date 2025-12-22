@@ -1,0 +1,52 @@
+﻿#include <memory>
+#include <unordered_map>
+#include "../../Object/player.hpp"
+#include "../../Animator/animator.hpp"
+#include "../../Base/player_state_base.hpp"
+#include "../../Kind/player_state_kind.hpp"
+#include "player_state.hpp"
+
+player_state::State::State(Player& player, const std::shared_ptr<Animator>& animator) :
+	m_player(player),
+	m_current_state(nullptr)
+{
+	m_current_state = m_states.at(PlayerStateKind::kIdle);
+}
+
+player_state::State::~State()
+{
+
+}
+
+void player_state::State::Update()
+{
+	// 次のステートがNoneでない場合はステートを変更
+	const auto next_state_kind = m_current_state->GetNextStateKind();
+	if (next_state_kind != PlayerStateKind::kNone)
+	{
+		m_current_state->Exit();
+		m_current_state = m_states.at(next_state_kind);
+		m_current_state->Enter();
+	}
+
+	m_current_state->Update();
+}
+
+void player_state::State::LateUpdate()
+{
+	m_current_state->LateUpdate();
+}
+
+PlayerStateKind player_state::State::GetPrevStateKind() const
+{
+	return m_current_state->GetPrevStateKind();
+}
+
+PlayerStateKind player_state::State::GetCurrentStateKind() const
+{
+	return m_current_state->GetCurrentStateKind();
+}
+
+
+#pragma region Try判定
+#pragma endregion

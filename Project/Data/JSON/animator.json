@@ -1,0 +1,176 @@
+﻿{
+  "animator": {
+    "player": {
+
+    },
+    "zombie": {
+      "anim_data": {
+        "0": {
+          "index": 0,
+          "path": "Data/Animation/Zombie/zombie_idle_01.mv1",
+          "tag": "none",
+          "play_speed": 20.0,
+          "is_loop": true,
+          "is_self_blend": false,
+          "ground_play_rate": 1.0
+        },
+        "1": {
+          "index": 0,
+          "path": "Data/Animation/Zombie/shout_zombie.mv1",
+          "tag": "none",
+          "play_speed": 50.0,
+          "is_loop": false,
+          "is_self_blend": false,
+          "ground_play_rate": 1.0
+        },
+        "2": {
+          "index": 0,
+          "path": "Data/Animation/Zombie/move_forward_walk.mv1",
+          "tag": "walk",
+          "play_speed": 55.0,
+          "is_loop": true,
+          "is_self_blend": false,
+          "ground_play_rate": 1.0
+        },
+        "3": {
+          "index": 0,
+          "path": "Data/Animation/Zombie/move_forward_run_02.mv1",
+          "tag": "run",
+          "play_speed": 60.0,
+          "is_loop": true,
+          "is_self_blend": false,
+          "ground_play_rate": 1.0
+        },
+        "4": {
+          "index": 0,
+          "path": "Data/Animation/Zombie/enter_neck_bite.mv1",
+          "tag": "none",
+          "play_speed": 20.0,
+          "is_loop": true,
+          "is_self_blend": true,
+          "ground_play_rate": 1.0
+        },
+        "5": {
+          "index": 0,
+          "path": "Data/Animation/Zombie/exit_neck_bite.mv1",
+          "tag": "none",
+          "play_speed": 20.0,
+          "is_loop": false,
+          "is_self_blend": false,
+          "ground_play_rate": 1.0
+        },
+        "6": {
+          "index": 0,
+          "path": "Data/Animation/Zombie/death_03.mv1",
+          "tag": "none",
+          "play_speed": 60.0,
+          "is_loop": false,
+          "is_self_blend": false,
+          "ground_play_rate": 1.0
+        },
+        "7": {
+          "index": 0,
+          "path": "Data/Animation/Zombie/death_01.mv1",
+          "tag": "none",
+          "play_speed": 20.0,
+          "is_loop": false,
+          "is_self_blend": false,
+          "ground_play_rate": 1.0
+        },
+        "8": {
+          "index": 0,
+          "path": "Data/Animation/Zombie/crouch_death.mv1",
+          "tag": "none",
+          "play_speed": 20.0,
+          "is_loop": false,
+          "is_self_blend": false,
+          "ground_play_rate": 1.0
+        },
+        "9": {
+          "index": 0,
+          "path": "Data/Animation/Zombie/flying_knockback_up.mv1",
+          "tag": "none",
+          "play_speed": 35.0,
+          "is_loop": false,
+          "is_self_blend": false,
+          "ground_play_rate": 1.0
+        },
+        "10": {
+          "index": 0,
+          "path": "Data/Animation/Zombie/flying_knockback_down.mv1",
+          "tag": "none",
+          "play_speed": 35.0,
+          "is_loop": false,
+          "is_self_blend": false,
+          "ground_play_rate": 1.0
+        },
+        "11": {
+          "index": 0,
+          "path": "Data/Animation/Zombie/backward_knockback.mv1",
+          "tag": "none",
+          "play_speed": 30.0,
+          "is_loop": false,
+          "is_self_blend": false,
+          "ground_play_rate": 1.0
+        },
+        "12": {
+          "index": 0,
+          "path": "Data/Animation/Zombie/stand_up_zombie_01.mv1",
+          "tag": "none",
+          "play_speed": 35.0,
+          "is_loop": false,
+          "is_self_blend": false,
+          "ground_play_rate": 1.0
+        },
+        "13": {
+          "index": 0,
+          "path": "Data/Animation/Zombie/stand_up_zombie_02.mv1",
+          "tag": "none",
+          "play_speed": 35.0,
+          "is_loop": false,
+          "is_self_blend": false,
+          "ground_play_rate": 1.0
+        },
+        "14": {
+          "index": 0,
+          "path": "Data/Animation/Zombie/move_forward_walk_zombie.mv1",
+          "tag": "none",
+          "play_speed": 10.0,
+          "is_loop": true,
+          "is_self_blend": false,
+          "ground_play_rate": 1.0
+        },
+        "15": {
+          "index": 0,
+          "path": "Data/Animation/Zombie/move_backward_run_dizzy.mv1",
+          "tag": "none",
+          "play_speed": 2.0,
+          "is_loop": true,
+          "is_self_blend": false,
+          "ground_play_rate": 1.0
+        },
+        "16": {
+          "index": 0,
+          "path": "Data/Animation/Zombie/left_crouch.mv1",
+          "tag": "none",
+          "play_speed": 50.0,
+          "is_loop": true,
+          "is_self_blend": true,
+          "ground_play_rate": 1.0
+        },
+        "17": {
+          "index": 0,
+          "path": "Data/Animation/Zombie/right_crouch.mv1",
+          "tag": "none",
+          "play_speed": 50.0,
+          "is_loop": true,
+          "is_self_blend": true,
+          "ground_play_rate": 1.0
+        }
+      },
+      "blend_speed": 3.0,
+      "notify_ground_range": 0.2,
+      "time_scale_layer_kind": 1
+    }
+  }
+}
