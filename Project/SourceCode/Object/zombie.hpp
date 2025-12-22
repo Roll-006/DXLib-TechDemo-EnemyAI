@@ -13,8 +13,8 @@
 #include "../State/ZombieState/zombie_state.hpp"
 #include "../AI/zombie_ai.hpp"
 
-struct HumanoidArmRayData;
-struct HumanoidLegRayData;
+#include "../Data/humanoid_arm_ray_data.hpp"
+#include "../Data/humanoid_leg_ray_data.hpp"
 
 class Zombie final : public EnemyBase, public IPoolable, public IHumanoid, public IMeleeHittable, public IGrabber, public IStealthKillable
 {
@@ -41,7 +41,7 @@ public:
 
 
 	#pragma region Humanoid
-	[[nodiscard]] std::shared_ptr<HumanoidFrameGetter> GetHumanoidFrame() const override { return m_humanoid_frame; }
+	[[nodiscard]] const std::shared_ptr<const HumanoidFrameGetter>& GetHumanoidFrame() const override { return m_humanoid_frame; }
 	#pragma endregion
 	
 
@@ -50,14 +50,14 @@ public:
 	void Release()		override;
 	void OnEscape()		override;
 
-	[[nodiscard]] float GetDamageOverTimeStartTime()	const override	{ return data.damage_over_time_start_time; }
-	[[nodiscard]] bool	IsTargetEscaped()				const override  { return m_is_target_escaped; }
+	[[nodiscard]] const float	GetDamageOverTimeStartTime()	const override	{ return data.damage_over_time_start_time; }
+	[[nodiscard]] const bool	IsTargetEscaped()				const override  { return m_is_target_escaped; }
 	#pragma endregion
 
 
 	#pragma region メレー
-	[[nodiscard]] bool  IsStandStun()  const override;
-	[[nodiscard]] bool  IsCrouchStun() const override;
+	[[nodiscard]] const bool IsStandStun()  const override;
+	[[nodiscard]] const bool IsCrouchStun() const override;
 	#pragma endregion
 
 
@@ -66,9 +66,9 @@ public:
 	void ExitStealthKilled()	override;
 	void DisallowStealthKill()	override { m_is_allow_stealth_kill = false; }
 
-	[[nodiscard]] bool IsAllowStealthKill()		const override	{ return m_is_allow_stealth_kill; }
-	[[nodiscard]] bool IsStealthKillerInSight()	const override	{ return IsDetectedTarget(); }
-	[[nodiscard]] bool IsStealthKilled()		const override	{ return m_on_stealth_kill; }
+	[[nodiscard]] const bool IsAllowStealthKill()		const override	{ return m_is_allow_stealth_kill; }
+	[[nodiscard]] const bool IsStealthKillerInSight()	const override	{ return IsDetectedTarget(); }
+	[[nodiscard]] const bool IsStealthKilled()			const override	{ return m_on_stealth_kill; }
 	#pragma endregion
 
 
@@ -89,12 +89,12 @@ public:
 
 
 	#pragma region Getter
-	[[nodiscard]] float										GetDeltaTime()				const	override;
-	[[nodiscard]] std::shared_ptr<CharacterBase>			GetTarget()					const		{ return m_ai->GetTarget(); }
-	[[nodiscard]] bool										CanGrabTarget()				const		{ return m_can_grab_target; }
-	[[nodiscard]] bool										IsReturnPool()				override	{ return m_is_return_pool; }
-	[[nodiscard]] std::shared_ptr<HumanoidArmIKSolver>		GetHumanoidArmIKSolver()	const		{ return m_humanoid_arm_ik; }
-	[[nodiscard]] std::shared_ptr<HumanoidFootIKSolver>		GetHumanoidFootIKSolver()	const		{ return m_humanoid_foot_ik; }
+	[[nodiscard]] const float										GetDeltaTime()				const	override;
+	[[nodiscard]] const std::shared_ptr<CharacterBase>				GetTarget()					const	{ return m_ai->GetTarget(); }
+	[[nodiscard]] const bool										CanGrabTarget()				const	{ return m_can_grab_target; }
+	[[nodiscard]] const bool										IsReturnPool() override				{ return m_is_return_pool; }
+	[[nodiscard]] const std::shared_ptr<const HumanoidArmIKSolver>	GetHumanoidArmIKSolver()	const	{ return m_humanoid_arm_ik; }
+	[[nodiscard]] const std::shared_ptr<const HumanoidFootIKSolver>	GetHumanoidFootIKSolver()	const	{ return m_humanoid_foot_ik; }
 	#pragma endregion
 
 private:

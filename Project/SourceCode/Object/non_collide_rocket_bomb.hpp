@@ -23,8 +23,8 @@ public:
 	void OnReloaded() override;
 	void TrackLoad() override;
 
-	[[nodiscard]] float	GetDeltaTime() const override;
-	[[nodiscard]] bool  IsReloading()  const override { return m_is_reloading; }
+	[[nodiscard]] const float GetDeltaTime() const override;
+	[[nodiscard]] const bool  IsReloading()  const override { return m_is_reloading; }
 
 private:
 	/// @brief 移動方向を姿勢に適用する

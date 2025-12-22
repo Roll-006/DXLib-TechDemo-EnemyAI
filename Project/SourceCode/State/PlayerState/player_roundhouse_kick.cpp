@@ -76,14 +76,14 @@ void player_state::RoundhouseKick::Exit()
 {
 }
 
-PlayerStateKind player_state::RoundhouseKick::GetNextStateKind()
+const PlayerStateKind player_state::RoundhouseKick::GetNextStateKind()
 {
-    if (m_player.GetDeltaTime() <= 0.0f) return PlayerStateKind::kNone;
+    //if (m_player.GetDeltaTime() <= 0.0f) return PlayerStateKind::kNone;
 
-    if (m_player.GetAnimator()->IsPlayEnd(Animator::BodyKind::kUpperBody))
-    {
-        return PlayerStateKind::kActionNull;
-    }
+    //if (m_player.GetAnimator()->IsPlayEnd(Animator::BodyKind::kUpperBody))
+    //{
+    //    return PlayerStateKind::kActionNull;
+    //}
 
     return PlayerStateKind::kNone;
 }

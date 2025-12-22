@@ -41,7 +41,7 @@ void zombie_state::Knockback::Exit()
 
 }
 
-ZombieStateKind zombie_state::Knockback::GetNextStateKind()
+const ZombieStateKind zombie_state::Knockback::GetNextStateKind()
 {
 	if (m_zombie.GetDeltaTime() <= 0.0f)
 	{

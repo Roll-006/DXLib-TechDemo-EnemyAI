@@ -30,18 +30,18 @@ void player_state::Escape::Exit()
 {
 }
 
-PlayerStateKind player_state::Escape::GetNextStateKind()
+const PlayerStateKind player_state::Escape::GetNextStateKind()
 {
-	if (m_player.GetDeltaTime() <= 0.0f)
-	{
-		return PlayerStateKind::kNone;
-	}
+	//if (m_player.GetDeltaTime() <= 0.0f)
+	//{
+	//	return PlayerStateKind::kNone;
+	//}
 
-	// 上半身アニメーション終了 → NULL
-	if (m_animator->IsPlayEnd(Animator::BodyKind::kUpperBody))
-	{
-		return PlayerStateKind::kActionNull;
-	}
+	//// 上半身アニメーション終了 → NULL
+	//if (m_animator->IsPlayEnd(Animator::BodyKind::kUpperBody))
+	//{
+	//	return PlayerStateKind::kActionNull;
+	//}
 
 	return PlayerStateKind::kNone;
 }

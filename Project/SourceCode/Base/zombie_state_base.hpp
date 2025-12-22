@@ -15,8 +15,8 @@ public:
 	virtual void Enter()		abstract;
 	virtual void Exit()			abstract;
 
-	[[nodiscard]] ZombieStateKind GetStateKind() { return m_state_kind; }
-	[[nodiscard]] virtual ZombieStateKind GetNextStateKind() abstract;
+	[[nodiscard]] const ZombieStateKind GetStateKind() { return m_state_kind; }
+	[[nodiscard]] virtual const ZombieStateKind GetNextStateKind() abstract;
 
 protected:
 	#pragma region 汎用行動

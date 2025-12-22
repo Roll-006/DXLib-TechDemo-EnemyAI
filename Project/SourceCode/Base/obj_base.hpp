@@ -28,12 +28,12 @@ public:
 
 
 	#pragma region Getter
-	[[nodiscard]] virtual float				 GetDeltaTime() const abstract;
-	[[nodiscard]] std::shared_ptr<Transform> GetTransform()			{ return m_transform; }
-	[[nodiscard]] std::string				 GetName()		const	{ return m_name; }
-	[[nodiscard]] std::string				 GetTag()		const	{ return m_tag; }
-	[[nodiscard]] int						 GetObjHandle()	const	{ return m_obj_handle; }
-	[[nodiscard]] bool						 IsActive()		const	{ return m_is_active; }
+	[[nodiscard]] const virtual float				GetDeltaTime()	const abstract;
+	[[nodiscard]] const std::shared_ptr<Transform>	GetTransform()	const	{ return m_transform; }
+	[[nodiscard]] const std::string					GetName()		const	{ return m_name; }
+	[[nodiscard]] const std::string					GetTag()		const	{ return m_tag; }
+	[[nodiscard]] const int							GetObjHandle()	const	{ return m_obj_handle; }
+	[[nodiscard]] const bool						IsActive()		const	{ return m_is_active; }
 	#pragma endregion
 
 protected:

@@ -8,7 +8,7 @@ PlayerStateBase::PlayerStateBase(Player& player, player_state::State& state, con
 	m_player	(player),
 	m_state		(state),
 	m_animator	(animator),
-	m_current_state_kind(state_kind)
+	m_state_kind(state_kind)
 {
 
 }

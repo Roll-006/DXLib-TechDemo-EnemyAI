@@ -135,49 +135,49 @@
 //{
 //	const auto current_lower_anim_kind = GetAnimKind(BodyKind::kLowerBody, TimeKind::kCurrent);
 //
-//	switch (static_cast<player_state::ActionStateKind>(m_state->GetActionState(TimeKind::kCurrent)->GetStateKind()))
+//	switch (static_cast<PlayerStateKind>(m_state->GetActionState(TimeKind::kCurrent)->GetStateKind()))
 //	{
-//	case player_state::ActionStateKind::kActionNull:
+//	case PlayerStateKind::kActionNull:
 //		CombineMoveNullActionNullWithWeaponAction();
 //		break;
 //
-//	case player_state::ActionStateKind::kCrouch:
+//	case PlayerStateKind::kCrouch:
 //		CombineMoveNullCrouchWithWeaponAction();
 //		break;
 //
-//	case player_state::ActionStateKind::kTurnAround:
+//	case PlayerStateKind::kTurnAround:
 //		CombineMoveNullTurnAroundWithWeaponAction();
 //		break;
 //
-//	case player_state::ActionStateKind::kCrouchTurnAround:
+//	case PlayerStateKind::kCrouchTurnAround:
 //		CombineMoveNullCrouchTurnAroundWithWeaponAction();
 //		break;
 //
-//	case player_state::ActionStateKind::kDead:
+//	case PlayerStateKind::kDead:
 //		AttachResultAnim(static_cast<int>(PlayerAnimKind::kDead));
 //		break;
 //
-//	case player_state::ActionStateKind::kGrabbed:
+//	case PlayerStateKind::kGrabbed:
 //		AttachResultAnim(static_cast<int>(PlayerAnimKind::kGrabbed));
 //		break;
 //
-//	case player_state::ActionStateKind::kFrontKick:
+//	case PlayerStateKind::kFrontKick:
 //		AttachResultAnim(static_cast<int>(PlayerAnimKind::kFrontKick));
 //		break;
 //
-//	case player_state::ActionStateKind::kRoundhouseKick:
+//	case PlayerStateKind::kRoundhouseKick:
 //		AttachResultAnim(static_cast<int>(PlayerAnimKind::kRoundhouseKick));
 //		break;
 //
-//	case player_state::ActionStateKind::kEscape:
+//	case PlayerStateKind::kEscape:
 //		AttachResultAnim(static_cast<int>(PlayerAnimKind::kEscapeKick));
 //		break;
 //
-//	case player_state::ActionStateKind::kStealthKill:
+//	case PlayerStateKind::kStealthKill:
 //		AttachResultAnim(static_cast<int>(PlayerAnimKind::kStealthKill));
 //		break;
 //
-//	case player_state::ActionStateKind::kVictoryPose:
+//	case PlayerStateKind::kVictoryPose:
 //		if (current_lower_anim_kind == static_cast<int>(PlayerAnimKind::kStandToCrouch) || current_lower_anim_kind == static_cast<int>(PlayerAnimKind::kTalkingCrouch))
 //		{
 //			if (IsPlayEnd(BodyKind::kLowerBody))
@@ -199,17 +199,17 @@
 //
 //void PlayerAnimator::CombineMoveWithAction()
 //{
-//	switch (static_cast<player_state::ActionStateKind>(m_state->GetActionState(TimeKind::kCurrent)->GetStateKind()))
+//	switch (static_cast<PlayerStateKind>(m_state->GetActionState(TimeKind::kCurrent)->GetStateKind()))
 //	{
-//	case player_state::ActionStateKind::kActionNull:
+//	case PlayerStateKind::kActionNull:
 //		CombineMoveActionNullWithWeaponAction();
 //		break;
 //
-//	case player_state::ActionStateKind::kCrouch:
+//	case PlayerStateKind::kCrouch:
 //		CombineMoveCrouchWithWeaponAction();
 //		break;
 //
-//	case player_state::ActionStateKind::kRun:
+//	case PlayerStateKind::kRun:
 //		CombineMoveRunWithWeaponAction();
 //		break;
 //

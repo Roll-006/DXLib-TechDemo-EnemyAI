@@ -62,7 +62,7 @@ void NonCollildeRocketBomb::OnReloaded()
 	m_is_reloading	= false;
 }
 
-float NonCollildeRocketBomb::GetDeltaTime() const
+const float NonCollildeRocketBomb::GetDeltaTime() const
 {
 	return GameTimeManager::GetInstance()->GetDeltaTime(TimeScaleLayerKind::kWorld);
 }

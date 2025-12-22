@@ -35,17 +35,17 @@ void zombie_state::Search::Exit()
 
 }
 
-ZombieStateKind zombie_state::Search::GetNextStateKind()
+const ZombieStateKind zombie_state::Search::GetNextStateKind()
 {
-	if (m_zombie.GetDeltaTime() <= 0.0f)
-	{
-		return ZombieStateKind::kNone;
-	}
-	// 強制待機
-	else if (m_state.TryWaitForcibly())
-	{
-		return ZombieStateKind::kIdle;
-	}
+	//if (m_zombie.GetDeltaTime() <= 0.0f)
+	//{
+	//	return ZombieStateKind::kNone;
+	//}
+	//// 強制待機
+	//else if (m_state.TryWaitForcibly())
+	//{
+	//	return ZombieStateKind::kIdle;
+	//}
 
 	return ZombieStateKind::kNone;
 }

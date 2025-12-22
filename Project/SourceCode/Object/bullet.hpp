@@ -27,10 +27,10 @@ public:
 	/// @brief 弾丸が発射された
 	void OnShot(GunBase& gun) override;
 
-	[[nodiscard]] float			GetDeltaTime()		const	override;
-	[[nodiscard]] float			GetPower()			const	override { return m_power; }
-	[[nodiscard]] std::string	GetShotOwnerName()	const	override { return m_shot_owner_name; }
-	[[nodiscard]] bool			IsReturnPool()				override;
+	[[nodiscard]] const float		GetDeltaTime()		const	override;
+	[[nodiscard]] const float		GetPower()			const	override { return m_power; }
+	[[nodiscard]] const std::string	GetShotOwnerName()	const	override { return m_shot_owner_name; }
+	[[nodiscard]] const bool		IsReturnPool()				override;
 
 private:
 	void Move();

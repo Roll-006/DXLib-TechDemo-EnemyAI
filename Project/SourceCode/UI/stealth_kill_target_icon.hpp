@@ -9,7 +9,7 @@
 class StealthKillTargetIcon final
 {
 public:
-	StealthKillTargetIcon(std::shared_ptr<IStealthKillable>& stealth_kill_target);
+	StealthKillTargetIcon(const std::shared_ptr<const IStealthKillable>& stealth_kill_target);
 	~StealthKillTargetIcon();
 
 	void LateUpdate();
@@ -26,7 +26,7 @@ private:
 	static constexpr Vector2D<int>	kScreenCenterPos	= { static_cast<int>(kScreenSize.x * 0.5f), static_cast<int>(kScreenSize.y * 0.5f) };
 	static constexpr Vector2D<int>	kGraphicOffset		= { 35, 0 };
 
-	std::shared_ptr<IStealthKillable>&		m_stealth_kill_target;
+	const std::shared_ptr<const IStealthKillable>	m_stealth_kill_target;
 	std::shared_ptr<ButtonGraphicGetter>	m_button_graphic_resource;
 	std::shared_ptr<Graphicer>				m_button_icon_graphic;
 	std::shared_ptr<Graphicer>				m_knife_graphic;

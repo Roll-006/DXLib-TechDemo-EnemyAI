@@ -1,8 +1,8 @@
-﻿#include "control_virtual_cameras_controller.hpp"
-
-#include "../VirtualCamera/cinemachine_brain.hpp"
+﻿#include "../VirtualCamera/cinemachine_brain.hpp"
+#include "../Command/command_handler.hpp"
 #include "../Object/player.hpp"
-#include "../Part/player_state_controller.hpp"
+#include "../Kind/player_state_kind.hpp"
+#include "control_virtual_cameras_controller.hpp"
 
 ControlVirtualCamerasController::ControlVirtualCamerasController(Player& player) :
 	m_virtual_camera_controller_kind(VirtualCameraControllerKind::kControl),
@@ -237,16 +237,15 @@ void ControlVirtualCamerasController::CalcMoveDirFromCommand()
 
 void ControlVirtualCamerasController::CalcOffsetFromRotCamera()
 {
-	const auto state				= m_player.GetStateController();
-	const auto weapon_state_kind	= static_cast<player_state::WeaponActionStateKind>(state->GetWeaponActionState(TimeKind::kCurrent)->GetStateKind());
-	const auto gun					= std::static_pointer_cast<GunBase>(m_player.GetCurrentHeldWeapon());
-	const auto body					= m_aim_control_camera->GetBody();
-	const auto aim					= m_aim_control_camera->GetAim();
+	const auto state_kind	= m_player.GetState()->GetCurrentStateKind();
+	const auto gun			= std::static_pointer_cast<GunBase>(m_player.GetCurrentHeldWeapon());
+	const auto body			= m_aim_control_camera->GetBody();
+	const auto aim			= m_aim_control_camera->GetAim();
 
-	switch (weapon_state_kind)
+	switch (state_kind)
 	{
-	case player_state::WeaponActionStateKind::kAimGun:
-	case player_state::WeaponActionStateKind::kShot:
+	case PlayerStateKind::kAimGun:
+	case PlayerStateKind::kShot:
 
 		switch (gun->GetGunKind())
 		{
@@ -266,8 +265,8 @@ void ControlVirtualCamerasController::CalcOffsetFromRotCamera()
 
 		break;
 
-	case player_state::WeaponActionStateKind::kAimKnife:
-	case player_state::WeaponActionStateKind::kStabKnife:
+	case PlayerStateKind::kAimKnife:
+	case PlayerStateKind::kStabKnife:
   		body->SetFollowOffset    (kFollowOffsetForAimCameraKnife);
 		aim ->SetTrackedObjOffset(kTrackedObjOffsetForAimCameraKnife);
 		break;
@@ -279,17 +278,16 @@ void ControlVirtualCamerasController::CalcOffsetFromRotCamera()
 
 void ControlVirtualCamerasController::CalcOffsetFromAimCamera()
 {
-	const auto state				= m_player.GetStateController();
-	const auto action_state_kind	= static_cast<player_state::ActionStateKind>(state->GetActionState(TimeKind::kCurrent)->GetStateKind());;
-	const auto body					= m_rot_control_camera->GetBody();
-	const auto aim					= m_rot_control_camera->GetAim();
+	const auto state_kind	= m_player.GetState()->GetCurrentStateKind(); 
+	const auto body			= m_rot_control_camera->GetBody();
+	const auto aim			= m_rot_control_camera->GetAim();
 
-	switch (action_state_kind)
+	switch (state_kind)
 	{
-	case player_state::ActionStateKind::kCrouch:
-		body->SetFollowOffset    (kFollowOffsetForRotCameraCrouch);
-		aim ->SetTrackedObjOffset(kTrackedObjOffsetForRotCameraCrouch);
-		break;
+	//case PlayerStateKind::kCrouch:
+	//	body->SetFollowOffset    (kFollowOffsetForRotCameraCrouch);
+	//	aim ->SetTrackedObjOffset(kTrackedObjOffsetForRotCameraCrouch);
+	//	break;
 
 	default:
 		body->SetFollowOffset    (kFollowOffsetForRotCamera);
@@ -304,13 +302,12 @@ void ControlVirtualCamerasController::CalcAimPos()
 	modeler->ApplyMatrix();
 
 	const TCHAR* frame_name;
-	const auto state				= m_player.GetStateController();
-	const auto weapon_state_kind	= static_cast<player_state::WeaponActionStateKind>(state->GetWeaponActionState(TimeKind::kCurrent)->GetStateKind());
+	const auto	 state_kind = m_player.GetState()->GetCurrentStateKind();
 
 	// 状態によって追跡するボーンを変更
-	if (   weapon_state_kind == player_state::WeaponActionStateKind::kAimGun
-		|| weapon_state_kind == player_state::WeaponActionStateKind::kShot
-		|| weapon_state_kind == player_state::WeaponActionStateKind::kShotRocketLauncher)
+	if (   state_kind == PlayerStateKind::kAimGun
+		|| state_kind == PlayerStateKind::kShot
+		|| state_kind == PlayerStateKind::kShotRocketLauncher)
 	{
 		frame_name = FramePath.NECK;
 	}
@@ -381,10 +378,10 @@ void ControlVirtualCamerasController::CalcRecoilAngle()
 	// 最高地点に到達した場合、元の位置へ復帰させる
 	else
 	{
-		const auto weapon_action_state = m_player.GetStateController()->GetWeaponActionState(TimeKind::kCurrent)->GetStateKind();
-		
+		const auto state_kind = m_player.GetState()->GetCurrentStateKind();
+
 		// 銃エイミング状態でのみ復帰を許可する
-		if (weapon_action_state == static_cast<int>(player_state::WeaponActionStateKind::kAimGun))
+		if (state_kind == PlayerStateKind::kAimGun)
 		{
 			m_recoil_angle[TimeKind::kCurrent] = math::GetDampedValue(
 				m_recoil_angle[TimeKind::kCurrent], m_recoil_angle[TimeKind::kNext], m_recoil_data.return_damping, delta_time);
@@ -440,11 +437,10 @@ void ControlVirtualCamerasController::CalcResultAngle()
 
 bool ControlVirtualCamerasController::IsTrackCameraOriginFrame() const
 {
-	const auto state = m_player.GetStateController();
-	const auto weapon_state_kind = static_cast<player_state::WeaponActionStateKind>(state->GetWeaponActionState(TimeKind::kCurrent)->GetStateKind());
+	const auto state_kind = m_player.GetState()->GetCurrentStateKind();
 
-	return(weapon_state_kind == player_state::WeaponActionStateKind::kFirstSideSlashKnife
-		|| weapon_state_kind == player_state::WeaponActionStateKind::kSecondSideSlashKnife
-		|| weapon_state_kind == player_state::WeaponActionStateKind::kSpinningSlashKnife
-		|| weapon_state_kind == player_state::WeaponActionStateKind::kStabKnife);
+	return(state_kind == PlayerStateKind::kFirstSideSlashKnife
+		|| state_kind == PlayerStateKind::kSecondSideSlashKnife
+		|| state_kind == PlayerStateKind::kSpinningSlashKnife
+		|| state_kind == PlayerStateKind::kStabKnife);
 }

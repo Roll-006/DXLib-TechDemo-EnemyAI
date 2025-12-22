@@ -53,12 +53,12 @@ public:
 
 
 	#pragma region Getter
-	[[nodiscard]] float	GetDeltaTime()					const override;
-	[[nodiscard]] int	GetOriginEffectHandle()			const override	{ return m_origin_effect_handle; }
-	[[nodiscard]] int	GetPlayingEffectHandle()		const override	{ return m_playing_effect_handle; }
-	[[nodiscard]] int   GetReturnPoolTriggerHandle()	const override	{ return m_return_pool_trigger_handle; }
-	[[nodiscard]] float GetPower()						const			{ return kPower; }
-	[[nodiscard]] bool	IsReturnPool() override;
+	[[nodiscard]] const float	GetDeltaTime()					const override;
+	[[nodiscard]] const int		GetOriginEffectHandle()			const override	{ return m_origin_effect_handle; }
+	[[nodiscard]] const int		GetPlayingEffectHandle()		const override	{ return m_playing_effect_handle; }
+	[[nodiscard]] const int		GetReturnPoolTriggerHandle()	const override	{ return m_return_pool_trigger_handle; }
+	[[nodiscard]] const float	GetPower()						const			{ return kPower; }
+	[[nodiscard]] const bool	IsReturnPool() override;
 	#pragma endregion
 
 private:

@@ -40,64 +40,64 @@ void zombie_state::GrabRun::Exit()
 
 }
 
-ZombieStateKind zombie_state::GrabRun::GetNextStateKind()
+const ZombieStateKind zombie_state::GrabRun::GetNextStateKind()
 {
-	if (m_zombie.GetDeltaTime() <= 0.0f)
-	{
-		return ZombieStateKind::kNone;
-	}
-	// 強制NULL
-	else if (m_state.TryActionNullForcibly())
-	{
-		return ZombieStateKind::kActionNull;
-	}
-	// ステルスキルされた
-	else if (m_state.TryStealthKilled())
-	{
-		return ZombieStateKind::kStealthKilled;
-	}
-	// ノックバック
-	else if (m_state.TryKnockback())
-	{
-		return ZombieStateKind::kKnockback;
-	}
-	// ノックバック(後ろ)
-	else if (m_state.TryBackwardKnockback())
-	{
-		// TODO : ここに書くべきではない
-		m_zombie.OnKnockback(-m_zombie.GetCurrentLookDir(), 70.0f, 60.0f);
-		return ZombieStateKind::kBackwardKnockback;
-	}
-	// 死亡
-	else if (m_state.TryDead())
-	{
-		return ZombieStateKind::kDead;
-	}
-	// 左足ダウン
-	else if (m_state.TryLeftCrouchStun())
-	{
-		return ZombieStateKind::kCrouchLeftStun;
-	}
-	// 右足ダウン
-	else if (m_state.TryRightCrouchStun())
-	{
-		return ZombieStateKind::kCrouchRightStun;
-	}
-	// 立ちダウン
-	else if (m_state.TryStandStun())
-	{
-		return ZombieStateKind::kStandStun;
-	}
-	// 掴み
-	else if (m_zombie.CanGrabTarget())
-	{
-		return ZombieStateKind::kGrab;
-	}
-	// 追跡時間超過 → NULL
-	else if (m_track_timer > kMaxTrackTime)
-	{
-		return ZombieStateKind::kActionNull;
-	}
+	//if (m_zombie.GetDeltaTime() <= 0.0f)
+	//{
+	//	return ZombieStateKind::kNone;
+	//}
+	//// 強制NULL
+	//else if (m_state.TryActionNullForcibly())
+	//{
+	//	return ZombieStateKind::kNone;
+	//}
+	//// ステルスキルされた
+	//else if (m_state.TryStealthKilled())
+	//{
+	//	return ZombieStateKind::kStealthKilled;
+	//}
+	//// ノックバック
+	//else if (m_state.TryKnockback())
+	//{
+	//	return ZombieStateKind::kKnockback;
+	//}
+	//// ノックバック(後ろ)
+	//else if (m_state.TryBackwardKnockback())
+	//{
+	//	// TODO : ここに書くべきではない
+	//	m_zombie.OnKnockback(-m_zombie.GetCurrentLookDir(), 70.0f, 60.0f);
+	//	return ZombieStateKind::kBackwardKnockback;
+	//}
+	//// 死亡
+	//else if (m_state.TryDead())
+	//{
+	//	return ZombieStateKind::kDead;
+	//}
+	//// 左足ダウン
+	//else if (m_state.TryLeftCrouchStun())
+	//{
+	//	return ZombieStateKind::kCrouchLeftStun;
+	//}
+	//// 右足ダウン
+	//else if (m_state.TryRightCrouchStun())
+	//{
+	//	return ZombieStateKind::kCrouchRightStun;
+	//}
+	//// 立ちダウン
+	//else if (m_state.TryStandStun())
+	//{
+	//	return ZombieStateKind::kStandStun;
+	//}
+	//// 掴み
+	//else if (m_zombie.CanGrabTarget())
+	//{
+	//	return ZombieStateKind::kGrab;
+	//}
+	//// 追跡時間超過 → NULL
+	//else if (m_track_timer > kMaxTrackTime)
+	//{
+	//	return ZombieStateKind::kNone;
+	//}
 
 	return ZombieStateKind::kNone;
 }

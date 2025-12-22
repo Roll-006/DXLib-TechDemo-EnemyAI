@@ -64,7 +64,7 @@ void player_state::Dead::Exit()
 	m_dead_cameras_controller = nullptr;
 }
 
-PlayerStateKind player_state::Dead::GetNextStateKind()
+const PlayerStateKind player_state::Dead::GetNextStateKind()
 {
 	// 死亡からの遷移はなし
 	return PlayerStateKind::kNone;

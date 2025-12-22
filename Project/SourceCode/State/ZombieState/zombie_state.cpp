@@ -4,14 +4,15 @@
 #include "../../Animator/animator.hpp"
 #include "../../Base/zombie_state_base.hpp"
 #include "../../Kind/zombie_state_kind.hpp"
+#include "zombie_idle.hpp"
 #include "zombie_state.hpp"
 
 zombie_state::State::State(Zombie& zombie, const std::shared_ptr<Animator>& animator):
-	m_zombie		(zombie),
-	m_current_state	(nullptr)
+	m_zombie			(zombie),
+	m_current_state		(nullptr),
+	m_prev_state_kind	(ZombieStateKind::kNone)
 {
-	m_states[ZombieStateKind::kRun] = std::make_shared<zombie_state::Run>(zombie, *this);
-
+	m_states[ZombieStateKind::kIdle] = std::make_shared<zombie_state::Idle>(m_zombie, *this, animator);
 	m_current_state = m_states.at(ZombieStateKind::kIdle);
 }
 
@@ -26,6 +27,7 @@ void zombie_state::State::Update()
 	const auto next_state_kind = m_current_state->GetNextStateKind();
 	if (next_state_kind != ZombieStateKind::kNone)
 	{
+		m_prev_state_kind = m_current_state->GetStateKind();
 		m_current_state->Exit();
 		m_current_state = m_states.at(next_state_kind);
 		m_current_state->Enter();
@@ -39,12 +41,12 @@ void zombie_state::State::LateUpdate()
 	m_current_state->LateUpdate();
 }
 
-ZombieStateKind zombie_state::State::GetPrevStateKind() const
+const ZombieStateKind zombie_state::State::GetPrevStateKind() const
 {
-	return m_current_state->GetPrevStateKind();
+	return m_prev_state_kind;
 }
 
-ZombieStateKind zombie_state::State::GetCurrentStateKind() const
+const ZombieStateKind zombie_state::State::GetCurrentStateKind() const
 {
 	return m_current_state->GetStateKind();
 }

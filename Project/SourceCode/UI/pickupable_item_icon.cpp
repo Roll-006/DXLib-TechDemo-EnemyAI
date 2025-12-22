@@ -5,7 +5,7 @@
 #include "../Object/assault_rifle_ammo_box.hpp"
 #include "../Object/rocket_bomb_box.hpp"
 
-PickupableItemIcon::PickupableItemIcon(std::shared_ptr<IItem>& pickupable_item, std::vector<SpottedObjData>& pick_up_candidate_items) :
+PickupableItemIcon::PickupableItemIcon(const std::shared_ptr<const IItem>& pickupable_item, const std::vector<SpottedObjData>& pick_up_candidate_items) :
 	m_pickupable_item					(pickupable_item),
 	m_pick_up_candidate_items			(pick_up_candidate_items),
 	m_button_graphic_resource			(std::make_shared<ButtonGraphicGetter>()),
@@ -53,7 +53,11 @@ void PickupableItemIcon::Draw(const int main_screen_handle) const
 
 	if (m_pickupable_item)
 	{
-		obj_handle = std::dynamic_pointer_cast<ObjBase>(m_pickupable_item)->GetObjHandle();
+		const auto obj = std::dynamic_pointer_cast<const PhysicalObjBase>(m_pickupable_item);
+		if (obj)
+		{
+			obj_handle = obj->GetObjHandle();
+		}
 
 		m_mask_screen	->UseScreen();
 		m_mask_graphic	->Draw();
@@ -111,7 +115,7 @@ void PickupableItemIcon::CreatePickupableItemIconScreen()
 {
 	if (!m_pickupable_item) { return; }
 
-	const auto obj = std::dynamic_pointer_cast<ObjBase>(m_pickupable_item);
+	const auto obj = std::dynamic_pointer_cast<const ObjBase>(m_pickupable_item);
 	if (!obj) { return; }
 
 	m_icon_pos = obj->GetTransform()->GetPos(CoordinateKind::kWorld) + kIconOffset;
@@ -150,16 +154,16 @@ void PickupableItemIcon::CreateText()
 	// 弾
 	if (item_kind == ItemKind::kAmmoBox)
 	{
-		if (std::dynamic_pointer_cast<AssaultRifleAmmoBox>(m_pickupable_item))
+		if (std::dynamic_pointer_cast<const AssaultRifleAmmoBox>(m_pickupable_item))
 		{
 			m_text = "アサルトライフルの弾 ×";
 		}
-		else if (std::dynamic_pointer_cast<RocketBombBox>(m_pickupable_item))
+		else if (std::dynamic_pointer_cast<const RocketBombBox>(m_pickupable_item))
 		{
 			m_text = "ロケット弾 ×";
 		}
 
-		const auto num = std::to_string(std::dynamic_pointer_cast<IAmmoBox>(m_pickupable_item)->GetCurrentHaveNum());
+		const auto num = std::to_string(std::dynamic_pointer_cast<const IAmmoBox>(m_pickupable_item)->GetCurrentHaveNum());
 		m_text += num;
 	}
 

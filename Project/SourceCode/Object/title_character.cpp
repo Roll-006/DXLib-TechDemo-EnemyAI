@@ -4,7 +4,7 @@
 TitleCharacter::TitleCharacter() : 
 	ObjBase		(ObjName.TITLE_CHARACTER, ObjTag.OBJ_CHARACTER),
 	m_modeler	(std::make_shared<Modeler>(m_transform, ModelPath.TITLE_CHARACTER, kBasicAngle, kBasicScale)),
-	m_animator	(std::make_shared<TitleCharacterAnimator>(m_modeler))
+	m_animator	(std::make_shared<Animator>(m_modeler, "title_character"))
 {
 	m_transform->SetRot(CoordinateKind::kWorld, VGet(0.0f, 0.0f, -1.0f));
 }
@@ -48,7 +48,7 @@ void TitleCharacter::RemoveToObjManager()
 	ObjAccessor::GetInstance()->RemoveObj(obj_handle);
 }
 
-float TitleCharacter::GetDeltaTime() const
+const float TitleCharacter::GetDeltaTime() const
 {
 	const auto time_manager = GameTimeManager::GetInstance();
 	return time_manager->GetDeltaTime(TimeScaleLayerKind::kWorld);

@@ -62,27 +62,27 @@ void player_state::AimKnife::Exit()
 	m_player.AttachWeapon(m_player.GetCurrentEquipWeapon(WeaponSlotKind::kSub));
 }
 
-PlayerStateKind player_state::AimKnife::GetNextStateKind()
+const PlayerStateKind player_state::AimKnife::GetNextStateKind()
 {
-	if (m_player.GetDeltaTime() <= 0.0f)
-	{
-		return PlayerStateKind::kNone;
-	}
-	// 銃に切り替え
-	else if (m_state.TryEquipGun())
-	{
-		return PlayerStateKind::kEquipGun;
-	}
-	// ナイフ解除
-	else if (!m_state.TryAimKnife())
-	{
-		return PlayerStateKind::kEquipKnife;
-	}
-	// 刺突
-	else if (m_state.TryStabKnife())
-	{
-		return PlayerStateKind::kStabKnife;
-	}
+	//if (m_player.GetDeltaTime() <= 0.0f)
+	//{
+	//	return PlayerStateKind::kNone;
+	//}
+	//// 銃に切り替え
+	//else if (m_state.TryEquipGun())
+	//{
+	//	return PlayerStateKind::kEquipGun;
+	//}
+	//// ナイフ解除
+	//else if (!m_state.TryAimKnife())
+	//{
+	//	return PlayerStateKind::kEquipKnife;
+	//}
+	//// 刺突
+	//else if (m_state.TryStabKnife())
+	//{
+	//	return PlayerStateKind::kStabKnife;
+	//}
 
 	return PlayerStateKind::kNone;
 }

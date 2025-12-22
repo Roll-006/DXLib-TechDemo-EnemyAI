@@ -84,7 +84,7 @@ void player_state::Shot::Exit()
     m_player.AttachWeapon(m_player.GetCurrentEquipWeapon(WeaponSlotKind::kMain));
 }
 
-PlayerStateKind player_state::Shot::GetNextStateKind()
+const PlayerStateKind player_state::Shot::GetNextStateKind()
 {
     if (m_player.GetDeltaTime() <= 0.0f) return PlayerStateKind::kNone;
 

@@ -457,9 +457,6 @@
     <ClCompile Include="SourceCode\Object\title_character.cpp">
       <Filter>SourceCode\Object</Filter>
     </ClCompile>
-    <ClCompile Include="SourceCode\Part\title_character_animator.cpp">
-      <Filter>SourceCode\Part</Filter>
-    </ClCompile>
     <ClCompile Include="SourceCode\ObjectPool\title_scene_effect_object_pool.cpp">
       <Filter>SourceCode\ObjectPool</Filter>
     </ClCompile>
@@ -1424,9 +1421,6 @@
     </ClInclude>
     <ClInclude Include="SourceCode\Object\title_character.hpp">
       <Filter>SourceCode\Object</Filter>
-    </ClInclude>
-    <ClInclude Include="SourceCode\Part\title_character_animator.hpp">
-      <Filter>SourceCode\Part</Filter>
     </ClInclude>
     <ClInclude Include="SourceCode\Kind\title_character_anim_kind.hpp">
       <Filter>SourceCode\Kind</Filter>

@@ -40,14 +40,14 @@ public:
 
 
 	#pragma region Getter
-	[[nodiscard]] std::string						GetEnemyID()				const { return enemy_id; }
-	[[nodiscard]] std::shared_ptr<PatrolRouteGiver> GetPatrolRouteGiver()		const { return m_patrol_route_giver; }
-	[[nodiscard]] std::shared_ptr<Gauge>			GetKnockBackGauge()			const { return m_knock_back_gauge; }
-	[[nodiscard]] bool								IsDetectedTarget()			const { return m_is_detected_target; }
-	[[nodiscard]] bool								IsPrevDetectedTarget()		const { return m_is_prev_detected_target; }
-	[[nodiscard]] bool								CanAttack()					const { return m_attack_interval_timer <= 0.0f; }
-	[[nodiscard]] bool								CanAction()					const { return m_can_action; }
-	[[nodiscard]] float								GetDetecteNotifyDistance()	const { return detected_notify_distance; }
+	[[nodiscard]] const std::string								GetEnemyID()				const { return enemy_id; }
+	[[nodiscard]] const std::shared_ptr<const PatrolRouteGiver>	GetPatrolRouteGiver()		const { return m_patrol_route_giver; }
+	[[nodiscard]] const std::shared_ptr<Gauge>					GetKnockBackGauge()			const { return m_knock_back_gauge; }
+	[[nodiscard]] const bool									IsDetectedTarget()			const { return m_is_detected_target; }
+	[[nodiscard]] const bool									IsPrevDetectedTarget()		const { return m_is_prev_detected_target; }
+	[[nodiscard]] const bool									CanAttack()					const { return m_attack_interval_timer <= 0.0f; }
+	[[nodiscard]] const bool									CanAction()					const { return m_can_action; }
+	[[nodiscard]] const float									GetDetecteNotifyDistance()	const { return detected_notify_distance; }
 	#pragma endregion
 
 protected:

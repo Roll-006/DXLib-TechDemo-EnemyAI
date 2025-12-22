@@ -83,14 +83,14 @@ void player_state::ShotRocketLauncher::Exit()
     m_player.AttachWeapon(m_player.GetCurrentEquipWeapon(WeaponSlotKind::kMain));
 }
 
-PlayerStateKind player_state::ShotRocketLauncher::GetNextStateKind()
+const PlayerStateKind player_state::ShotRocketLauncher::GetNextStateKind()
 {
-    if (m_player.GetDeltaTime() <= 0.0f) return PlayerStateKind::kNone;
+    //if (m_player.GetDeltaTime() <= 0.0f) return PlayerStateKind::kNone;
 
-    if (m_rocket_launcher_camera_controller && m_rocket_launcher_camera_controller->IsEndExitRot())
-    {
-        return PlayerStateKind::kAimGun;
-    }
+    //if (m_rocket_launcher_camera_controller && m_rocket_launcher_camera_controller->IsEndExitRot())
+    //{
+    //    return PlayerStateKind::kAimGun;
+    //}
 
     return PlayerStateKind::kNone;
 }

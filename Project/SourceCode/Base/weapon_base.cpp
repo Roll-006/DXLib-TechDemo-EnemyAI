@@ -57,7 +57,7 @@ void WeaponBase::DetachOwner()
 	}
 }
 
-float WeaponBase::GetDeltaTime() const
+const float WeaponBase::GetDeltaTime() const
 {
 	const auto time_manager = GameTimeManager::GetInstance();
 

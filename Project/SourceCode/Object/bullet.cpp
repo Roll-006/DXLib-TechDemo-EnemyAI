@@ -124,7 +124,7 @@ void Bullet::OnShot(GunBase& gun)
 	EventSystem::GetInstance()->Publish(event);
 }
 
-float Bullet::GetDeltaTime() const
+const float Bullet::GetDeltaTime() const
 {
 	const auto time_manager = GameTimeManager::GetInstance();
 
@@ -133,7 +133,7 @@ float Bullet::GetDeltaTime() const
 		: time_manager->GetDeltaTime(TimeScaleLayerKind::kWorld);
 }
 
-bool Bullet::IsReturnPool()
+const bool Bullet::IsReturnPool()
 {
 	float distance = VSize(m_transform->GetPos(CoordinateKind::kWorld) - m_first_pos);
 

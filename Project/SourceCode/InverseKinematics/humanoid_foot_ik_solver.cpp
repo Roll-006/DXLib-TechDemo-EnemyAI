@@ -92,7 +92,7 @@ void HumanoidFootIKSolver::Update()
 
 
 #pragma region コライダー
-void HumanoidFootIKSolver::CreateLeftLegRay(PhysicalObjBase* physical_obj)
+void HumanoidFootIKSolver::CreateLeftLegRay(PhysicalObjBase* physical_obj) const
 {
 	const auto model_handle = m_modeler->GetModelHandle();
 
@@ -102,7 +102,7 @@ void HumanoidFootIKSolver::CreateLeftLegRay(PhysicalObjBase* physical_obj)
 	physical_obj->AddCollider(std::make_shared<Collider>(ColliderKind::kLeftLegRay, std::make_shared<Segment>(left_leg_pos + VGet(0.0f, m_ray_data.left_leg_ray_offset, 0.0f), -axis::GetWorldYAxis(), m_ray_data.leg_ray_length), physical_obj));
 }
 
-void HumanoidFootIKSolver::CreateRightLegRay(PhysicalObjBase* physical_obj)
+void HumanoidFootIKSolver::CreateRightLegRay(PhysicalObjBase* physical_obj) const
 {
 	const auto model_handle = m_modeler->GetModelHandle();
 
@@ -112,7 +112,7 @@ void HumanoidFootIKSolver::CreateRightLegRay(PhysicalObjBase* physical_obj)
 	physical_obj->AddCollider(std::make_shared<Collider>(ColliderKind::kRightLegRay, std::make_shared<Segment>(right_leg_pos + VGet(0.0f, m_ray_data.right_leg_ray_offset, 0.0f), -axis::GetWorldYAxis(), m_ray_data.leg_ray_length), physical_obj));
 }
 
-void HumanoidFootIKSolver::CreateFootRay(PhysicalObjBase* physical_obj)
+void HumanoidFootIKSolver::CreateFootRay(PhysicalObjBase* physical_obj) const
 {
 	const auto model_handle = m_modeler->GetModelHandle();
 
@@ -127,7 +127,7 @@ void HumanoidFootIKSolver::CreateFootRay(PhysicalObjBase* physical_obj)
 	physical_obj->AddCollider(std::make_shared<Collider>(ColliderKind::kRightFootRay, std::make_shared<Segment>(right_foot_pos + VGet(0.0f, m_ray_data.right_foot_ray_offset, 0.0f), -axis::GetWorldYAxis(), m_ray_data.foot_ray_length), physical_obj));
 }
 
-void HumanoidFootIKSolver::CreateFoeBaseRay(PhysicalObjBase* physical_obj)
+void HumanoidFootIKSolver::CreateFoeBaseRay(PhysicalObjBase* physical_obj) const
 {
 	const auto model_handle = m_modeler->GetModelHandle();
 
@@ -142,17 +142,17 @@ void HumanoidFootIKSolver::CreateFoeBaseRay(PhysicalObjBase* physical_obj)
 	physical_obj->AddCollider(std::make_shared<Collider>(ColliderKind::kRightToeBaseRay, std::make_shared<Segment>(right_foe_base_pos + VGet(0.0f, m_ray_data.right_toe_base_ray_offset, 0.0f), -axis::GetWorldYAxis(), m_ray_data.toe_base_ray_length), physical_obj));
 }
 
-void HumanoidFootIKSolver::DeleteLeftLegRay(PhysicalObjBase* physical_obj)
+void HumanoidFootIKSolver::DeleteLeftLegRay(PhysicalObjBase* physical_obj) const
 {
 	physical_obj->RemoveCollider(ColliderKind::kLeftLegRay);
 }
 
-void HumanoidFootIKSolver::DeleteRightLegRay(PhysicalObjBase* physical_obj)
+void HumanoidFootIKSolver::DeleteRightLegRay(PhysicalObjBase* physical_obj) const
 {
 	physical_obj->RemoveCollider(ColliderKind::kRightLegRay);
 }
 
-void HumanoidFootIKSolver::CalcLeftLegRayPos()
+void HumanoidFootIKSolver::CalcLeftLegRayPos() const
 {
 	const auto model_handle			= m_modeler->GetModelHandle();
 
@@ -162,7 +162,7 @@ void HumanoidFootIKSolver::CalcLeftLegRayPos()
 	left_leg_segment->SetBeginPos(left_leg_pos + VGet(0.0f, m_ray_data.left_leg_ray_offset, 0.0f), false);
 }
 
-void HumanoidFootIKSolver::CalcRightLegRayPos()
+void HumanoidFootIKSolver::CalcRightLegRayPos() const
 {
 	const auto model_handle			= m_modeler->GetModelHandle();
 
@@ -176,11 +176,11 @@ void HumanoidFootIKSolver::CalcRightLegRayPos()
 
 void HumanoidFootIKSolver::ApplyFootIK()
 {
-	JudgeExecuteIK		();
-	CalcToeBaseOffset	();
-	DownArmature		();
-	ApplyLeftLegIK			();
-	ApplyRightLegIK		();
+	JudgeExecuteIK();
+	CalcToeBaseOffset();
+	DownArmature();
+	ApplyLeftLegIK();
+	ApplyRightLegIK();
 
 	m_ray_data.left_foot_cast_pos		= std::nullopt;
 	m_ray_data.left_toe_base_cast_pos	= std::nullopt;

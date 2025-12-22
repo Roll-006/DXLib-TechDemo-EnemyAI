@@ -1,7 +1,18 @@
 ﻿{
   "animator": {
+    "title_character": {
+      "anim_data": {
+      },
+      "blend_speed": 3.0,
+      "notify_ground_range": 0.2,
+      "time_scale_layer_kind": 1
+    },
     "player": {
-
+      "anim_data": {
+      },
+      "blend_speed": 3.0,
+      "notify_ground_range": 0.2,
+      "time_scale_layer_kind": 2
     },
     "zombie": {
       "anim_data": {

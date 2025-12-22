@@ -16,7 +16,7 @@ namespace zombie_state
 		void Enter()		override;
 		void Exit()			override;
 
-		[[nodiscard]] ZombieStateKind GetNextStateKind() override;
+		[[nodiscard]] const ZombieStateKind GetNextStateKind() override;
 
 	private:
 

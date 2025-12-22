@@ -223,7 +223,7 @@ void MainCamera::DeleteGrabCollider(const ReleaseEvent& event)
 
 
 #pragma region Getter
-float MainCamera::GetDeltaTime() const
+const float MainCamera::GetDeltaTime() const
 {
 	const auto time_manager = GameTimeManager::GetInstance();
 	return time_manager->GetDeltaTime(TimeScaleLayerKind::kCamera);

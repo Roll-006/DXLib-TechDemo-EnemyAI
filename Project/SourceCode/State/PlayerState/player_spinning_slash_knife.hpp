@@ -16,7 +16,7 @@ namespace player_state
         void Enter() override;
         void Exit() override;
 
-        [[nodiscard]] PlayerStateKind GetNextStateKind() override;
+        [[nodiscard]] const PlayerStateKind GetNextStateKind() override;
 
     private:
         static constexpr float kComboValidTime = 1.0f; // 二段階目の攻撃が有効になる時間

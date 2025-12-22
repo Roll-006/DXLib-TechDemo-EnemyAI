@@ -61,7 +61,7 @@ void AssaultRifleMagazine::OnReloaded()
 	m_is_reloading = false;
 }
 
-float AssaultRifleMagazine::GetDeltaTime() const
+const float AssaultRifleMagazine::GetDeltaTime() const
 {
 	return GameTimeManager::GetInstance()->GetDeltaTime(TimeScaleLayerKind::kWorld);
 }

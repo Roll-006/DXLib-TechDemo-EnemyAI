@@ -64,7 +64,7 @@ void HumanoidArmIKSolver::Update()
 
 
 #pragma region コライダー
-void HumanoidArmIKSolver::CreateLeftHandRay(PhysicalObjBase* physical_obj)
+void HumanoidArmIKSolver::CreateLeftHandRay(PhysicalObjBase* physical_obj) const
 {
 	const auto model_handle		= m_modeler->GetModelHandle();
 
@@ -73,7 +73,7 @@ void HumanoidArmIKSolver::CreateLeftHandRay(PhysicalObjBase* physical_obj)
 	physical_obj->AddCollider(std::make_shared<Collider>(ColliderKind::kLeftHandRay, std::make_shared<Segment>(left_hand_pos + VGet(0.0f, m_ray_data.left_hand_ray_offset, 0.0f), -axis::GetWorldYAxis(), m_ray_data.hand_ray_length), physical_obj));
 }
 
-void HumanoidArmIKSolver::CreateRightHandRay(PhysicalObjBase* physical_obj)
+void HumanoidArmIKSolver::CreateRightHandRay(PhysicalObjBase* physical_obj) const
 {
 	const auto model_handle		= m_modeler->GetModelHandle();
 
@@ -82,17 +82,17 @@ void HumanoidArmIKSolver::CreateRightHandRay(PhysicalObjBase* physical_obj)
 	physical_obj->AddCollider(std::make_shared<Collider>(ColliderKind::kRightHandRay, std::make_shared<Segment>(right_hand_pos + VGet(0.0f, m_ray_data.right_hand_ray_offset, 0.0f), -axis::GetWorldYAxis(), m_ray_data.hand_ray_length), physical_obj));
 }
 
-void HumanoidArmIKSolver::DeleteLeftHandRay(PhysicalObjBase* physical_obj)
+void HumanoidArmIKSolver::DeleteLeftHandRay(PhysicalObjBase* physical_obj) const
 {
 	physical_obj->RemoveCollider(ColliderKind::kLeftHandRay);
 }
 
-void HumanoidArmIKSolver::DeleteRightHandRay(PhysicalObjBase* physical_obj)
+void HumanoidArmIKSolver::DeleteRightHandRay(PhysicalObjBase* physical_obj) const
 {
 	physical_obj->RemoveCollider(ColliderKind::kRightHandRay);
 }
 
-void HumanoidArmIKSolver::CalcLeftHandRayPos()
+void HumanoidArmIKSolver::CalcLeftHandRayPos() const
 {
 	const auto model_handle			= m_modeler->GetModelHandle();
 
@@ -102,7 +102,7 @@ void HumanoidArmIKSolver::CalcLeftHandRayPos()
 	left_hand_segment->SetBeginPos(left_hand_pos + VGet(0.0f, m_ray_data.left_hand_ray_offset, 0.0f), false);
 }
 
-void HumanoidArmIKSolver::CalcRightHandRayPos()
+void HumanoidArmIKSolver::CalcRightHandRayPos() const
 {
 	const auto model_handle			= m_modeler->GetModelHandle();
 
@@ -243,7 +243,7 @@ void HumanoidArmIKSolver::BlendFrame()
 
 
 #pragma region IK処理
-HumanoidArmIKSolver::ResultKind HumanoidArmIKSolver::ApplyLeftHandIKOnKnees	()
+const HumanoidArmIKSolver::ResultKind HumanoidArmIKSolver::ApplyLeftHandIKOnKnees	()
 {
 	m_left_ik_kind.at(TimeKind::kCurrent) = IKKind::kHandOnKnees;
 
@@ -289,7 +289,7 @@ HumanoidArmIKSolver::ResultKind HumanoidArmIKSolver::ApplyLeftHandIKOnKnees	()
 	return ResultKind::kSuccess;
 }
 
-HumanoidArmIKSolver::ResultKind HumanoidArmIKSolver::ApplyRightHandIKOnKnees()
+const HumanoidArmIKSolver::ResultKind HumanoidArmIKSolver::ApplyRightHandIKOnKnees()
 {
 	m_right_ik_kind.at(TimeKind::kCurrent) = IKKind::kHandOnKnees;
 
@@ -335,7 +335,7 @@ HumanoidArmIKSolver::ResultKind HumanoidArmIKSolver::ApplyRightHandIKOnKnees()
 	return ResultKind::kSuccess;
 }
 
-HumanoidArmIKSolver::ResultKind HumanoidArmIKSolver::ApplyLeftHandIKOnThigh	()
+const HumanoidArmIKSolver::ResultKind HumanoidArmIKSolver::ApplyLeftHandIKOnThigh	()
 {
 	m_left_ik_kind.at(TimeKind::kCurrent) = IKKind::kHandOnThigh;
 
@@ -378,7 +378,7 @@ HumanoidArmIKSolver::ResultKind HumanoidArmIKSolver::ApplyLeftHandIKOnThigh	()
 	return ResultKind::kSuccess;
 }
 
-HumanoidArmIKSolver::ResultKind HumanoidArmIKSolver::ApplyRightHandIKOnThigh()
+const HumanoidArmIKSolver::ResultKind HumanoidArmIKSolver::ApplyRightHandIKOnThigh()
 {
 	m_right_ik_kind.at(TimeKind::kCurrent)	= IKKind::kHandOnThigh;
 
@@ -421,7 +421,7 @@ HumanoidArmIKSolver::ResultKind HumanoidArmIKSolver::ApplyRightHandIKOnThigh()
 	return ResultKind::kSuccess;
 }
 
-HumanoidArmIKSolver::ResultKind HumanoidArmIKSolver::ApplyLeftArmIKOnGround	()
+const HumanoidArmIKSolver::ResultKind HumanoidArmIKSolver::ApplyLeftArmIKOnGround	()
 {
 	m_left_ik_kind.at(TimeKind::kCurrent) = IKKind::kHandOnGround;
 
@@ -470,7 +470,7 @@ HumanoidArmIKSolver::ResultKind HumanoidArmIKSolver::ApplyLeftArmIKOnGround	()
 	return ResultKind::kSuccess;
 }
 
-HumanoidArmIKSolver::ResultKind HumanoidArmIKSolver::ApplyRightArmIKOnGround()
+const HumanoidArmIKSolver::ResultKind HumanoidArmIKSolver::ApplyRightArmIKOnGround()
 {
 	m_right_ik_kind.at(TimeKind::kCurrent)	= IKKind::kHandOnGround;
 

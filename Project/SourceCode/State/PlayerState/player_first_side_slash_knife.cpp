@@ -78,26 +78,26 @@ void player_state::FirstSideSlashKnife::Exit()
 	m_player.AttachWeapon(m_player.GetCurrentEquipWeapon(WeaponSlotKind::kSub));
 }
 
-PlayerStateKind player_state::FirstSideSlashKnife::GetNextStateKind()
+const PlayerStateKind player_state::FirstSideSlashKnife::GetNextStateKind()
 {
-	if (m_player.GetDeltaTime() <= 0.0f)
-	{
-		return PlayerStateKind::kNone;
-	}
+	//if (m_player.GetDeltaTime() <= 0.0f)
+	//{
+	//	return PlayerStateKind::kNone;
+	//}
 
-	// 二段目コンボ
-	if (m_player.CanControl()
-		&& m_combo_timer > kComboValidTime
-		&& CommandHandler::GetInstance()->IsExecute(CommandKind::kAttack, TimeKind::kCurrent))
-	{
-		return PlayerStateKind::kSecondSideSlashKnife;
-	}
+	//// 二段目コンボ
+	//if (m_player.CanControl()
+	//	&& m_combo_timer > kComboValidTime
+	//	&& CommandHandler::GetInstance()->IsExecute(CommandKind::kAttack, TimeKind::kCurrent))
+	//{
+	//	return PlayerStateKind::kSecondSideSlashKnife;
+	//}
 
-	// アニメーション終了 → ナイフ装備状態
-	if (m_animator->IsPlayEnd(Animator::BodyKind::kUpperBody))
-	{
-		return PlayerStateKind::kEquipKnife;
-	}
+	//// アニメーション終了 → ナイフ装備状態
+	//if (m_animator->IsPlayEnd(Animator::BodyKind::kUpperBody))
+	//{
+	//	return PlayerStateKind::kEquipKnife;
+	//}
 
 	return PlayerStateKind::kNone;
 }

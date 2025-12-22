@@ -40,7 +40,7 @@ void player_state::VictoryPose::Exit()
     m_camera_controller = nullptr;
 }
 
-PlayerStateKind player_state::VictoryPose::GetNextStateKind()
+const PlayerStateKind player_state::VictoryPose::GetNextStateKind()
 {
     return PlayerStateKind::kNone;
 }

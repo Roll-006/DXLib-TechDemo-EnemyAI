@@ -176,7 +176,7 @@ void AssaultRifleAmmoBox::AddHaveNum(const int add_num)
 	}
 }
 
-float AssaultRifleAmmoBox::GetDeltaTime() const
+const float AssaultRifleAmmoBox::GetDeltaTime() const
 {
 	const auto time_manager = GameTimeManager::GetInstance();
 	return time_manager->GetDeltaTime(TimeScaleLayerKind::kWorld);

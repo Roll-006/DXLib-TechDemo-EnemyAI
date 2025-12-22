@@ -15,9 +15,8 @@ public:
 	virtual void Enter()		abstract;
 	virtual void Exit()			abstract;
 
-	[[nodiscard]] PlayerStateKind GetPrevStateKind()	const { return m_prev_state_kind; }
-	[[nodiscard]] PlayerStateKind GetCurrentStateKind() const { return m_current_state_kind; }
-	[[nodiscard]] virtual PlayerStateKind GetNextStateKind() abstract;
+	[[nodiscard]] const PlayerStateKind GetStateKind() const { return m_state_kind; }
+	[[nodiscard]] virtual const PlayerStateKind GetNextStateKind() abstract;
 
 protected:
 	#pragma region 汎用行動
@@ -29,6 +28,5 @@ protected:
 	Player&						m_player;
 	player_state::State&		m_state;
 	std::shared_ptr<Animator>	m_animator;
-	PlayerStateKind				m_prev_state_kind;
-	PlayerStateKind				m_current_state_kind;
+	PlayerStateKind				m_state_kind;
 };

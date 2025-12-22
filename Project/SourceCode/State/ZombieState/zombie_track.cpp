@@ -36,7 +36,7 @@ void zombie_state::Track::Exit()
 
 }
 
-ZombieStateKind zombie_state::Track::GetNextStateKind()
+const ZombieStateKind zombie_state::Track::GetNextStateKind()
 {
 	if (m_zombie.GetDeltaTime() <= 0.0f)
 	{

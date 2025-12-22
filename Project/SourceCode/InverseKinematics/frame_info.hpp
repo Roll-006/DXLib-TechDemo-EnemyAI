@@ -4,7 +4,7 @@
 
 namespace frame_info
 {
-	[[nodiscard]] inline FrameData GetFrameInfo(const int model_handle, const int frame_index)
+	[[nodiscard]] inline const FrameData GetFrameInfo(const int model_handle, const int frame_index)
 	{
 		auto	   world_m		= MV1GetFrameLocalWorldMatrix	(model_handle, frame_index);
 		auto	   local_m		= MV1GetFrameLocalMatrix		(model_handle, frame_index);

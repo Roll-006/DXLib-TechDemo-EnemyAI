@@ -40,34 +40,34 @@ void zombie_state::StandUp::Exit()
 
 }
 
-ZombieStateKind zombie_state::StandUp::GetNextStateKind()
+const ZombieStateKind zombie_state::StandUp::GetNextStateKind()
 {
-	if (m_zombie.GetDeltaTime() <= 0.0f)
-	{
-		return ZombieStateKind::kNone;
-	}
-	// ステルスキルされた
-	else if (m_state.TryStealthKilled())
-	{
-		return ZombieStateKind::kStealthKilled;
-	}
-	// ノックバック
-	else if (m_state.TryKnockback())
-	{
-		return ZombieStateKind::kKnockback;
-	}
-	// ノックバック(後ろ)
-	else if (m_state.TryBackwardKnockback())
-	{
-		// TODO : ここに書くべきではない
-		m_zombie.OnKnockback(-m_zombie.GetCurrentLookDir(), 70.0f, 60.0f);
-		return ZombieStateKind::kBackwardKnockback;
-	}
-	// 上半身アニメーション終了 → NULL
-	else if (m_animator->IsPlayEnd(Animator::BodyKind::kUpperBody))
-	{
-		return ZombieStateKind::kIdle;
-	}
+	//if (m_zombie.GetDeltaTime() <= 0.0f)
+	//{
+	//	return ZombieStateKind::kNone;
+	//}
+	//// ステルスキルされた
+	//else if (m_state.TryStealthKilled())
+	//{
+	//	return ZombieStateKind::kStealthKilled;
+	//}
+	//// ノックバック
+	//else if (m_state.TryKnockback())
+	//{
+	//	return ZombieStateKind::kKnockback;
+	//}
+	//// ノックバック(後ろ)
+	//else if (m_state.TryBackwardKnockback())
+	//{
+	//	// TODO : ここに書くべきではない
+	//	m_zombie.OnKnockback(-m_zombie.GetCurrentLookDir(), 70.0f, 60.0f);
+	//	return ZombieStateKind::kBackwardKnockback;
+	//}
+	//// 上半身アニメーション終了 → NULL
+	//else if (m_animator->IsPlayEnd(Animator::BodyKind::kUpperBody))
+	//{
+	//	return ZombieStateKind::kIdle;
+	//}
 
 	return ZombieStateKind::kNone;
 }

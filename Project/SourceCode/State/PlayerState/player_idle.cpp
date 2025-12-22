@@ -35,15 +35,15 @@ void player_state::Idle::Exit()
 {
 }
 
-PlayerStateKind player_state::Idle::GetNextStateKind()
+const PlayerStateKind player_state::Idle::GetNextStateKind()
 {
-	if (m_player.GetDeltaTime() <= 0.0f) { return PlayerStateKind::kNone; }
+	//if (m_player.GetDeltaTime() <= 0.0f) { return PlayerStateKind::kNone; }
 
-	// 入力があった場合、Moveへ移行
-	if (m_player.GetStateController()->TryMove(m_player))
-	{
-		return PlayerStateKind::kMove;
-	}
+	//// 入力があった場合、Moveへ移行
+	//if (m_player.GetStateController()->TryMove(m_player))
+	//{
+	//	return PlayerStateKind::kMove;
+	//}
 
 	return PlayerStateKind::kNone;
 }

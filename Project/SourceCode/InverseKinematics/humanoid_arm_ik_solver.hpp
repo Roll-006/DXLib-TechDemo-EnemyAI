@@ -42,13 +42,13 @@ public:
 
 
 	#pragma region コライダー
-	void CreateLeftHandRay	(PhysicalObjBase* physical_obj);
-	void CreateRightHandRay	(PhysicalObjBase* physical_obj);
-	void DeleteLeftHandRay	(PhysicalObjBase* physical_obj);
-	void DeleteRightHandRay	(PhysicalObjBase* physical_obj);
+	void CreateLeftHandRay	(PhysicalObjBase* physical_obj) const;
+	void CreateRightHandRay	(PhysicalObjBase* physical_obj) const;
+	void DeleteLeftHandRay	(PhysicalObjBase* physical_obj) const;
+	void DeleteRightHandRay	(PhysicalObjBase* physical_obj) const;
 
-	void CalcLeftHandRayPos	();
-	void CalcRightHandRayPos();
+	void CalcLeftHandRayPos	() const;
+	void CalcRightHandRayPos() const;
 	#pragma endregion
 
 
@@ -64,19 +64,19 @@ public:
 private:
 	#pragma region IK処理
 	/// @brief 左膝の上に左手を置くIK処理
-	ResultKind ApplyLeftHandIKOnKnees();
+	const ResultKind ApplyLeftHandIKOnKnees();
 	/// @brief 右膝の上に右手を置くIK処理
-	ResultKind ApplyRightHandIKOnKnees();
+	const ResultKind ApplyRightHandIKOnKnees();
 
 	/// @brief 左太ももの上に左手を置くIK処理
-	ResultKind ApplyLeftHandIKOnThigh();
+	const ResultKind ApplyLeftHandIKOnThigh();
 	/// @brief 右太ももの上に右手を置くIK処理
-	ResultKind ApplyRightHandIKOnThigh();
+	const ResultKind ApplyRightHandIKOnThigh();
 
 	/// @brief 地面に左手を置くIK処理
-	ResultKind ApplyLeftArmIKOnGround();
+	const ResultKind ApplyLeftArmIKOnGround();
 	/// @brief 地面に右手を置くIK処理
-	ResultKind ApplyRightArmIKOnGround();
+	const ResultKind ApplyRightArmIKOnGround();
 	#pragma endregion
 
 

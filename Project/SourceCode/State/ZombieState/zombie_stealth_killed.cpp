@@ -38,7 +38,7 @@ void zombie_state::StealthKilled::Exit()
 	m_zombie.ExitStealthKilled();
 }
 
-ZombieStateKind zombie_state::StealthKilled::GetNextStateKind()
+const ZombieStateKind zombie_state::StealthKilled::GetNextStateKind()
 {
 	if (m_zombie.GetDeltaTime() <= 0.0f)
 	{

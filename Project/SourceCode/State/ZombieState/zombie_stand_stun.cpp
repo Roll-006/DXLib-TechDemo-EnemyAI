@@ -60,42 +60,42 @@ void zombie_state::StandStun::Exit()
 	EventSystem::GetInstance()->Publish(ExitStunEvent(head_pos));
 }
 
-ZombieStateKind zombie_state::StandStun::GetNextStateKind()
+const ZombieStateKind zombie_state::StandStun::GetNextStateKind()
 {
-	if (m_zombie.GetDeltaTime() <= 0.0f)
-	{
-		return ZombieStateKind::kNone;
-	}
-	// ステルスキルされた
-	else if (m_state.TryStealthKilled())
-	{
-		return ZombieStateKind::kStealthKilled;
-	}
-	// ノックバック
-	else if (m_state.TryKnockback())
-	{
-		return ZombieStateKind::kKnockback;
-	}
-	// 死亡
-	else if (m_state.TryDead())
-	{
-		return ZombieStateKind::kDead;
-	}
-	// 左足ダウン
-	else if (m_state.TryLeftCrouchStun())
-	{
-		return ZombieStateKind::kCrouchLeftStun;
-	}
-	// 右足ダウン
-	else if (m_state.TryRightCrouchStun())
-	{
-		return ZombieStateKind::kCrouchRightStun;
-	}
-	// スタン終了 → NULL
-	else if (m_stun_timer > kStunTime)
-	{
-		return ZombieStateKind::kIdle;
-	}
+	//if (m_zombie.GetDeltaTime() <= 0.0f)
+	//{
+	//	return ZombieStateKind::kNone;
+	//}
+	//// ステルスキルされた
+	//else if (m_state.TryStealthKilled())
+	//{
+	//	return ZombieStateKind::kStealthKilled;
+	//}
+	//// ノックバック
+	//else if (m_state.TryKnockback())
+	//{
+	//	return ZombieStateKind::kKnockback;
+	//}
+	//// 死亡
+	//else if (m_state.TryDead())
+	//{
+	//	return ZombieStateKind::kDead;
+	//}
+	//// 左足ダウン
+	//else if (m_state.TryLeftCrouchStun())
+	//{
+	//	return ZombieStateKind::kCrouchLeftStun;
+	//}
+	//// 右足ダウン
+	//else if (m_state.TryRightCrouchStun())
+	//{
+	//	return ZombieStateKind::kCrouchRightStun;
+	//}
+	//// スタン終了 → NULL
+	//else if (m_stun_timer > kStunTime)
+	//{
+	//	return ZombieStateKind::kIdle;
+	//}
 
 	return ZombieStateKind::kNone;
 }

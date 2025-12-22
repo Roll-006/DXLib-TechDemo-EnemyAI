@@ -72,7 +72,7 @@ void Houses::RemoveToObjManager()
 	//ObjAccessor		::GetInstance()->RemoveObj			(obj_handle);
 }
 
-float Houses::GetDeltaTime() const
+const float Houses::GetDeltaTime() const
 {
 	const auto time_manager = GameTimeManager::GetInstance();
 	return time_manager->GetDeltaTime(TimeScaleLayerKind::kWorld);

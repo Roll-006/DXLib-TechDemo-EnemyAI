@@ -2,8 +2,6 @@
 #include "../Base/knife_base.hpp"
 #include "../Kind/zombie_state_kind.hpp"
 #include "../MixamoHelper/mixamo_helper.hpp"
-#include "../Data/humanoid_arm_ray_data.hpp"
-#include "../Data/humanoid_leg_ray_data.hpp"
 #include "zombie.hpp"
 
 Zombie::Zombie(const std::string& id) :
@@ -29,8 +27,6 @@ Zombie::Zombie(const std::string& id) :
 		attack_interval_time		= j_data.at("attack_interval_time");
 		detected_notify_distance	= j_data.at("detected_notify_distance");
 		data						= j_data.at("data").get<ZombieData>();
-		m_move_dir_offset_speed		= j_data.at("move_dir_offset_speed");
-		m_look_dir_offset_speed		= j_data.at("look_dir_offset_speed");
 		m_arm_ray_data				= j_data.at("arm_ray_data").get<HumanoidArmRayData>();
 		m_leg_ray_data				= j_data.at("leg_ray_data").get<HumanoidLegRayData>();
 
@@ -533,20 +529,20 @@ void Zombie::ExitStealthKilled()
 
 
 #pragma region Getter
-float Zombie::GetDeltaTime() const
+const float Zombie::GetDeltaTime() const
 {
 	const auto time_manager = GameTimeManager::GetInstance();
 	return time_manager->GetDeltaTime(TimeScaleLayerKind::kWorld);
 }
 
-bool Zombie::IsStandStun() const
+const bool Zombie::IsStandStun() const
 {
 	const auto action_state = m_state->GetCurrentStateKind();
 	
 	return action_state == ZombieStateKind::kStandStun;
 }
 
-bool Zombie::IsCrouchStun() const
+const bool Zombie::IsCrouchStun() const
 {
 	const auto action_state = m_state->GetCurrentStateKind();
 

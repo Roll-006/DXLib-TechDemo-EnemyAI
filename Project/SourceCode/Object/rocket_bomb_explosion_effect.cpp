@@ -165,7 +165,7 @@ void RocketBombExplosionEffect::RemoveReturnPoolTriggerHandle()
 #pragma endregion
 
 
-bool RocketBombExplosionEffect::IsReturnPool()
+const bool RocketBombExplosionEffect::IsReturnPool()
 {
 	if (m_playing_effect_handle > -1)
 	{
@@ -256,7 +256,7 @@ void RocketBombExplosionEffect::Attack(CharacterBase* target_character)
 	target_character->OnDamage(HealthPartKind::kMain, 5000.0f);
 }
 
-float RocketBombExplosionEffect::GetDeltaTime() const
+const float RocketBombExplosionEffect::GetDeltaTime() const
 {
 	const auto time_manager = GameTimeManager::GetInstance();
 

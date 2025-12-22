@@ -145,7 +145,7 @@ void ShellCasing::Eject(GunBase& gun)
 	CalcColliderPos();
 }
 
-bool ShellCasing::IsReturnPool()
+const bool ShellCasing::IsReturnPool()
 {
 	return m_alive_timer > kDisappearTime ? true : false;
 }
@@ -185,7 +185,7 @@ void ShellCasing::CalcProjectRayPos()
 	}
 }
 
-float ShellCasing::GetDeltaTime() const
+const float ShellCasing::GetDeltaTime() const
 {
 	const auto time_manager = GameTimeManager::GetInstance();
 

@@ -55,7 +55,7 @@ void CharacterBase::CalcCorrectMoveDir()
 	}
 }
 
-bool CharacterBase::IsGoUpHill(const Triangle& hit_triangle) const
+const bool CharacterBase::IsGoUpHill(const Triangle& hit_triangle) const
 {
 	// 法線のyを消し飛ばす
 	auto horizontal_v = hit_triangle.GetNormalVector();

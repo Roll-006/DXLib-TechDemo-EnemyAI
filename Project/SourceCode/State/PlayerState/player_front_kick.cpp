@@ -77,17 +77,17 @@ void player_state::FrontKick::Exit()
 {
 }
 
-PlayerStateKind player_state::FrontKick::GetNextStateKind()
+const PlayerStateKind player_state::FrontKick::GetNextStateKind()
 {
-	if (m_player.GetDeltaTime() <= 0.0f)
-	{
-		return PlayerStateKind::kNone;
-	}
+	//if (m_player.GetDeltaTime() <= 0.0f)
+	//{
+	//	return PlayerStateKind::kNone;
+	//}
 
-	if (m_animator->IsPlayEnd(Animator::BodyKind::kUpperBody))
-	{
-		return PlayerStateKind::kActionNull;
-	}
+	//if (m_animator->IsPlayEnd(Animator::BodyKind::kUpperBody))
+	//{
+	//	return PlayerStateKind::kActionNull;
+	//}
 
 	return PlayerStateKind::kNone;
 }

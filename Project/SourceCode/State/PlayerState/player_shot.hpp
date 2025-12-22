@@ -16,6 +16,6 @@ namespace player_state
         void Enter() override;
         void Exit() override;
 
-        [[nodiscard]] PlayerStateKind GetNextStateKind() override;
+        [[nodiscard]] const PlayerStateKind GetNextStateKind() override;
     };
 }

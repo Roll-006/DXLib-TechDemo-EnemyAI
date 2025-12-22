@@ -284,14 +284,14 @@
 //
 //void PlayerStateController::JudgeDestinationActionState(std::shared_ptr<IState<Player>>& stop_state)
 //{
-//	switch (static_cast<player_state::ActionStateKind>(stop_state->GetStateKind()))
+//	switch (static_cast<PlayerStateKind>(stop_state->GetStateKind()))
 //	{
-//	case player_state::ActionStateKind::kCrouch:
+//	case PlayerStateKind::kCrouch:
 //		CommandHandler::GetInstance()->InitCurrentTriggerInputCount(CommandKind::kCrouch);
 //		stop_state = m_states.at(typeid(player_state::ActionNull));
 //		break;
 //
-//	case player_state::ActionStateKind::kRun:
+//	case PlayerStateKind::kRun:
 //		CommandHandler::GetInstance()->InitCurrentTriggerInputCount(CommandKind::kRun);
 //		stop_state = m_states.at(typeid(player_state::ActionNull));
 //		break;
@@ -464,7 +464,7 @@
 //{
 //	if (!player->CanControl()) { return false; }
 //
-//	const bool is_run = m_action_state.at(TimeKind::kCurrent)->GetStateKind() == static_cast<int>(player_state::ActionStateKind::kRun);
+//	const bool is_run = m_action_state.at(TimeKind::kCurrent)->GetStateKind() == static_cast<int>(PlayerStateKind::kRun);
 //
 //	return  is_run && CommandHandler::GetInstance()->IsExecute(CommandKind::kAttack, TimeKind::kCurrent);
 //}

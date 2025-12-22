@@ -60,65 +60,65 @@ void zombie_state::Grab::Exit()
 	m_zombie.Release();
 }
 
-ZombieStateKind zombie_state::Grab::GetNextStateKind()
+const ZombieStateKind zombie_state::Grab::GetNextStateKind()
 {
-	if (m_zombie.GetDeltaTime() <= 0.0f)
-	{
-		return ZombieStateKind::kNone;
-	}
-	// 強制NULL
-	else if (m_state.TryActionNullForcibly())
-	{
-		return ZombieStateKind::kActionNull;
-	}
-	// ステルスキル
-	else if (m_state.TryStealthKilled())
-	{
-		return ZombieStateKind::kStealthKilled;
-	}
-	// ノックバック
-	else if (m_state.TryKnockback())
-	{
-		return ZombieStateKind::kKnockback;
-	}
-	// ノックバック（後ろ）
-	else if (m_state.TryBackwardKnockback())
-	{
-		// TODO : State遷移側で処理したい
-		m_zombie.OnKnockback(-m_zombie.GetCurrentLookDir(), 70.0f, 60.0f);
-		return ZombieStateKind::kBackwardKnockback;
-	}
-	// 死亡
-	else if (m_state.TryDead())
-	{
-		return ZombieStateKind::kDead;
-	}
-	// 左足ダウン
-	else if (m_state.TryLeftCrouchStun())
-	{
-		return ZombieStateKind::kCrouchLeftStun;
-	}
-	// 右足ダウン
-	else if (m_state.TryRightCrouchStun())
-	{
-		return ZombieStateKind::kCrouchRightStun;
-	}
-	// 立ちダウン
-	else if (m_state.TryStandStun())
-	{
-		return ZombieStateKind::kStandStun;
-	}
-	// 対象が逃げた
-	else if (m_zombie.IsTargetEscaped())
-	{
-		m_zombie.OnKnockback(-m_zombie.GetCurrentLookDir(), 70.0f, 60.0f);
-		return ZombieStateKind::kBackwardKnockback;
-	}
-	// 掴み時間終了
-	else if (m_grab_timer > kMaxGrabTime)
-	{
-		return ZombieStateKind::kActionNull;
-	}
+	//if (m_zombie.GetDeltaTime() <= 0.0f)
+	//{
+	//	return ZombieStateKind::kNone;
+	//}
+	//// 強制NULL
+	//else if (m_state.TryActionNullForcibly())
+	//{
+	//	return ZombieStateKind::kNone;
+	//}
+	//// ステルスキル
+	//else if (m_state.TryStealthKilled())
+	//{
+	//	return ZombieStateKind::kStealthKilled;
+	//}
+	//// ノックバック
+	//else if (m_state.TryKnockback())
+	//{
+	//	return ZombieStateKind::kKnockback;
+	//}
+	//// ノックバック（後ろ）
+	//else if (m_state.TryBackwardKnockback())
+	//{
+	//	// TODO : State遷移側で処理したい
+	//	m_zombie.OnKnockback(-m_zombie.GetCurrentLookDir(), 70.0f, 60.0f);
+	//	return ZombieStateKind::kBackwardKnockback;
+	//}
+	//// 死亡
+	//else if (m_state.TryDead())
+	//{
+	//	return ZombieStateKind::kDead;
+	//}
+	//// 左足ダウン
+	//else if (m_state.TryLeftCrouchStun())
+	//{
+	//	return ZombieStateKind::kCrouchLeftStun;
+	//}
+	//// 右足ダウン
+	//else if (m_state.TryRightCrouchStun())
+	//{
+	//	return ZombieStateKind::kCrouchRightStun;
+	//}
+	//// 立ちダウン
+	//else if (m_state.TryStandStun())
+	//{
+	//	return ZombieStateKind::kStandStun;
+	//}
+	//// 対象が逃げた
+	//else if (m_zombie.IsTargetEscaped())
+	//{
+	//	m_zombie.OnKnockback(-m_zombie.GetCurrentLookDir(), 70.0f, 60.0f);
+	//	return ZombieStateKind::kBackwardKnockback;
+	//}
+	//// 掴み時間終了
+	//else if (m_grab_timer > kMaxGrabTime)
+	//{
+	//	return ZombieStateKind::kNone;
+	//}
 
 	return ZombieStateKind::kNone;
 }
@@ -130,17 +130,17 @@ void zombie_state::Grab::DamageOverTime()
 		return;
 	}
 
-	const auto player = std::dynamic_pointer_cast<Player>(m_state.GetTargetCharacter());
-	if (!player)
-	{
-		return;
-	}
+	//const auto player = std::dynamic_pointer_cast<Player>(m_state.GetTargetCharacter());
+	//if (!player)
+	//{
+	//	return;
+	//}
 
 	// 継続ダメージ
 	math::Increase(m_damage_interval_timer, m_zombie.GetDeltaTime(), kDamageIntervalTime, true);
 	if (m_damage_interval_timer == 0.0f)
 	{
 		// TODO : 攻撃力ベースにする
-		player->OnDamage(HealthPartKind::kMain, 50.0f);
+		m_zombie.GetTarget()->OnDamage(HealthPartKind::kMain, 50.0f);
 	}
 }

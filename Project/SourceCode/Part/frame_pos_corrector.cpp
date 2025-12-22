@@ -1,6 +1,6 @@
 ﻿#include "frame_pos_corrector.hpp"
 
-void FramePosCorrector::CorrectAimPoseFramePos(const int model_handle, const VECTOR& aim_dir)
+void FramePosCorrector::CorrectAimPoseFramePos(const int model_handle, const VECTOR& aim_dir) const
 {
 	// ボーンインデックス取得
 	const auto spine_index	= MV1SearchFrame(model_handle, FramePath.SPINE);

@@ -56,8 +56,8 @@ void zombie_state::CrouchLeftStun::Enter()
 
 	// IK Ray生成
 	const auto& humanoid = *dynamic_cast<IHumanoid*>(&m_zombie);
-	m_zombie.GetHumanoidFootIKSolver()->CreateLeftLegRay (&m_zombie, humanoid);
-	m_zombie.GetHumanoidArmIKSolver ()->CreateLeftHandRay(&m_zombie, humanoid);
+	m_zombie.GetHumanoidFootIKSolver()->CreateLeftLegRay (&m_zombie);
+	m_zombie.GetHumanoidArmIKSolver ()->CreateLeftHandRay(&m_zombie);
 }
 
 void zombie_state::CrouchLeftStun::Exit()
@@ -74,32 +74,32 @@ void zombie_state::CrouchLeftStun::Exit()
 	m_zombie.GetHumanoidArmIKSolver ()->DeleteLeftHandRay(&m_zombie);
 }
 
-ZombieStateKind zombie_state::CrouchLeftStun::GetNextStateKind()
+const ZombieStateKind zombie_state::CrouchLeftStun::GetNextStateKind()
 {
-	if (m_zombie.GetDeltaTime() <= 0.0f)
-	{
-		return ZombieStateKind::kNone;
-	}
-	// ステルスキル
-	else if (m_state.TryStealthKilled())
-	{
-		return ZombieStateKind::kStealthKilled;
-	}
-	// ノックバック
-	else if (m_state.TryKnockback())
-	{
-		return ZombieStateKind::kKnockback;
-	}
-	// 死亡
-	else if (m_state.TryDead())
-	{
-		return ZombieStateKind::kDead;
-	}
-	// スタン終了
-	else if (m_stun_timer > kStunTime)
-	{
-		return ZombieStateKind::kActionNull;
-	}
+	//if (m_zombie.GetDeltaTime() <= 0.0f)
+	//{
+	//	return ZombieStateKind::kNone;
+	//}
+	//// ステルスキル
+	//else if (m_state.TryStealthKilled())
+	//{
+	//	return ZombieStateKind::kStealthKilled;
+	//}
+	//// ノックバック
+	//else if (m_state.TryKnockback())
+	//{
+	//	return ZombieStateKind::kKnockback;
+	//}
+	//// 死亡
+	//else if (m_state.TryDead())
+	//{
+	//	return ZombieStateKind::kDead;
+	//}
+	//// スタン終了
+	//else if (m_stun_timer > kStunTime)
+	//{
+	//	return ZombieStateKind::kNone;
+	//}
 
 	return ZombieStateKind::kNone;
 }

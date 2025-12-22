@@ -3,7 +3,7 @@
 #include "../Base/character_base.hpp"
 #include "../Command/command_handler.hpp"
 
-StealthKillTargetIcon::StealthKillTargetIcon(std::shared_ptr<IStealthKillable>& stealth_kill_target) :
+StealthKillTargetIcon::StealthKillTargetIcon(const std::shared_ptr<const IStealthKillable>& stealth_kill_target) :
 	m_stealth_kill_target		(stealth_kill_target),
 	m_button_graphic_resource	(std::make_shared<ButtonGraphicGetter>()),
 	m_button_icon_graphic		(nullptr),
@@ -74,7 +74,7 @@ void StealthKillTargetIcon::CreateStealthKillIconScreen()
 {
 	if (!m_stealth_kill_target) { return; }
 
-	const auto	model_handle = std::dynamic_pointer_cast<CharacterBase>(m_stealth_kill_target)->GetModeler()->GetModelHandle();
+	const auto	model_handle = std::dynamic_pointer_cast<const CharacterBase>(m_stealth_kill_target)->GetModeler()->GetModelHandle();
 	auto		spine2_m		 = MV1GetFrameLocalWorldMatrix(model_handle, MV1SearchFrame(model_handle, FramePath.SPINE_2));
 
 	m_icon_pos = matrix::GetPos(spine2_m) + kIconOffset;

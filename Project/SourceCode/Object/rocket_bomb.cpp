@@ -138,7 +138,7 @@ void RocketBomb::OnShot(GunBase& gun)
 	}
 }
 
-float RocketBomb::GetDeltaTime() const
+const float RocketBomb::GetDeltaTime() const
 {
 	const auto time_manager = GameTimeManager::GetInstance();
 
@@ -147,7 +147,7 @@ float RocketBomb::GetDeltaTime() const
 		: time_manager->GetDeltaTime(TimeScaleLayerKind::kWorld);
 }
 
-bool RocketBomb::IsReturnPool()
+const bool RocketBomb::IsReturnPool()
 {
 	float distance = VSize(m_transform->GetPos(CoordinateKind::kWorld) - m_first_pos);
 

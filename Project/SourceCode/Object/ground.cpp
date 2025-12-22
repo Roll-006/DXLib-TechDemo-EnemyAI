@@ -69,7 +69,7 @@ void Ground::RemoveToObjManager()
 	ObjAccessor		::GetInstance()->RemoveObj		  (obj_handle);
 }
 
-float Ground::GetDeltaTime() const
+const float Ground::GetDeltaTime() const
 {
 	const auto time_manager = GameTimeManager::GetInstance();
 	return time_manager->GetDeltaTime(TimeScaleLayerKind::kWorld);

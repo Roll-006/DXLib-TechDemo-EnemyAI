@@ -16,7 +16,7 @@ namespace player_state
         void Enter() override;
         void Exit() override;
 
-        [[nodiscard]] PlayerStateKind GetNextStateKind() override;
+        [[nodiscard]] const PlayerStateKind GetNextStateKind() override;
 
     private:
         static constexpr float kShotWaitTime = 1.2f; // 弾丸が発射されるまでの待ち時間

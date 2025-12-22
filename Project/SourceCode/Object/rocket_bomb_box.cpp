@@ -176,7 +176,7 @@ void RocketBombBox::AddHaveNum(const int add_num)
 	}
 }
 
-float RocketBombBox::GetDeltaTime() const
+const float RocketBombBox::GetDeltaTime() const
 {
 	const auto time_manager = GameTimeManager::GetInstance();
 	return time_manager->GetDeltaTime(TimeScaleLayerKind::kWorld);

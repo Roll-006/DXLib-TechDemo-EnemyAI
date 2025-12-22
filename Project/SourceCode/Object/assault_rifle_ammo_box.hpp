@@ -35,12 +35,12 @@ public:
 	void SetHaveNum(const int set_num) override;
 	void AddHaveNum(const int add_num) override;
 
-	[[nodiscard]] float		GetDeltaTime()		const override;
-	[[nodiscard]] ItemKind	GetItemKind()		const override { return ItemKind::kAmmoBox; }
-	[[nodiscard]] int		GetMaxHaveNum()		const override { return rifle_cartridge_box_data.max_have_num; }
-	[[nodiscard]] int		GetCurrentHaveNum()	const override { return m_have_num; }
-	[[nodiscard]] bool		IsMax()				const override { return rifle_cartridge_box_data.max_have_num >= m_have_num; }
-	[[nodiscard]] std::shared_ptr<Transform> GetItemTransform() const override { return m_item_effect_transform; }
+	[[nodiscard]] const float		GetDeltaTime()		const override;
+	[[nodiscard]] const ItemKind	GetItemKind()		const override { return ItemKind::kAmmoBox; }
+	[[nodiscard]] const int			GetMaxHaveNum()		const override { return rifle_cartridge_box_data.max_have_num; }
+	[[nodiscard]] const int			GetCurrentHaveNum()	const override { return m_have_num; }
+	[[nodiscard]] const bool		IsMax()				const override { return rifle_cartridge_box_data.max_have_num >= m_have_num; }
+	[[nodiscard]] const std::shared_ptr<Transform> GetItemTransform() const override { return m_item_effect_transform; }
 
 private:
 	RifleCartridgeBoxData		rifle_cartridge_box_data;

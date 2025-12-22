@@ -34,27 +34,27 @@ void player_state::Grabbed::Exit()
 {
 }
 
-PlayerStateKind player_state::Grabbed::GetNextStateKind()
+const PlayerStateKind player_state::Grabbed::GetNextStateKind()
 {
-	if (m_player.GetDeltaTime() <= 0.0f)
-	{
-		return PlayerStateKind::kNone;
-	}
+	//if (m_player.GetDeltaTime() <= 0.0f)
+	//{
+	//	return PlayerStateKind::kNone;
+	//}
 
-	const auto state_controller = m_player.GetStateController();
+	//const auto state_controller = m_player.GetStateController();
 
-	if (state_controller->TryDead(&m_player))
-	{
-		return PlayerStateKind::kDead;
-	}
-	if (m_player.IsEscape())
-	{
-		return PlayerStateKind::kEscape;
-	}
-	if (!state_controller->TryGrabbed(&m_player))
-	{
-		return PlayerStateKind::kActionNull;
-	}
+	//if (state_controller->TryDead(&m_player))
+	//{
+	//	return PlayerStateKind::kDead;
+	//}
+	//if (m_player.IsEscape())
+	//{
+	//	return PlayerStateKind::kEscape;
+	//}
+	//if (!state_controller->TryGrabbed(&m_player))
+	//{
+	//	return PlayerStateKind::kActionNull;
+	//}
 
 	return PlayerStateKind::kNone;
 }

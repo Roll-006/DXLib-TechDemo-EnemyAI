@@ -3,7 +3,7 @@
 #include "../Base/character_base.hpp"
 #include "../Command/command_handler.hpp"
 
-MeleeTargetIcon::MeleeTargetIcon(std::shared_ptr<IMeleeHittable>& melee_target, std::shared_ptr<IMeleeHittable>& visible_downed_character) :
+MeleeTargetIcon::MeleeTargetIcon(const std::shared_ptr<const IMeleeHittable>& melee_target, const std::shared_ptr<const IMeleeHittable>& visible_downed_character) :
 	m_melee_target						(melee_target),
 	m_visible_downed_character			(visible_downed_character),
 	m_button_graphic_resource			(std::make_shared<ButtonGraphicGetter>()),
@@ -94,7 +94,7 @@ void MeleeTargetIcon::CreateMeleeIconScreen()
 {
 	if (!m_melee_target) { return; }
 
-	const auto	model_handle = std::dynamic_pointer_cast<CharacterBase>(m_melee_target)->GetModeler()->GetModelHandle();
+	const auto	model_handle = std::dynamic_pointer_cast<const CharacterBase>(m_melee_target)->GetModeler()->GetModelHandle();
 	auto		head_m		 = MV1GetFrameLocalWorldMatrix(model_handle, MV1SearchFrame(model_handle, FramePath.HEAD));
 
 	m_icon_pos = matrix::GetPos(head_m) + kIconOffset;
@@ -127,7 +127,7 @@ void MeleeTargetIcon::CreateDownIconScreen()
 {
 	if (!m_visible_downed_character) { return; }
 
-	const auto	model_handle = std::dynamic_pointer_cast<CharacterBase>(m_visible_downed_character)->GetModeler()->GetModelHandle();
+	const auto	model_handle = std::dynamic_pointer_cast<const CharacterBase>(m_visible_downed_character)->GetModeler()->GetModelHandle();
 	auto		head_m = MV1GetFrameLocalWorldMatrix(model_handle, MV1SearchFrame(model_handle, FramePath.HEAD));
 
 	m_icon_pos = matrix::GetPos(head_m) + kIconOffset;

@@ -16,7 +16,7 @@ namespace player_state
 		void Enter()		override;
 		void Exit()			override;
 
-		[[nodiscard]] PlayerStateKind GetNextStateKind() override;
+		[[nodiscard]] const PlayerStateKind GetNextStateKind() override;
 
 	private:
 		float m_non_move_time;

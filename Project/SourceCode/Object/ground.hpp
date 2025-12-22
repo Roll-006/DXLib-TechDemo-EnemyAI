@@ -24,8 +24,8 @@ public:
 	void AddToObjManager()			override;
 	void RemoveToObjManager()		override;
 
-	[[nodiscard]] float	GetDeltaTime() const override;
-	[[nodiscard]] std::shared_ptr<Modeler> GetModeler() const { return m_modeler; }
+	[[nodiscard]] const float GetDeltaTime() const override;
+	[[nodiscard]] const std::shared_ptr<const Modeler> GetModeler() const { return m_modeler; }
 
 private:
 	std::shared_ptr<Modeler> m_modeler;

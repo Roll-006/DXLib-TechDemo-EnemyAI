@@ -37,53 +37,53 @@ void player_state::EquipKnife::Exit()
 	m_player.AttachWeapon(m_player.GetCurrentEquipWeapon(WeaponSlotKind::kSub));
 }
 
-PlayerStateKind player_state::EquipKnife::GetNextStateKind()
+const PlayerStateKind player_state::EquipKnife::GetNextStateKind()
 {
-	if (m_player.GetDeltaTime() <= 0.0f)
-	{
-		return PlayerStateKind::kNone;
-	}
-	// 強制 NULL
-	else if (m_state.TryActionNullForcibly())
-	{
-		return PlayerStateKind::kActionNull;
-	}
-	// 回転斬り
-	else if (m_state.TrySpinningSlash())
-	{
-		return PlayerStateKind::kSpinningSlashKnife;
-	}
-	// 横斬り（第一段階）
-	else if (m_state.TryFirstSideSlashKnife())
-	{
-		return PlayerStateKind::kFirstSideSlashKnife;
-	}
-	// 銃装備（ショートカット）
-	else if (m_state.TryEquipGunShortcut())
-	{
-		return PlayerStateKind::kEquipGun;
-	}
-	// 銃装備
-	else if (m_state.TryEquipGun())
-	{
-		return PlayerStateKind::kEquipGun;
-	}
-	// 銃装備（強制）
-	else if (m_elapsed_time > kReleaseKnifeForciblyTime
-		&& m_player.GetCurrentEquipWeaponKind(WeaponSlotKind::kMain) == WeaponKind::kGun)
-	{
-		return PlayerStateKind::kEquipGun;
-	}
-	// リロード
-	else if (m_state.TryReload())
-	{
-		return PlayerStateKind::kReload;
-	}
-	// 強制解除
-	else if (m_elapsed_time > kReleaseKnifeForciblyTime)
-	{
-		return PlayerStateKind::kActionNull;
-	}
+	//if (m_player.GetDeltaTime() <= 0.0f)
+	//{
+	//	return PlayerStateKind::kNone;
+	//}
+	//// 強制 NULL
+	//else if (m_state.TryActionNullForcibly())
+	//{
+	//	return PlayerStateKind::kActionNull;
+	//}
+	//// 回転斬り
+	//else if (m_state.TrySpinningSlash())
+	//{
+	//	return PlayerStateKind::kSpinningSlashKnife;
+	//}
+	//// 横斬り（第一段階）
+	//else if (m_state.TryFirstSideSlashKnife())
+	//{
+	//	return PlayerStateKind::kFirstSideSlashKnife;
+	//}
+	//// 銃装備（ショートカット）
+	//else if (m_state.TryEquipGunShortcut())
+	//{
+	//	return PlayerStateKind::kEquipGun;
+	//}
+	//// 銃装備
+	//else if (m_state.TryEquipGun())
+	//{
+	//	return PlayerStateKind::kEquipGun;
+	//}
+	//// 銃装備（強制）
+	//else if (m_elapsed_time > kReleaseKnifeForciblyTime
+	//	&& m_player.GetCurrentEquipWeaponKind(WeaponSlotKind::kMain) == WeaponKind::kGun)
+	//{
+	//	return PlayerStateKind::kEquipGun;
+	//}
+	//// リロード
+	//else if (m_state.TryReload())
+	//{
+	//	return PlayerStateKind::kReload;
+	//}
+	//// 強制解除
+	//else if (m_elapsed_time > kReleaseKnifeForciblyTime)
+	//{
+	//	return PlayerStateKind::kActionNull;
+	//}
 
 	return PlayerStateKind::kNone;
 }

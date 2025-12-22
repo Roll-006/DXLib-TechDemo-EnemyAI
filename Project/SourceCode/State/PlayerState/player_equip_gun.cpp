@@ -58,39 +58,39 @@ void player_state::EquipGun::Exit()
 	m_player.AttachWeapon(m_player.GetCurrentEquipWeapon(WeaponSlotKind::kMain));
 }
 
-PlayerStateKind player_state::EquipGun::GetNextStateKind()
+const PlayerStateKind player_state::EquipGun::GetNextStateKind()
 {
-	if (m_player.GetDeltaTime() <= 0.0f)
-	{
-		return PlayerStateKind::kNone;
-	}
-	// 強制 NULL
-	else if (m_state.TryActionNullForcibly())
-	{
-		return PlayerStateKind::kActionNull;
-	}
-	// 銃エイム
-	else if (m_player.CanControl()
-		&& CommandHandler::GetInstance()->IsExecute(CommandKind::kAimGun, TimeKind::kCurrent)
-		&& m_possible_aim_timer >= kPossibleAimTime)
-	{
-		return PlayerStateKind::kAimGun;
-	}
-	// リロード
-	else if (m_state.TryReload())
-	{
-		return PlayerStateKind::kReload;
-	}
-	// 回転斬り
-	else if (m_state.TrySpinningSlash())
-	{
-		return PlayerStateKind::kSpinningSlashKnife;
-	}
-	// 横斬り（第一段階）
-	else if (m_state.TryFirstSideSlashKnife())
-	{
-		return PlayerStateKind::kFirstSideSlashKnife;
-	}
+	//if (m_player.GetDeltaTime() <= 0.0f)
+	//{
+	//	return PlayerStateKind::kNone;
+	//}
+	//// 強制 NULL
+	//else if (m_state.TryActionNullForcibly())
+	//{
+	//	return PlayerStateKind::kActionNull;
+	//}
+	//// 銃エイム
+	//else if (m_player.CanControl()
+	//	&& CommandHandler::GetInstance()->IsExecute(CommandKind::kAimGun, TimeKind::kCurrent)
+	//	&& m_possible_aim_timer >= kPossibleAimTime)
+	//{
+	//	return PlayerStateKind::kAimGun;
+	//}
+	//// リロード
+	//else if (m_state.TryReload())
+	//{
+	//	return PlayerStateKind::kReload;
+	//}
+	//// 回転斬り
+	//else if (m_state.TrySpinningSlash())
+	//{
+	//	return PlayerStateKind::kSpinningSlashKnife;
+	//}
+	//// 横斬り（第一段階）
+	//else if (m_state.TryFirstSideSlashKnife())
+	//{
+	//	return PlayerStateKind::kFirstSideSlashKnife;
+	//}
 
 	return PlayerStateKind::kNone;
 }

@@ -65,15 +65,15 @@ void player_state::StealthKill::Exit()
     m_player.AttachWeapon(m_player.GetCurrentEquipWeapon(WeaponSlotKind::kSub));
 }
 
-PlayerStateKind player_state::StealthKill::GetNextStateKind()
+const PlayerStateKind player_state::StealthKill::GetNextStateKind()
 {
-    if (m_player.GetDeltaTime() <= 0.0f) return PlayerStateKind::kNone;
+    //if (m_player.GetDeltaTime() <= 0.0f) return PlayerStateKind::kNone;
 
-    // 動作終了後は NULL へ
-    if (m_player.GetAnimator()->IsPlayEnd(Animator::BodyKind::kUpperBody))
-    {
-        return PlayerStateKind::kActionNull;
-    }
+    //// 動作終了後は NULL へ
+    //if (m_player.GetAnimator()->IsPlayEnd(Animator::BodyKind::kUpperBody))
+    //{
+    //    return PlayerStateKind::kActionNull;
+    //}
 
     return PlayerStateKind::kNone;
 }

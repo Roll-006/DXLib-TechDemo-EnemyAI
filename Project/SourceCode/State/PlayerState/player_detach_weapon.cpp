@@ -34,18 +34,18 @@ void player_state::DetachWeapon::Exit()
 	m_player.AttachWeapon(m_player.GetCurrentEquipWeapon(WeaponSlotKind::kSub));
 }
 
-PlayerStateKind player_state::DetachWeapon::GetNextStateKind()
+const PlayerStateKind player_state::DetachWeapon::GetNextStateKind()
 {
-	if (m_player.GetDeltaTime() <= 0.0f)
-	{
-		return PlayerStateKind::kNone;
-	}
+	//if (m_player.GetDeltaTime() <= 0.0f)
+	//{
+	//	return PlayerStateKind::kNone;
+	//}
 
-	// 強制 NULL
-	if (m_state.TryActionNullForcibly())
-	{
-		return PlayerStateKind::kActionNull;
-	}
+	//// 強制 NULL
+	//if (m_state.TryActionNullForcibly())
+	//{
+	//	return PlayerStateKind::kActionNull;
+	//}
 
 	return PlayerStateKind::kNone;
 }

@@ -4,12 +4,15 @@
 #include "../../Animator/animator.hpp"
 #include "../../Base/player_state_base.hpp"
 #include "../../Kind/player_state_kind.hpp"
+#include "player_idle.hpp"
 #include "player_state.hpp"
 
 player_state::State::State(Player& player, const std::shared_ptr<Animator>& animator) :
-	m_player(player),
-	m_current_state(nullptr)
+	m_player			(player),
+	m_current_state		(nullptr),
+	m_prev_state_kind	(PlayerStateKind::kNone)
 {
+	m_states[PlayerStateKind::kIdle] = std::make_shared<player_state::Idle>(m_player, *this, animator);
 	m_current_state = m_states.at(PlayerStateKind::kIdle);
 }
 
@@ -24,6 +27,7 @@ void player_state::State::Update()
 	const auto next_state_kind = m_current_state->GetNextStateKind();
 	if (next_state_kind != PlayerStateKind::kNone)
 	{
+		m_prev_state_kind = m_current_state->GetStateKind();
 		m_current_state->Exit();
 		m_current_state = m_states.at(next_state_kind);
 		m_current_state->Enter();
@@ -37,14 +41,14 @@ void player_state::State::LateUpdate()
 	m_current_state->LateUpdate();
 }
 
-PlayerStateKind player_state::State::GetPrevStateKind() const
+const PlayerStateKind player_state::State::GetPrevStateKind() const
 {
-	return m_current_state->GetPrevStateKind();
+	return m_prev_state_kind;
 }
 
-PlayerStateKind player_state::State::GetCurrentStateKind() const
+const PlayerStateKind player_state::State::GetCurrentStateKind() const
 {
-	return m_current_state->GetCurrentStateKind();
+	return m_current_state->GetStateKind();
 }
 
 

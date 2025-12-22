@@ -33,14 +33,14 @@ public:
 	/// @brief 持ち主のホルスター(武器収納位置)を追尾する
 	virtual void TrackOwnerHolster()abstract;
 
-	[[nodiscard]] float						 GetDeltaTime()		const override;
-	[[nodiscard]] ItemKind					 GetItemKind()		const override	{ return ItemKind::kWeapon; }
-	[[nodiscard]] std::shared_ptr<Modeler>	 GetModeler()		const			{ return m_modeler; }
-	[[nodiscard]] float						 GetPower()			const			{ return power; }
-	[[nodiscard]] std::string				 GetOwnerName()		const			{ return m_owner_name; }
-	[[nodiscard]] WeaponKind				 GetWeaponKind()	const			{ return weapon_kind; }
-	[[nodiscard]] HolsterKind				 GetHolsterKind()	const			{ return holster_kind; }
-	[[nodiscard]] std::shared_ptr<Transform> GetItemTransform() const override	{ return m_item_effect_transform; }
+	[[nodiscard]] const float						GetDeltaTime()		const override;
+	[[nodiscard]] const ItemKind					GetItemKind()		const override	{ return ItemKind::kWeapon; }
+	[[nodiscard]] const std::shared_ptr<const Modeler>	GetModeler()		const			{ return m_modeler; }
+	[[nodiscard]] const float							GetPower()			const			{ return power; }
+	[[nodiscard]] const std::string					GetOwnerName()		const			{ return m_owner_name; }
+	[[nodiscard]] const WeaponKind					GetWeaponKind()		const			{ return weapon_kind; }
+	[[nodiscard]] const HolsterKind					GetHolsterKind()	const			{ return holster_kind; }
+	[[nodiscard]] const std::shared_ptr<Transform>	GetItemTransform()	const override	{ return m_item_effect_transform; }
 
 protected:
 	std::shared_ptr<Modeler>	m_modeler;

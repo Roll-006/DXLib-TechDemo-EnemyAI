@@ -117,7 +117,7 @@ void Effect::RemoveReturnPoolTriggerHandle()
 #pragma endregion
 
 
-bool Effect::IsReturnPool()
+const bool Effect::IsReturnPool()
 {
 	if (m_playing_effect_handle > -1)
 	{
@@ -175,7 +175,7 @@ void Effect::PlayEffect()
 	}
 }
 
-float Effect::GetDeltaTime() const
+const float Effect::GetDeltaTime() const
 {
 	const auto time_manager = GameTimeManager::GetInstance();
 

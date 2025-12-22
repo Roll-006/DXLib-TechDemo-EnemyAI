@@ -88,7 +88,7 @@ void zombie_state::Dead::Exit()
 
 }
 
-ZombieStateKind zombie_state::Dead::GetNextStateKind()
+const ZombieStateKind zombie_state::Dead::GetNextStateKind()
 {
 	return ZombieStateKind::kNone;
 }

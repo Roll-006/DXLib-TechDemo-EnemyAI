@@ -46,7 +46,7 @@ void StealthKillTargetSearcher::SearchTarget()
 		}
 
 		// メレー対象かつ背後にいる場合は残す
-		if (std::dynamic_pointer_cast<ObjBase>(m_player->GetMeleeTarget()) == candidate_obj)
+		if (std::dynamic_pointer_cast<const ObjBase>(m_player->GetMeleeTarget()) == candidate_obj)
 		{
 			const auto candidate_transform	= candidate_obj->GetTransform();
 			const auto target_forward		= candidate_transform->GetForward(CoordinateKind::kWorld);

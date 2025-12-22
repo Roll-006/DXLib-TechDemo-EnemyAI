@@ -107,7 +107,7 @@
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp20</LanguageStandard>
-      <AdditionalIncludeDirectories>Library;Library/Dxlib_h;Library/EffekseerForDXLib;Library/DxlibHelper_h;</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>Library;Library/Dxlib_h;Library/EffekseerForDXLib;</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <ObjectFileName>$(IntDir)</ObjectFileName>
@@ -115,7 +115,7 @@
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>Library;Library/Dxlib_h;Library/EffekseerForDXLib;Library/DxlibHelper_h;</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>Library;Library/Dxlib_h;Library/EffekseerForDXLib;</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -240,7 +240,6 @@
     <ClCompile Include="SourceCode\Part\screen_filter.cpp" />
     <ClCompile Include="SourceCode\Part\transform.cpp" />
     <ClCompile Include="SourceCode\Part\weapon_shortcut_selecter.cpp" />
-    <ClCompile Include="SourceCode\Part\title_character_animator.cpp" />
     <ClCompile Include="SourceCode\Random\random_generator.cpp" />
     <ClCompile Include="SourceCode\Scene\load_scene.cpp" />
     <ClCompile Include="SourceCode\Scene\play_scene.cpp" />
@@ -648,7 +647,6 @@
     <ClInclude Include="SourceCode\Part\screen_filter.hpp" />
     <ClInclude Include="SourceCode\Part\transform.hpp" />
     <ClInclude Include="SourceCode\Part\weapon_shortcut_selecter.hpp" />
-    <ClInclude Include="SourceCode\Part\title_character_animator.hpp" />
     <ClInclude Include="SourceCode\Path\animation_path.hpp" />
     <ClInclude Include="SourceCode\Path\frame_path.hpp" />
     <ClInclude Include="SourceCode\Path\effect_path.hpp" />

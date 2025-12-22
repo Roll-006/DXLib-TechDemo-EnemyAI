@@ -41,24 +41,24 @@ void zombie_state::BackwardKnockback::Exit()
 
 }
 
-ZombieStateKind zombie_state::BackwardKnockback::GetNextStateKind()
+const ZombieStateKind zombie_state::BackwardKnockback::GetNextStateKind()
 {
-	if (m_zombie.GetDeltaTime() <= 0.0f)
-	{
-		return ZombieStateKind::kNone;
-	}
-	// ノックバック終了
-	else if (m_zombie.GetKnockBackSpeed() < math::kEpsilonLow)
-	{
-		// 死亡
-		if (m_state.TryDead())
-		{
-			return ZombieStateKind::kDead;
-		}
+	//if (m_zombie.GetDeltaTime() <= 0.0f)
+	//{
+	//	return ZombieStateKind::kNone;
+	//}
+	//// ノックバック終了
+	//else if (m_zombie.GetKnockBackSpeed() < math::kEpsilonLow)
+	//{
+	//	// 死亡
+	//	if (m_state.TryDead())
+	//	{
+	//		return ZombieStateKind::kDead;
+	//	}
 
-		// NULL
-		return ZombieStateKind::kActionNull;
-	}
+	//	// NULL
+	//	return ZombieStateKind::kNone;
+	//}
 
 	return ZombieStateKind::kNone;
 }

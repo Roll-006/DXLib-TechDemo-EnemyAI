@@ -15,8 +15,8 @@ namespace zombie_state
 		void Update();
 		void LateUpdate();
 
-		[[nodiscard]] ZombieStateKind GetPrevStateKind()	const;
-		[[nodiscard]] ZombieStateKind GetCurrentStateKind() const;
+		[[nodiscard]] const ZombieStateKind GetPrevStateKind()	const;
+		[[nodiscard]] const ZombieStateKind GetCurrentStateKind() const;
 
 		#pragma region Try判定
 		[[nodiscard]] bool TryWaitForcibly();
@@ -40,6 +40,7 @@ namespace zombie_state
 	private:
 		Zombie&																	m_zombie;
 		std::shared_ptr<ZombieStateBase>										m_current_state;
+		ZombieStateKind															m_prev_state_kind;
 		std::unordered_map<ZombieStateKind, std::shared_ptr<ZombieStateBase>>	m_states;
 	};
 }

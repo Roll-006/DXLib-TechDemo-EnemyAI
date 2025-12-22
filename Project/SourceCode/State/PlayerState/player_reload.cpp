@@ -75,26 +75,26 @@ void player_state::Reload::Exit()
 	m_player.AttachWeapon(m_player.GetCurrentEquipWeapon(WeaponSlotKind::kMain));
 }
 
-PlayerStateKind player_state::Reload::GetNextStateKind()
+const PlayerStateKind player_state::Reload::GetNextStateKind()
 {
-	if (m_player.GetDeltaTime() <= 0.0f) { return PlayerStateKind::kNone; }
+	//if (m_player.GetDeltaTime() <= 0.0f) { return PlayerStateKind::kNone; }
 
-	const auto state_controller = m_player.GetStateController();
-	const auto command = CommandHandler::GetInstance();
+	//const auto state_controller = m_player.GetStateController();
+	//const auto command = CommandHandler::GetInstance();
 
-	// 銃エイミング状態
-	if (m_player.CanControl()
-		&& m_player.GetAnimator()->IsPlayEnd(Animator::BodyKind::kUpperBody)
-		&& command->IsExecute(CommandKind::kAimGun, TimeKind::kCurrent))
-	{
-		return PlayerStateKind::kAimGun;
-	}
+	//// 銃エイミング状態
+	//if (m_player.CanControl()
+	//	&& m_player.GetAnimator()->IsPlayEnd(Animator::BodyKind::kUpperBody)
+	//	&& command->IsExecute(CommandKind::kAimGun, TimeKind::kCurrent))
+	//{
+	//	return PlayerStateKind::kAimGun;
+	//}
 
-	// 銃装備状態
-	if (m_player.GetAnimator()->IsPlayEnd(Animator::BodyKind::kUpperBody))
-	{
-		return PlayerStateKind::kEquipGun;
-	}
+	//// 銃装備状態
+	//if (m_player.GetAnimator()->IsPlayEnd(Animator::BodyKind::kUpperBody))
+	//{
+	//	return PlayerStateKind::kEquipGun;
+	//}
 
 	return PlayerStateKind::kNone;
 }

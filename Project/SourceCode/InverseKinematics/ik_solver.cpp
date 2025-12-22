@@ -1,16 +1,11 @@
-﻿#include <DxLib.h>
-#include "../Calculation/math.hpp"
-#include "../Data/model_frame_angle_limit_data.hpp"
-#include "../Data/triangle_edge_data.hpp"
-#include "frame_info.hpp"
-#include "ik_solver.hpp"
+﻿#include "ik_solver.hpp"
 
-Axis ik_solver::ConvertMixamoAxisToAxis(const Axis& mixamo_axis)
+const Axis ik_solver::ConvertMixamoAxisToAxis(const Axis& mixamo_axis)
 {
 	return { -mixamo_axis.x_axis, mixamo_axis.z_axis, mixamo_axis.y_axis };
 }
 
-Axis ik_solver::GetForwardSyncedMixamoAxis(const Axis& origin_mixamo_axis, const VECTOR& forward, const std::optional<AxisData>& aid_axis)
+const Axis ik_solver::GetForwardSyncedMixamoAxis(const Axis& origin_mixamo_axis, const VECTOR& forward, const std::optional<AxisData>& aid_axis)
 {
 	const auto synced_axis = math::GetForwardSyncedAxis(ConvertMixamoAxisToAxis(origin_mixamo_axis), forward, aid_axis);
 	return ConvertMixamoAxisToAxis(synced_axis);

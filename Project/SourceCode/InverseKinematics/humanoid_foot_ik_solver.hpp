@@ -25,16 +25,16 @@ public:
 
 
 	#pragma region コライダー
-	void CreateLeftLegRay	(PhysicalObjBase* physical_obj);
-	void CreateRightLegRay	(PhysicalObjBase* physical_obj);
-	void CreateFootRay		(PhysicalObjBase* physical_obj);
-	void CreateFoeBaseRay	(PhysicalObjBase* physical_obj);
+	void CreateLeftLegRay	(PhysicalObjBase* physical_obj) const;
+	void CreateRightLegRay	(PhysicalObjBase* physical_obj) const;
+	void CreateFootRay		(PhysicalObjBase* physical_obj) const;
+	void CreateFoeBaseRay	(PhysicalObjBase* physical_obj) const;
 
-	void DeleteLeftLegRay	(PhysicalObjBase* physical_obj);
-	void DeleteRightLegRay	(PhysicalObjBase* physical_obj);
+	void DeleteLeftLegRay	(PhysicalObjBase* physical_obj) const;
+	void DeleteRightLegRay	(PhysicalObjBase* physical_obj) const;
 
-	void CalcLeftLegRayPos();
-	void CalcRightLegRayPos();
+	void CalcLeftLegRayPos() const;
+	void CalcRightLegRayPos() const;
 	#pragma endregion
 
 	/// @brief FootIKの処理を適用する

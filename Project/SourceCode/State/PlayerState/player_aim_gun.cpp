@@ -67,17 +67,11 @@ void player_state::AimGun::Update()
 
 void player_state::AimGun::LateUpdate()
 {
-	const auto gun =
-		std::static_pointer_cast<GunBase>(m_player.GetCurrentHeldWeapon());
+	const auto gun		= std::static_pointer_cast<GunBase>(m_player.GetCurrentHeldWeapon());
+	const auto camera	= ObjAccessor::GetInstance()->GetObj<ObjBase>(ObjName.MAIN_CAMERA);
+	const auto aim_dir	= camera->GetTransform()->GetForward(CoordinateKind::kWorld);
 
-	const auto camera =
-		ObjAccessor::GetInstance()->GetObj<ObjBase>(ObjName.MAIN_CAMERA);
-
-	const auto aim_dir =
-		camera->GetTransform()->GetForward(CoordinateKind::kWorld);
-
-	m_player.GetFramePosCorrector()->CorrectAimPoseFramePos(
-		m_player.GetModeler()->GetModelHandle(), aim_dir);
+	m_player.GetFramePosCorrector()->CorrectAimPoseFramePos(m_player.GetModeler()->GetModelHandle(), aim_dir);
 
 	if (m_state.GetPrevStateKind() == PlayerStateKind::kShot)
 	{
@@ -119,34 +113,34 @@ void player_state::AimGun::Exit()
 	m_player.AttachWeapon(m_player.GetCurrentEquipWeapon(WeaponSlotKind::kMain));
 }
 
-PlayerStateKind player_state::AimGun::GetNextStateKind()
+const PlayerStateKind player_state::AimGun::GetNextStateKind()
 {
-	if (m_player.GetDeltaTime() <= 0.0f)
-	{
-		return PlayerStateKind::kNone;
-	}
-	// エイム解除
-	else if (!m_state.IsAimGun())
-	{
-		return PlayerStateKind::kEquipGun;
-	}
-	// リロード
-	else if (m_state.TryReload())
-	{
-		return PlayerStateKind::kReload;
-	}
-	// ショット
-	else if (m_state.TryPullTrigger())
-	{
-		const auto gun =
-			std::static_pointer_cast<GunBase>(m_player.GetCurrentHeldWeapon());
+	//if (m_player.GetDeltaTime() <= 0.0f)
+	//{
+	//	return PlayerStateKind::kNone;
+	//}
+	//// エイム解除
+	//else if (!m_state.IsAimGun())
+	//{
+	//	return PlayerStateKind::kEquipGun;
+	//}
+	//// リロード
+	//else if (m_state.TryReload())
+	//{
+	//	return PlayerStateKind::kReload;
+	//}
+	//// ショット
+	//else if (m_state.TryPullTrigger())
+	//{
+	//	const auto gun =
+	//		std::static_pointer_cast<GunBase>(m_player.GetCurrentHeldWeapon());
 
-		if (gun->GetGunKind() == GunKind::kRocketLauncher)
-		{
-			return PlayerStateKind::kShotRocketLauncher;
-		}
-		return PlayerStateKind::kShot;
-	}
+	//	if (gun->GetGunKind() == GunKind::kRocketLauncher)
+	//	{
+	//		return PlayerStateKind::kShotRocketLauncher;
+	//	}
+	//	return PlayerStateKind::kShot;
+	//}
 
 	return PlayerStateKind::kNone;
 }
