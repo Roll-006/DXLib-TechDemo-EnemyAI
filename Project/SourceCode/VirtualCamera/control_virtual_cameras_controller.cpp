@@ -266,7 +266,6 @@ void ControlVirtualCamerasController::CalcOffsetFromRotCamera()
 		break;
 
 	case PlayerStateKind::kAimKnife:
-	case PlayerStateKind::kStabKnife:
   		body->SetFollowOffset    (kFollowOffsetForAimCameraKnife);
 		aim ->SetTrackedObjOffset(kTrackedObjOffsetForAimCameraKnife);
 		break;
@@ -441,6 +440,5 @@ bool ControlVirtualCamerasController::IsTrackCameraOriginFrame() const
 
 	return(state_kind == PlayerStateKind::kFirstSideSlashKnife
 		|| state_kind == PlayerStateKind::kSecondSideSlashKnife
-		|| state_kind == PlayerStateKind::kSpinningSlashKnife
-		|| state_kind == PlayerStateKind::kStabKnife);
+		|| state_kind == PlayerStateKind::kSpinningSlashKnife);
 }

@@ -4,15 +4,46 @@
 #include "../../Animator/animator.hpp"
 #include "../../Base/zombie_state_base.hpp"
 #include "../../Kind/zombie_state_kind.hpp"
+
 #include "zombie_idle.hpp"
+#include "zombie_dead.hpp"
+#include "zombie_patrol.hpp"
+#include "zombie_track.hpp"
+#include "zombie_search.hpp"
+#include "zombie_stand_up.hpp"
+#include "zombie_stand_stun.hpp"
+#include "zombie_crouch_left_stun.hpp"
+#include "zombie_crouch_right_stun.hpp"
+#include "zombie_stealth_killed.hpp"
+#include "zombie_detected.hpp"
+#include "zombie_grab.hpp"
+#include "zombie_grab_run.hpp"
+#include "zombie_knockback.hpp"
+#include "zombie_backward_knockback.hpp"
+
 #include "zombie_state.hpp"
 
 zombie_state::State::State(Zombie& zombie, const std::shared_ptr<Animator>& animator):
 	m_zombie			(zombie),
 	m_current_state		(nullptr),
-	m_prev_state_kind	(ZombieStateKind::kNone)
+	m_prev_state_kind	(ZombieStateKind::kIdle)
 {
-	m_states[ZombieStateKind::kIdle] = std::make_shared<zombie_state::Idle>(m_zombie, *this, animator);
+	m_states[ZombieStateKind::kIdle]				= std::make_shared<zombie_state::Idle>				(m_zombie, *this, animator);
+	m_states[ZombieStateKind::kDead]				= std::make_shared<zombie_state::Dead>				(m_zombie, *this, animator);
+	m_states[ZombieStateKind::kPatrol]				= std::make_shared<zombie_state::Patrol>			(m_zombie, *this, animator);
+	m_states[ZombieStateKind::kTrack]				= std::make_shared<zombie_state::Track>				(m_zombie, *this, animator);
+	m_states[ZombieStateKind::kSearch]				= std::make_shared<zombie_state::Search>			(m_zombie, *this, animator);
+	m_states[ZombieStateKind::kStandUp]				= std::make_shared<zombie_state::StandUp>			(m_zombie, *this, animator);
+	m_states[ZombieStateKind::kStandStun]			= std::make_shared<zombie_state::StandStun>			(m_zombie, *this, animator);
+	m_states[ZombieStateKind::kCrouchLeftStun]		= std::make_shared<zombie_state::CrouchLeftStun>	(m_zombie, *this, animator);
+	m_states[ZombieStateKind::kCrouchRightStun]		= std::make_shared<zombie_state::CrouchRightStun>	(m_zombie, *this, animator);
+	m_states[ZombieStateKind::kStealthKilled]		= std::make_shared<zombie_state::StealthKilled>		(m_zombie, *this, animator);
+	m_states[ZombieStateKind::kDetected]			= std::make_shared<zombie_state::Detected>			(m_zombie, *this, animator);
+	m_states[ZombieStateKind::kGrab]				= std::make_shared<zombie_state::Grab>				(m_zombie, *this, animator);
+	m_states[ZombieStateKind::kGrabRun]				= std::make_shared<zombie_state::GrabRun>			(m_zombie, *this, animator);
+	m_states[ZombieStateKind::kKnockback]			= std::make_shared<zombie_state::Knockback>			(m_zombie, *this, animator);
+	m_states[ZombieStateKind::kBackwardKnockback]	= std::make_shared<zombie_state::BackwardKnockback>	(m_zombie, *this, animator);
+
 	m_current_state = m_states.at(ZombieStateKind::kIdle);
 }
 

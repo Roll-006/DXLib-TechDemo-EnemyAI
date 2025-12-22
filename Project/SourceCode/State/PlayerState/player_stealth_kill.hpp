@@ -1,6 +1,7 @@
 ﻿#pragma once
 #include "../../Base/player_state_base.hpp"
 
+class StealthKillVirtualCameraController;
 class Animator;
 
 namespace player_state

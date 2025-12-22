@@ -26,9 +26,8 @@ void CrossHair::LateUpdate()
 	const auto is_aiming_gun		= state_kind == PlayerStateKind::kAimGun;
 	const auto is_aiming_knife		= state_kind == PlayerStateKind::kAimKnife;
 	const auto is_shot				= state_kind == PlayerStateKind::kShot;
-	const auto is_stab_knife		= state_kind == PlayerStateKind::kStabKnife;
 
-	m_is_aiming					= is_aiming_gun || is_aiming_knife || is_shot || is_stab_knife;
+	m_is_aiming					= is_aiming_gun || is_aiming_knife || is_shot;
 	m_current_hold_weapon_kind	= m_player->GetCurrentHeldWeaponKind();
 
 	switch (m_current_hold_weapon_kind)
