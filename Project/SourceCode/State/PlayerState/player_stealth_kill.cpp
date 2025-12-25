@@ -8,9 +8,9 @@
 #include "player_stealth_kill.hpp"
 
 player_state::StealthKill::StealthKill(Player& player, State& state, const std::shared_ptr<Animator>& animator) :
-    PlayerStateBase(player, state, animator, PlayerStateKind::kStealthKill),
-    m_is_stab(false),
-    m_is_draw(false),
+    PlayerStateBase                 (player, state, animator, PlayerStateKind::kStealthKill),
+    m_is_stab                       (false),
+    m_is_draw                       (false),
     m_stealth_kill_camera_controller(nullptr)
 {
 }

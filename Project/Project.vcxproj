@@ -145,7 +145,6 @@
     <ClCompile Include="SourceCode\AI\zombie_ai.cpp" />
     <ClCompile Include="SourceCode\Algorithm\algorithm.cpp" />
     <ClCompile Include="SourceCode\Animator\animator.cpp" />
-    <ClCompile Include="SourceCode\Animator\player_animator.cpp" />
     <ClCompile Include="SourceCode\Base\character_base.cpp" />
     <ClCompile Include="SourceCode\Base\enemy_base.cpp" />
     <ClCompile Include="SourceCode\Base\gun_base.cpp" />
@@ -266,7 +265,6 @@
     <ClCompile Include="SourceCode\Sound\sound_player.cpp" />
     <ClCompile Include="SourceCode\Sound\sound_pool.cpp" />
     <ClCompile Include="SourceCode\State\PlayerState\player_aim_gun.cpp" />
-    <ClCompile Include="SourceCode\State\PlayerState\player_aim_knife.cpp" />
     <ClCompile Include="SourceCode\State\PlayerState\player_dead.cpp" />
     <ClCompile Include="SourceCode\State\PlayerState\player_grabbed.cpp" />
     <ClCompile Include="SourceCode\State\PlayerState\player_shot_rocket_launcher.cpp" />
@@ -349,7 +347,6 @@
     <ClInclude Include="SourceCode\AI\zombie_ai.hpp" />
     <ClInclude Include="SourceCode\Algorithm\algorithm.hpp" />
     <ClInclude Include="SourceCode\Animator\animator.hpp" />
-    <ClInclude Include="SourceCode\Animator\player_animator.hpp" />
     <ClInclude Include="SourceCode\Base\enemy_base.hpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
@@ -530,8 +527,6 @@
     <ClInclude Include="SourceCode\Interface\i_poolable.hpp" />
     <ClInclude Include="SourceCode\Interface\i_fireable.hpp" />
     <ClInclude Include="SourceCode\Interface\i_scene.hpp" />
-    <ClInclude Include="SourceCode\Interface\i_state.hpp" />
-    <ClInclude Include="SourceCode\Interface\i_state_controller.hpp" />
     <ClInclude Include="SourceCode\Interface\i_virtual_camera_controller.hpp" />
     <ClInclude Include="SourceCode\Interface\i_ui_creator.hpp" />
     <ClInclude Include="SourceCode\InverseKinematics\frame_info.hpp" />
@@ -682,7 +677,6 @@
     <ClInclude Include="SourceCode\Sound\sound_player.hpp" />
     <ClInclude Include="SourceCode\Sound\sound_pool.hpp" />
     <ClInclude Include="SourceCode\State\PlayerState\player_aim_gun.hpp" />
-    <ClInclude Include="SourceCode\State\PlayerState\player_aim_knife.hpp" />
     <ClInclude Include="SourceCode\State\PlayerState\player_dead.hpp" />
     <ClInclude Include="SourceCode\State\PlayerState\player_grabbed.hpp" />
     <ClInclude Include="SourceCode\State\PlayerState\player_shot_rocket_launcher.hpp" />

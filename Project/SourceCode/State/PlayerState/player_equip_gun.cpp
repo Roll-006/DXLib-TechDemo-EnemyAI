@@ -11,6 +11,11 @@ player_state::EquipGun::EquipGun(Player& player, player_state::State& state, con
 	PlayerStateBase(player, state, animator, PlayerStateKind::kEquipGun),
 	m_possible_aim_timer(0.0f)
 {
+	m_basic_anim_kind				.at(Animator::BodyKind::kUpperBody) = PlayerAnimKind::kEquipGun;
+	m_walk_forward_anim_kind		.at(Animator::BodyKind::kUpperBody) = PlayerAnimKind::kEquipGun;
+	m_run_forward_anim_kind			.at(Animator::BodyKind::kUpperBody) = PlayerAnimKind::kEquipGun;
+	m_crouch_walk_forward_anim_kind	.at(Animator::BodyKind::kUpperBody) = PlayerAnimKind::kEquipGun;
+	m_crouch_anim_kind				.at(Animator::BodyKind::kUpperBody) = PlayerAnimKind::kEquipGun;
 }
 
 player_state::EquipGun::~EquipGun()
@@ -19,6 +24,8 @@ player_state::EquipGun::~EquipGun()
 
 void player_state::EquipGun::Update()
 {
+	BasicMove();
+
 	if (CommandHandler::GetInstance()->IsExecute(CommandKind::kAimGun, TimeKind::kCurrent))
 	{
 		m_possible_aim_timer += GameTimeManager::GetInstance()->GetDeltaTime(TimeScaleLayerKind::kPlayer);
@@ -61,37 +68,37 @@ void player_state::EquipGun::Exit()
 
 const PlayerStateKind player_state::EquipGun::GetNextStateKind()
 {
-	//if (m_player.GetDeltaTime() <= 0.0f)
-	//{
-	//	return PlayerStateKind::kNone;
-	//}
+	if (m_player.GetDeltaTime() <= 0.0f)
+	{
+		return PlayerStateKind::kNone;
+	}
 	//// 強制 NULL
 	//else if (m_state.TryActionNullForcibly())
 	//{
 	//	return PlayerStateKind::kActionNull;
 	//}
-	//// 銃エイム
-	//else if (m_player.CanControl()
-	//	&& CommandHandler::GetInstance()->IsExecute(CommandKind::kAimGun, TimeKind::kCurrent)
-	//	&& m_possible_aim_timer >= kPossibleAimTime)
-	//{
-	//	return PlayerStateKind::kAimGun;
-	//}
-	//// リロード
-	//else if (m_state.TryReload())
-	//{
-	//	return PlayerStateKind::kReload;
-	//}
-	//// 回転斬り
-	//else if (m_state.TrySpinningSlash())
-	//{
-	//	return PlayerStateKind::kSpinningSlashKnife;
-	//}
-	//// 横斬り（第一段階）
-	//else if (m_state.TryFirstSideSlashKnife())
-	//{
-	//	return PlayerStateKind::kFirstSideSlashKnife;
-	//}
+	// 銃エイム
+	else if (m_player.CanControl()
+		&& CommandHandler::GetInstance()->IsExecute(CommandKind::kAimGun, TimeKind::kCurrent)
+		&& m_possible_aim_timer >= kPossibleAimTime)
+	{
+		return PlayerStateKind::kAimGun;
+	}
+	// リロード
+	else if (m_state.TryReload())
+	{
+		return PlayerStateKind::kReload;
+	}
+	// 回転斬り
+	else if (m_state.TrySpinningSlash())
+	{
+		return PlayerStateKind::kSpinningSlashKnife;
+	}
+	// 横斬り（第一段階）
+	else if (m_state.TryFirstSideSlashKnife())
+	{
+		return PlayerStateKind::kFirstSideSlashKnife;
+	}
 
 	return PlayerStateKind::kNone;
 }

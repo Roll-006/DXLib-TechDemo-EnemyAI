@@ -4,6 +4,7 @@
 #include "../../Event/event_system.hpp"
 #include "../../Kind/player_state_kind.hpp"
 #include "../../Kind/player_anim_kind.hpp"
+#include "../../Command/command_handler.hpp"
 #include "player_state.hpp"
 #include "player_second_side_slash_knife.hpp"
 
@@ -13,20 +14,27 @@ player_state::SecondSideSlashKnife::SecondSideSlashKnife(Player& player, State& 
     m_has_trigger_created(false),
     m_has_trigger_deleted(false)
 {
+
 }
 
 player_state::SecondSideSlashKnife::~SecondSideSlashKnife()
 {
+
 }
 
 void player_state::SecondSideSlashKnife::Update()
 {
+    const auto command = CommandHandler::GetInstance();
+    command->InitCurrentTriggerInputCount(CommandKind::kCrouch);
+    command->InitCurrentTriggerInputCount(CommandKind::kRun);
+
+    m_animator->AttachResultAnim(static_cast<int>(PlayerAnimKind::kSecondSideSlashKnife));
+
     const auto time_manager = GameTimeManager::GetInstance();
     m_combo_timer += time_manager->GetDeltaTime(TimeScaleLayerKind::kWorld);
 
-    const auto animator = m_player.GetAnimator();
-    const auto anim_kind = static_cast<PlayerAnimKind>(animator->GetAnimKind(Animator::BodyKind::kUpperBody, TimeKind::kCurrent));
-    const auto play_rate = animator->GetPlayRate(Animator::BodyKind::kUpperBody);
+    const auto anim_kind = static_cast<PlayerAnimKind>(m_animator->GetAnimKind(Animator::BodyKind::kUpperBody, TimeKind::kCurrent));
+    const auto play_rate = m_animator->GetPlayRate(Animator::BodyKind::kUpperBody);
 
     m_player.AllowCalcLookDir();
     m_player.GetCurrentHeldWeapon()->Update();
@@ -79,21 +87,20 @@ void player_state::SecondSideSlashKnife::Exit()
 
 const PlayerStateKind player_state::SecondSideSlashKnife::GetNextStateKind()
 {
-    //if (m_player.GetDeltaTime() <= 0.0f) return PlayerStateKind::kNone;
-
-    //const auto state_controller = m_player.GetStateController();
-
-    //// 切り裂く(第一段階)
-    //if (m_combo_timer > kComboValidTime && state_controller->TryFirstSideSlashKnife(m_player))
-    //{
-    //    return PlayerStateKind::kFirstSideSlashKnife;
-    //}
-
-    //// ナイフ装備状態
-    //if (m_player.GetAnimator()->IsPlayEnd(Animator::BodyKind::kUpperBody))
-    //{
-    //    return PlayerStateKind::kEquipKnife;
-    //}
+    if (m_player.GetDeltaTime() <= 0.0f)
+    {
+        return PlayerStateKind::kNone;
+    }
+    // 切り裂く(第一段階)
+    if (m_combo_timer > kComboValidTime && m_state.TryFirstSideSlashKnife())
+    {
+        return PlayerStateKind::kFirstSideSlashKnife;
+    }
+    // ナイフ装備状態
+    if (m_animator->IsPlayEnd(Animator::BodyKind::kUpperBody))
+    {
+        return PlayerStateKind::kEquipKnife;
+    }
 
     return PlayerStateKind::kNone;
 }

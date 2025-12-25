@@ -2,7 +2,7 @@
 #include <nlohmann/json.hpp>
 #include <DxLib.h>
 
-inline MATRIX operator+ (const MATRIX& mat1, const MATRIX& mat2) { return MAdd(mat1, mat2); }
+inline MATRIX operator+ (const MATRIX& mat1, const MATRIX& mat2) { return MAdd (mat1, mat2); }
 inline MATRIX operator* (const MATRIX& mat1, const MATRIX& mat2) { return MMult(mat1, mat2); }
 
 inline MATRIX operator* (const MATRIX& mat, const float scale) { return MScale(mat, scale); }

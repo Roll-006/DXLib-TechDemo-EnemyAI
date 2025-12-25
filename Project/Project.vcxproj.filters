@@ -208,9 +208,6 @@
     <ClCompile Include="SourceCode\Part\player_state_controller.cpp">
       <Filter>SourceCode\Part</Filter>
     </ClCompile>
-    <ClCompile Include="SourceCode\State\PlayerState\player_aim_knife.cpp">
-      <Filter>SourceCode\State\PlayerState</Filter>
-    </ClCompile>
     <ClCompile Include="SourceCode\ObjectPool\object_pool_holder.cpp">
       <Filter>SourceCode\ObjectPool</Filter>
     </ClCompile>
@@ -501,9 +498,6 @@
     </ClCompile>
     <ClCompile Include="SourceCode\Part\patrol_route_giver.cpp">
       <Filter>SourceCode\Part</Filter>
-    </ClCompile>
-    <ClCompile Include="SourceCode\Animator\player_animator.cpp">
-      <Filter>SourceCode\Animator</Filter>
     </ClCompile>
     <ClCompile Include="SourceCode\State\ZombieState\zombie_detected.cpp">
       <Filter>SourceCode\State\ZombieState</Filter>
@@ -828,9 +822,6 @@
     <ClInclude Include="SourceCode\Part\graphicer.hpp">
       <Filter>SourceCode\Part</Filter>
     </ClInclude>
-    <ClInclude Include="SourceCode\Interface\i_state.hpp">
-      <Filter>SourceCode\Interface</Filter>
-    </ClInclude>
     <ClInclude Include="SourceCode\Input\input_checker.hpp">
       <Filter>SourceCode\Input</Filter>
     </ClInclude>
@@ -872,9 +863,6 @@
     </ClInclude>
     <ClInclude Include="SourceCode\Part\player_state_controller.hpp">
       <Filter>SourceCode\Part</Filter>
-    </ClInclude>
-    <ClInclude Include="SourceCode\State\PlayerState\player_aim_knife.hpp">
-      <Filter>SourceCode\State\PlayerState</Filter>
     </ClInclude>
     <ClInclude Include="SourceCode\ObjectPool\object_pool_holder.hpp">
       <Filter>SourceCode\ObjectPool</Filter>
@@ -1016,9 +1004,6 @@
     </ClInclude>
     <ClInclude Include="SourceCode\State\ZombieState\zombie_crouch_left_stun.hpp">
       <Filter>SourceCode\State\ZombieState</Filter>
-    </ClInclude>
-    <ClInclude Include="SourceCode\Interface\i_state_controller.hpp">
-      <Filter>SourceCode\Interface</Filter>
     </ClInclude>
     <ClInclude Include="SourceCode\Interface\i_enemy_ai_state.hpp">
       <Filter>SourceCode\Interface</Filter>
@@ -1505,9 +1490,6 @@
     </ClInclude>
     <ClInclude Include="SourceCode\Part\patrol_route_giver.hpp">
       <Filter>SourceCode\Part</Filter>
-    </ClInclude>
-    <ClInclude Include="SourceCode\Animator\player_animator.hpp">
-      <Filter>SourceCode\Animator</Filter>
     </ClInclude>
     <ClInclude Include="SourceCode\Data\material_data.hpp">
       <Filter>SourceCode\Data</Filter>

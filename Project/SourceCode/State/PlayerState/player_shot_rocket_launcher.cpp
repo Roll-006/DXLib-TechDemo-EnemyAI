@@ -7,26 +7,35 @@
 #include "player_shot_rocket_launcher.hpp"
 
 player_state::ShotRocketLauncher::ShotRocketLauncher(Player& player, State& state, const std::shared_ptr<Animator>& animator) :
-    PlayerStateBase(player, state, animator, PlayerStateKind::kShotRocketLauncher),
-    m_rocket_launcher_camera_controller(nullptr),
-    m_wait_timer(0.0f),
-    m_was_shot(false)
+    PlayerStateBase                     (player, state, animator, PlayerStateKind::kShotRocketLauncher),
+    m_rocket_launcher_camera_controller (nullptr),
+    m_wait_timer                        (0.0f),
+    m_was_shot                          (false)
 {
+    m_basic_anim_kind               .at(Animator::BodyKind::kUpperBody) = PlayerAnimKind::kAimGun;
+    m_walk_forward_anim_kind        .at(Animator::BodyKind::kUpperBody) = PlayerAnimKind::kAimGun;
+    m_run_forward_anim_kind         .at(Animator::BodyKind::kUpperBody) = PlayerAnimKind::kAimGun;
+    m_crouch_walk_forward_anim_kind .at(Animator::BodyKind::kUpperBody) = PlayerAnimKind::kAimGun;
+    m_crouch_anim_kind              .at(Animator::BodyKind::kUpperBody) = PlayerAnimKind::kAimGun;
 }
 
 player_state::ShotRocketLauncher::~ShotRocketLauncher()
 {
+
 }
 
 void player_state::ShotRocketLauncher::Update()
 {
+    m_animator->DivideFrame(FramePath.HIPS);
+    BasicMove();
+
     m_wait_timer += GameTimeManager::GetInstance()->GetDeltaTime(TimeScaleLayerKind::kCamera);
 
     m_player.StopSearchStealthKillTarget();
     m_player.StopSearchMeleeTarget();
     m_player.SetLookDirOffsetValueForAim();
 
-    if (auto gun = std::dynamic_pointer_cast<RocketLauncher>(m_player.GetCurrentHeldWeapon()))
+    if (const auto& gun = std::dynamic_pointer_cast<RocketLauncher>(m_player.GetCurrentHeldWeapon()))
     {
         gun->CalcShotTimer();
     }
@@ -34,7 +43,7 @@ void player_state::ShotRocketLauncher::Update()
 
 void player_state::ShotRocketLauncher::LateUpdate()
 {
-    if (auto rocket_launcher = std::dynamic_pointer_cast<RocketLauncher>(m_player.GetCurrentHeldWeapon()))
+    if (const auto& rocket_launcher = std::dynamic_pointer_cast<RocketLauncher>(m_player.GetCurrentHeldWeapon()))
     {
         const auto camera = ObjAccessor::GetInstance()->GetObj<ObjBase>(ObjName.MAIN_CAMERA);
 
@@ -86,12 +95,14 @@ void player_state::ShotRocketLauncher::Exit()
 
 const PlayerStateKind player_state::ShotRocketLauncher::GetNextStateKind()
 {
-    //if (m_player.GetDeltaTime() <= 0.0f) return PlayerStateKind::kNone;
-
-    //if (m_rocket_launcher_camera_controller && m_rocket_launcher_camera_controller->IsEndExitRot())
-    //{
-    //    return PlayerStateKind::kAimGun;
-    //}
+    if (m_player.GetDeltaTime() <= 0.0f)
+    {
+        return PlayerStateKind::kNone;
+    }
+    else if (m_rocket_launcher_camera_controller->IsEndExitRot())
+    {
+        return PlayerStateKind::kAimGun;
+    }
 
     return PlayerStateKind::kNone;
 }

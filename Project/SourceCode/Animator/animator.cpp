@@ -2,9 +2,10 @@
 #include "animator.hpp"
 
 Animator::Animator(const std::shared_ptr<Modeler>& modeler, const std::string& json_name) :
-	m_result_modeler(modeler),
-	m_is_on_ground	(false),
-	m_prev_on_ground(false)
+	m_result_modeler		(modeler),
+	m_is_on_ground			(false),
+	m_prev_left_on_ground	(false),
+	m_prev_right_on_ground	(false)
 {
 	nlohmann::json j_data;
 	if (json_loader::Load("Data/JSON/animator.json", j_data))
@@ -20,6 +21,7 @@ Animator::Animator(const std::shared_ptr<Modeler>& modeler, const std::string& j
 		}
 
 		blend_speed				= anim.at("blend_speed");
+		notify_ground_range		= anim.at("notify_ground_range");
 		time_scale_layer_kind	= anim.at("time_scale_layer_kind").get<TimeScaleLayerKind>();
 	}
 
@@ -57,6 +59,7 @@ void Animator::Update()
 {
 	BlendAnim();
 	PlayAnim();
+	DivideFrame();
 }
 
 void Animator::AddAnimHandle(const int kind, const std::string& file_path, const int index, const std::string& tag, const float play_speed, const bool is_loop, const bool is_self_blend, const float landing_paly_rate)
@@ -71,17 +74,81 @@ void Animator::AddAnimHandle(const int kind, const std::string& file_path, const
 	}
 }
 
+void Animator::AttachAnimEightDir(
+	const int  forward_anim_kind,
+	const bool is_move_forward,
+	const bool is_move_backward,
+	const bool is_move_left,
+	const bool is_move_right,
+	const bool is_result_attach)
+{
+	auto offset = 0;
+
+	// forwardのアニメーションを基準とし、enum classの値をずらしてアタッチ
+	// WARNING : enum依存なため順番の入れ替えには注意
+
+	// 左前方
+	if (is_move_forward && is_move_left)
+	{
+		offset = 4;
+	}
+	// 右前方
+	else if (is_move_forward && is_move_right)
+	{
+		offset = 5;
+	}
+	// 左後方
+	else if (is_move_backward && is_move_left)
+	{
+		offset = 6;
+	}
+	// 右後方
+	else if (is_move_backward && is_move_right)
+	{
+		offset = 7;
+	}
+	// 前方
+	else if (is_move_forward)
+	{
+		offset = 0;
+	}
+	// 後方
+	else if (is_move_backward)
+	{
+		offset = 1;
+	}
+	// 左
+	else if (is_move_left)
+	{
+		offset = 2;
+	}
+	// 右
+	else if (is_move_right)
+	{
+		offset = 3;
+	}
+
+	if (is_result_attach)
+	{
+		AttachResultAnim(forward_anim_kind + offset);
+	}
+	else
+	{
+		AttachAnim(forward_anim_kind + offset, BodyKind::kLowerBody);
+	}
+}
+
 void Animator::AttachAnim(const int next_kind, const BodyKind body_kind)
 {
 	if (!CanAttachAnim(next_kind, body_kind)) { return; }
 
 	auto& body_map = m_time_kind_data.at(body_kind);
 
-	const auto	prev_time_data		= body_map.at(TimeKind::kPrev);
-	auto&		current_time_data	= body_map.at(TimeKind::kCurrent);
+	auto& prev_time_data	= body_map.at(TimeKind::kPrev);
+	auto& current_time_data	= body_map.at(TimeKind::kCurrent);
 
 	// Current ➡ Prev
-	body_map[TimeKind::kPrev] = current_time_data;
+	prev_time_data = current_time_data;
 
 	// Next ➡ Current
 	current_time_data.kind = next_kind;
@@ -90,9 +157,7 @@ void Animator::AttachAnim(const int next_kind, const BodyKind body_kind)
 			anim_data.at(next_kind).index,
 			anim_data.at(next_kind).anim_handle,
 			TRUE);
-
 	current_time_data.total_time = MV1GetAttachAnimTotalTime(m_resource_modeler.at(body_kind)->GetModelHandle(),current_time_data.attach_index);
-
 	SetPlayStartTime(&current_time_data, prev_time_data, body_kind);
 
 	// 前回のアニメーションが存在しない場合は、ブレンド済み(ブレンド率100%)とする
@@ -126,6 +191,9 @@ void Animator::DetachAnim(const TimeKind time_kind, const BodyKind body_kind)
 #pragma region Getter
 int Animator::GetAnimKind(const BodyKind body_kind, const TimeKind time_kind) const
 {
+	if (!m_time_kind_data.contains(body_kind))					{ return -1; }
+	if (!m_time_kind_data.at(body_kind).contains(time_kind))	{ return -1; }
+	
 	return m_time_kind_data.at(body_kind).at(time_kind).kind;
 }
 
@@ -172,8 +240,7 @@ void Animator::PlayAnim()
 		{
 			if (j_data.attach_index < 0) continue;
 
-			const auto blend_rate = time_kind == TimeKind::kCurrent ? m_blend_rate.at(body_kind) : 1.0f - m_blend_rate.at(body_kind);
-
+			const auto  blend_rate	= time_kind == TimeKind::kCurrent ? m_blend_rate.at(body_kind) : 1.0f - m_blend_rate.at(body_kind);
 			const auto& anim		= anim_data.at(j_data.kind);
 			const auto  is_loop		= anim.is_loop && !anim.is_self_blend;
 			const auto  play_speed	= anim.play_speed * delta_time;
@@ -298,33 +365,29 @@ void Animator::CombineAnim()
 void Animator::NotifyOnGround()
 {
 	const auto tag = GetAnimTag(BodyKind::kLowerBody, TimeKind::kCurrent);
-
-	// 対象外アニメーションは処理しない
 	if (tag != AnimTag.WALK && tag != AnimTag.RUN) { return; }
 
-	// 地面にどちらかの足が設置しているか
-	const auto play_rate		= GetPlayRate(BodyKind::kLowerBody);
-	const auto is_left_foot		= play_rate >= 0.5f - notify_ground_range * 0.5f && play_rate < 0.5f + notify_ground_range * 0.5f;
-	const auto is_right_foot	= play_rate <= notify_ground_range * 0.5f		 || play_rate > 1.0f - notify_ground_range * 0.5f;
-	const auto is_on_ground		= is_left_foot || is_right_foot;
+	const auto play_rate	= GetPlayRate(BodyKind::kLowerBody);
+	const auto is_left		= play_rate >= 0.5f - notify_ground_range * 0.5f && play_rate < 0.5f + notify_ground_range * 0.5f;
+	const auto is_right		= play_rate <= notify_ground_range * 0.5f		 || play_rate > 1.0f - notify_ground_range * 0.5f;
 
-	m_is_on_ground = is_on_ground;
+	printfDx("%d : %d\n", is_left, is_right);
 
-	// 接地状態に変化がなければ何もしない
-	if (!is_on_ground || m_prev_on_ground)
-	{
-		m_prev_on_ground = m_is_on_ground;
-		return;
-	}
+	if (is_left  && !m_prev_left_on_ground)	 { NotifyFoot(true,  tag); }
+	if (is_right && !m_prev_right_on_ground) { NotifyFoot(false, tag); }
 
-	const auto is_run		= (tag == AnimTag.RUN);
+	m_prev_left_on_ground	= is_left;
+	m_prev_right_on_ground	= is_right;
+}
+
+void Animator::NotifyFoot(bool is_left, const std::string& tag)
+{
+	const auto is_run		= tag == AnimTag.RUN;
 	const auto model_handle = m_result_modeler->GetModelHandle();
-	const auto foot_frame	= is_left_foot ? FramePath.LEFT_FOOT : FramePath.RIGHT_FOOT;
-	const auto foot_matrix	= MV1GetFrameLocalWorldMatrix(model_handle, MV1SearchFrame(model_handle, foot_frame));
+	const auto frame		= is_left ? FramePath.LEFT_FOOT : FramePath.RIGHT_FOOT;
+	const auto mat			= MV1GetFrameLocalWorldMatrix(model_handle, MV1SearchFrame(model_handle, frame));
 
-	EventSystem::GetInstance()->Publish(OnGroundFootEvent(is_run, is_left_foot, matrix::GetPos(foot_matrix), time_scale_layer_kind));
-
-	m_prev_on_ground = m_is_on_ground;
+	EventSystem::GetInstance()->Publish(OnGroundFootEvent(is_run, is_left, matrix::GetPos(mat), time_scale_layer_kind));
 }
 
 bool Animator::CanResultAttachAnim()

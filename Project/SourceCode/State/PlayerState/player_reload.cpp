@@ -8,11 +8,16 @@
 #include "player_reload.hpp"
 
 player_state::Reload::Reload(Player& player, player_state::State& state, const std::shared_ptr<Animator>& animator) :
-	PlayerStateBase(player, state, animator, PlayerStateKind::kReload),
-	m_is_release_ammo_box(false),
-	m_is_set_ammo_box(false),
-	m_is_cocking(false)
+	PlayerStateBase			(player, state, animator, PlayerStateKind::kReload),
+	m_is_release_ammo_box	(false),
+	m_is_set_ammo_box		(false),
+	m_is_cocking			(false)
 {
+	m_basic_anim_kind				.at(Animator::BodyKind::kUpperBody) = PlayerAnimKind::kReload;
+	m_walk_forward_anim_kind		.at(Animator::BodyKind::kUpperBody) = PlayerAnimKind::kReload;
+	m_run_forward_anim_kind			.at(Animator::BodyKind::kUpperBody) = PlayerAnimKind::kReload;
+	m_crouch_walk_forward_anim_kind	.at(Animator::BodyKind::kUpperBody) = PlayerAnimKind::kReload;
+	m_crouch_anim_kind				.at(Animator::BodyKind::kUpperBody) = PlayerAnimKind::kReload;
 }
 
 player_state::Reload::~Reload()
@@ -21,9 +26,10 @@ player_state::Reload::~Reload()
 
 void player_state::Reload::Update()
 {
-	const auto gun = std::static_pointer_cast<GunBase>(m_player.GetCurrentHeldWeapon());
-	const auto animator = m_player.GetAnimator();
-	const auto play_rate = animator->GetPlayRate(Animator::BodyKind::kUpperBody);
+	BasicMove();
+
+	const auto gun			= std::static_pointer_cast<GunBase>(m_player.GetCurrentHeldWeapon());
+	const auto play_rate	= m_animator->GetPlayRate(Animator::BodyKind::kUpperBody);
 	const auto event_system = EventSystem::GetInstance();
 
 	m_player.GetCurrentHeldWeapon()->Update();
@@ -55,6 +61,7 @@ void player_state::Reload::Update()
 
 void player_state::Reload::LateUpdate()
 {
+
 }
 
 void player_state::Reload::Enter()
@@ -78,24 +85,22 @@ void player_state::Reload::Exit()
 
 const PlayerStateKind player_state::Reload::GetNextStateKind()
 {
-	//if (m_player.GetDeltaTime() <= 0.0f) { return PlayerStateKind::kNone; }
+	const auto command = CommandHandler::GetInstance();
 
-	//const auto state_controller = m_player.GetStateController();
-	//const auto command = CommandHandler::GetInstance();
-
-	//// 銃エイミング状態
-	//if (m_player.CanControl()
-	//	&& m_player.GetAnimator()->IsPlayEnd(Animator::BodyKind::kUpperBody)
-	//	&& command->IsExecute(CommandKind::kAimGun, TimeKind::kCurrent))
-	//{
-	//	return PlayerStateKind::kAimGun;
-	//}
-
-	//// 銃装備状態
-	//if (m_player.GetAnimator()->IsPlayEnd(Animator::BodyKind::kUpperBody))
-	//{
-	//	return PlayerStateKind::kEquipGun;
-	//}
+	if (m_player.GetDeltaTime() <= 0.0f)
+	{
+		return PlayerStateKind::kNone;
+	}
+	// 銃エイミング状態
+	else if (m_player.CanControl() && m_animator->IsPlayEnd(Animator::BodyKind::kUpperBody) && command->IsExecute(CommandKind::kAimGun, TimeKind::kCurrent))
+	{
+		return PlayerStateKind::kAimGun;
+	}
+	// 銃装備状態
+	else if (m_animator->IsPlayEnd(Animator::BodyKind::kUpperBody))
+	{
+		return PlayerStateKind::kEquipGun;
+	}
 
 	return PlayerStateKind::kNone;
 }

@@ -1,7 +1,6 @@
 ﻿#pragma once
 #include "physical_obj_base.hpp"
 
-#include "../Interface/i_state_controller.hpp"
 #include "../Part/character_collider_creator.hpp"
 #include "../Part/gauge.hpp"
 #include "../Part/modeler.hpp"
@@ -33,12 +32,12 @@ public:
 	[[nodiscard]] const bool								IsInvincible()		const				{ return m_is_invincible; }
 	[[nodiscard]] const bool								IsAlive()			const				{ return m_health.at(HealthPartKind::kMain)->IsAlive(); }
 	[[nodiscard]] const bool								IsGoUpHill(const Triangle& hit_triangle) const;
-	[[nodiscard]] const std::shared_ptr<Modeler>&			GetModeler()		const				{ return m_modeler; }
-	[[nodiscard]] const std::shared_ptr<const Animator>&	GetAnimator()		const				{ return m_animator; }
-	[[nodiscard]] const VECTOR&								GetCurrentMoveDir()	const				{ return m_move_dir.at(TimeKind::kCurrent); }
-	[[nodiscard]] const VECTOR&								GetCurrentLookDir()	const				{ return m_look_dir.at(TimeKind::kCurrent); }
-	[[nodiscard]] const VECTOR&								GetNextLookDir()	const				{ return m_look_dir.at(TimeKind::kNext); }
-	[[nodiscard]] const std::shared_ptr<Gauge>&				GetHealth(const HealthPartKind kind)	{ return m_health.at(kind); }
+	[[nodiscard]] const std::shared_ptr<Modeler>			GetModeler()		const				{ return m_modeler; }
+	[[nodiscard]] const std::shared_ptr<const Animator>		GetAnimator()		const				{ return m_animator; }
+	[[nodiscard]] const VECTOR								GetCurrentMoveDir()	const				{ return m_move_dir.at(TimeKind::kCurrent); }
+	[[nodiscard]] const VECTOR								GetCurrentLookDir()	const				{ return m_look_dir.at(TimeKind::kCurrent); }
+	[[nodiscard]] const VECTOR								GetNextLookDir()	const				{ return m_look_dir.at(TimeKind::kNext); }
+	[[nodiscard]] const std::shared_ptr<Gauge>				GetHealth(const HealthPartKind kind)	{ return m_health.at(kind); }
 	#pragma endregion
 
 protected:

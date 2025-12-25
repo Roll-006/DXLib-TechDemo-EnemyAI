@@ -28,7 +28,7 @@ void zombie_state::Idle::LateUpdate()
 
 void zombie_state::Idle::Enter()
 {
-
+	m_animator->AttachResultAnim(static_cast<int>(ZombieAnimKind::kIdle));
 }
 
 void zombie_state::Idle::Exit()

@@ -45,6 +45,7 @@ zombie_state::State::State(Zombie& zombie, const std::shared_ptr<Animator>& anim
 	m_states[ZombieStateKind::kBackwardKnockback]	= std::make_shared<zombie_state::BackwardKnockback>	(m_zombie, *this, animator);
 
 	m_current_state = m_states.at(ZombieStateKind::kIdle);
+	m_current_state->Enter();
 }
 
 zombie_state::State::~State()

@@ -22,11 +22,16 @@ player_state::FirstSideSlashKnife::~FirstSideSlashKnife()
 
 void player_state::FirstSideSlashKnife::Update()
 {
+	const auto command = CommandHandler::GetInstance();
+	command->InitCurrentTriggerInputCount(CommandKind::kCrouch);
+	command->InitCurrentTriggerInputCount(CommandKind::kRun);
+
+	m_animator->AttachResultAnim(static_cast<int>(PlayerAnimKind::kFirstSideSlashKnife));
+
 	const auto time_manager = GameTimeManager::GetInstance();
 	m_combo_timer += time_manager->GetDeltaTime(TimeScaleLayerKind::kWorld);
 
-	const auto anim_kind = static_cast<PlayerAnimKind>(
-		m_animator->GetAnimKind(Animator::BodyKind::kUpperBody, TimeKind::kCurrent));
+	const auto anim_kind = static_cast<PlayerAnimKind>(m_animator->GetAnimKind(Animator::BodyKind::kUpperBody, TimeKind::kCurrent));
 	const auto play_rate = m_animator->GetPlayRate(Animator::BodyKind::kUpperBody);
 
 	m_player.AllowCalcLookDir();
@@ -81,24 +86,20 @@ void player_state::FirstSideSlashKnife::Exit()
 
 const PlayerStateKind player_state::FirstSideSlashKnife::GetNextStateKind()
 {
-	//if (m_player.GetDeltaTime() <= 0.0f)
-	//{
-	//	return PlayerStateKind::kNone;
-	//}
-
-	//// 二段目コンボ
-	//if (m_player.CanControl()
-	//	&& m_combo_timer > kComboValidTime
-	//	&& CommandHandler::GetInstance()->IsExecute(CommandKind::kAttack, TimeKind::kCurrent))
-	//{
-	//	return PlayerStateKind::kSecondSideSlashKnife;
-	//}
-
-	//// アニメーション終了 → ナイフ装備状態
-	//if (m_animator->IsPlayEnd(Animator::BodyKind::kUpperBody))
-	//{
-	//	return PlayerStateKind::kEquipKnife;
-	//}
+	if (m_player.GetDeltaTime() <= 0.0f)
+	{
+		return PlayerStateKind::kNone;
+	}
+	// 切り裂く(第二段階)
+	else if (m_player.CanControl() && m_combo_timer > kComboValidTime && CommandHandler::GetInstance()->IsExecute(CommandKind::kAttack, TimeKind::kCurrent))
+	{
+		return PlayerStateKind::kSecondSideSlashKnife;
+	}
+	// ナイフ装備状態
+	else if (m_animator->IsPlayEnd(Animator::BodyKind::kUpperBody))
+	{
+		return PlayerStateKind::kEquipKnife;
+	}
 
 	return PlayerStateKind::kNone;
 }

@@ -23,6 +23,7 @@ Player::Player() :
 	m_ammo_holder					(std::make_shared<AmmoHolder>()),
 	m_weapon_shortcut_selecter		(std::make_shared<WeaponShortcutSelecter>()),
 	m_pickupable_item				(nullptr),
+	m_pick_up_candidate_items		({}),
 	m_melee_target					(nullptr),
 	m_top_priority_downed_chara		(nullptr),
 	m_stealth_kill_target			(nullptr),
@@ -748,7 +749,6 @@ void Player::Move()
 	CalcInputSlopeFromPad();
 	CalcInputSlopeFromCommand();
 
-	CalcMoveSpeed();
 	AllowCalcLookDir();
 }
 
@@ -824,8 +824,6 @@ void Player::CalcMoveSpeedStop()
 
 void Player::CalcMoveSpeedRun()
 {
-	if (m_state->GetCurrentStateKind() == PlayerStateKind::kIdle) { return; }
-
 	// 遅い状態からダッシュ状態に移行した場合、急速に加速させる
 	if (m_move_speed < kWalkSpeed) { m_move_speed = kWalkSpeed; }
 

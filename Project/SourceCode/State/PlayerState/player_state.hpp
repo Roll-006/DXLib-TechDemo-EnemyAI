@@ -19,7 +19,22 @@ namespace player_state
 		[[nodiscard]] const PlayerStateKind GetCurrentStateKind() const;
 
 		#pragma region Try判定
-
+		[[nodiscard]] const bool TryDead();
+		[[nodiscard]] const bool TryGrabbed();
+		/// @brief WARNING : TryRoundhouseKickより前に呼び出す必要あり
+		[[nodiscard]] const bool TryFrontKick();
+		/// @brief WARNING : TryFrontKickより後に呼び出す必要あり
+		[[nodiscard]] const bool TryRoundhouseKick();
+		[[nodiscard]] const bool TryStealthKill();
+		[[nodiscard]] const bool TryEquipKnifeShortcut();
+		[[nodiscard]] const bool TryAimKnife();
+		[[nodiscard]] const bool TryFirstSideSlashKnife();
+		[[nodiscard]] const bool TrySpinningSlash();
+		[[nodiscard]] const bool TryEquipGun();
+		[[nodiscard]] const bool TryEquipGunShortcut();
+		[[nodiscard]] const bool TryPullTrigger();
+		[[nodiscard]] const bool TryReload();
+		[[nodiscard]] const bool TryPullTriggerReload();
 		#pragma endregion
 
 	private:

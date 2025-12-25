@@ -25,16 +25,27 @@ public:
 
 	void Update();
 
+	void AddAnimHandle(const int kind, const std::string& file_path, const int index, const std::string& tag, const float play_speed, const bool is_loop, const bool is_self_blend = false, const float landing_paly_rate = 1.0f);
+
 	/// @brief アニメーションをアタッチする
 	/// @brief デタッチ処理は自動的に実行
 	/// @param next_kind アタッチするアニメーションの種類
 	/// @param body_kind アタッチする部位
 	void AttachAnim(const int next_kind, const BodyKind body_kind);
+
 	/// @brief リザルト(全身)アニメーションに直接アタッチする
 	/// @param アタッチするアニメーションの種類
 	void AttachResultAnim(const int next_kind);
 
-	void AddAnimHandle(const int kind, const std::string& file_path, const int index, const std::string& tag, const float play_speed, const bool is_loop, const bool is_self_blend = false, const float landing_paly_rate = 1.0f);
+	/// @brief 8方向移動を行うアニメーションのアタッチを行う
+	/// @param forward_anim_kind 前方に移動するアニメーション
+	void AttachAnimEightDir(
+		const int  forward_anim_kind, 
+		const bool is_move_forward, 
+		const bool is_move_backward, 
+		const bool is_move_left, 
+		const bool is_move_right, 
+		const bool is_result_attach);
 
 	/// @brief 上半身と下半身の境目のボーンを設定する
 	/// @brief 指定可能ボーン : HIPS, SPINE, SPINE_1, SPINE_2, NECK, HEAD, HEAD_TOP_END
@@ -75,6 +86,7 @@ private:
 
 	/// @brief 足が地面にあることを通知する
 	void NotifyOnGround();
+	void NotifyFoot(bool is_left, const std::string& tag);
 
 	/// @brief アニメーションのアタッチが可能であるかを判定
 	[[nodiscard]] bool CanResultAttachAnim();
@@ -93,7 +105,8 @@ private:
 	std::unordered_map<BodyKind, float>												m_prev_anim_play_rate;		// 前回のアニメーションの再生率
 	std::unordered_map<BodyKind, float>												m_blend_rate;				// ブレンド率
 	bool																			m_is_on_ground;
-	bool																			m_prev_on_ground;
+	bool																			m_prev_left_on_ground;
+	bool																			m_prev_right_on_ground;
 
 	friend void from_json(const nlohmann::json& j_data, Animator& animator);
 	friend void to_json  (nlohmann::json& j_data, const Animator& animator);
