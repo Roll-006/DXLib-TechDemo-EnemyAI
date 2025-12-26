@@ -18,6 +18,19 @@ player_state::VictoryPose::~VictoryPose()
 
 void player_state::VictoryPose::Update()
 {
+    const auto current_lower_anim_kind = m_animator->GetAnimKind(Animator::BodyKind::kLowerBody, TimeKind::kCurrent);
+    if (current_lower_anim_kind == static_cast<int>(PlayerAnimKind::kStandToCrouch) || current_lower_anim_kind == static_cast<int>(PlayerAnimKind::kTalkingCrouch))
+    {
+        if (m_animator->IsPlayEnd(Animator::BodyKind::kLowerBody))
+        {
+            m_animator->AttachAnim(static_cast<int>(PlayerAnimKind::kTalkingCrouch),  Animator::BodyKind::kLowerBody);
+            m_animator->AttachAnim(static_cast<int>(PlayerAnimKind::kTalkingOnPhone), Animator::BodyKind::kUpperBody);
+        }
+    }
+    else
+    {
+        m_animator->AttachResultAnim(static_cast<int>(PlayerAnimKind::kStandToCrouch));
+    }
 }
 
 void player_state::VictoryPose::LateUpdate()

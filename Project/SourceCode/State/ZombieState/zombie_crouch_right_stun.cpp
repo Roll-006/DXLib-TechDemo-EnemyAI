@@ -48,11 +48,8 @@ void zombie_state::CrouchRightStun::Enter()
 
 	// スタン演出
 	const auto model_handle = m_zombie.GetModeler()->GetModelHandle();
-	auto head_m = MV1GetFrameLocalWorldMatrix(
-		model_handle,
-		m_zombie.GetHumanoidFrame()->GetHeadIndex(model_handle)
-	);
-	const auto head_pos = matrix::GetPos(head_m);
+	const auto head_m		= MV1GetFrameLocalWorldMatrix(model_handle,m_zombie.GetHumanoidFrame()->GetHeadIndex(model_handle));
+	const auto head_pos		= matrix::GetPos(head_m);
 
 	EventSystem::GetInstance()->Publish(StunEvent(head_pos));
 

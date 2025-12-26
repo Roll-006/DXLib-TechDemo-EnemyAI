@@ -37,10 +37,7 @@ void player_state::FrontKick::Update()
 	// 攻撃判定用トリガーを追加
 	if (!m_has_trigger_created && m_animator->GetPlayRate(Animator::BodyKind::kUpperBody) > 0.3f && anim_kind == PlayerAnimKind::kFrontKick)
 	{
-		m_player.AddCollider(std::make_shared<Collider>(
-			ColliderKind::kAttackTrigger,
-			std::make_shared<Capsule>(v3d::GetZeroV(), v3d::GetZeroV(), kAttackTriggerRadius),
-			&m_player));
+		m_player.AddCollider(std::make_shared<Collider>(ColliderKind::kAttackTrigger, std::make_shared<Capsule>(v3d::GetZeroV(), v3d::GetZeroV(), kAttackTriggerRadius), &m_player));
 		m_has_trigger_created = true;
 	}
 

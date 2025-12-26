@@ -23,9 +23,8 @@ void player_state::RoundhouseKick::Update()
 
     m_player.UpdateMelee();
 
-    const auto animator = m_player.GetAnimator();
-    const auto anim_kind = static_cast<PlayerAnimKind>(animator->GetAnimKind(Animator::BodyKind::kUpperBody, TimeKind::kCurrent));
-    const auto play_rate = animator->GetPlayRate(Animator::BodyKind::kUpperBody);
+    const auto anim_kind = static_cast<PlayerAnimKind>(m_animator->GetAnimKind(Animator::BodyKind::kUpperBody, TimeKind::kCurrent));
+    const auto play_rate = m_animator->GetPlayRate(Animator::BodyKind::kUpperBody);
 
     // 攻撃判定用トリガーを追加
     if (!m_has_trigger_created && play_rate > 0.35f && anim_kind == PlayerAnimKind::kRoundhouseKick)

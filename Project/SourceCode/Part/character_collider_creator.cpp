@@ -109,7 +109,7 @@ void CharacterColliderCreator::CalcCapsuleColliderPos(std::shared_ptr<Modeler>& 
 
 	modeler->ApplyMatrix();
 	const auto model_handle = modeler->GetModelHandle();
-	const auto transform = modeler->GetTransform();
+	const auto transform	= modeler->GetTransform();
 
 	// 位置を取得
 	auto	   head_top_m = MV1GetFrameLocalWorldMatrix(model_handle, MV1SearchFrame(model_handle, FramePath.HEAD_TOP_END));
