@@ -17,6 +17,8 @@ player_state::Grabbed::~Grabbed()
 
 void player_state::Grabbed::Update()
 {
+	m_animator->AttachResultAnim(static_cast<int>(PlayerAnimKind::kGrabbed));
+
 	m_player.UpdateGrabbed();
 }
 
@@ -37,25 +39,25 @@ void player_state::Grabbed::Exit()
 
 const PlayerStateKind player_state::Grabbed::GetNextStateKind()
 {
-	//if (m_player.GetDeltaTime() <= 0.0f)
-	//{
-	//	return PlayerStateKind::kNone;
-	//}
-
-	//const auto state_controller = m_player.GetStateController();
-
-	//if (state_controller->TryDead(&m_player))
-	//{
-	//	return PlayerStateKind::kDead;
-	//}
-	//if (m_player.IsEscape())
-	//{
-	//	return PlayerStateKind::kEscape;
-	//}
-	//if (!state_controller->TryGrabbed(&m_player))
-	//{
-	//	return PlayerStateKind::kActionNull;
-	//}
+	if (m_player.GetDeltaTime() <= 0.0f)
+	{
+		return PlayerStateKind::kNone;
+	}
+	// 死亡
+	else if (m_state.TryDead())
+	{
+		return PlayerStateKind::kDead;
+	}
+	// 脱出
+	else if (m_player.IsEscape())
+	{
+		return PlayerStateKind::kEscape;
+	}
+	// IDLE
+	else if (!m_state.TryGrabbed())
+	{
+		return PlayerStateKind::kIdle;
+	}
 
 	return PlayerStateKind::kNone;
 }

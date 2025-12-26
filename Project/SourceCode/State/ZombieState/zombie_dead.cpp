@@ -23,6 +23,14 @@ zombie_state::Dead::~Dead()
 
 void zombie_state::Dead::Update()
 {
+	const auto prev_state_kind = m_state.GetPrevStateKind();
+	if (prev_state_kind != ZombieStateKind::kKnockback && prev_state_kind != ZombieStateKind::kStealthKilled)
+	{
+		m_animator->AttachResultAnim(static_cast<int>(ZombieAnimKind::kDead));
+	}
+
+	m_zombie.CalcMoveSpeedStop();
+
 	const auto delta_time = m_zombie.GetDeltaTime();
 
 	m_zombie.DisallowStealthKill();

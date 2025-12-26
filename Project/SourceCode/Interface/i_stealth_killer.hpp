@@ -17,6 +17,6 @@ public:
 	virtual void AddStealthKillTarget(const std::shared_ptr<IStealthKillable>& stealth_kill_target) abstract;
 	virtual void RemoveStealthKillTarget() abstract;
 
-	[[nodiscard]] virtual const std::shared_ptr<const IStealthKillable> GetStealthKillTarget() abstract;
+	[[nodiscard]] virtual std::shared_ptr<IStealthKillable>& GetStealthKillTarget() abstract;
 	[[nodiscard]] virtual const bool CanSearchStealthKillTarget() const abstract;
 };

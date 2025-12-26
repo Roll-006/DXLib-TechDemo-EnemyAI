@@ -119,6 +119,23 @@ const PlayerStateKind player_state::AimGun::GetNextStateKind()
 	{
 		return PlayerStateKind::kNone;
 	}
+
+	// 勝利ポーズ
+	else if (m_player.IsVictoryPose())
+	{
+		return PlayerStateKind::kVictoryPose;
+	}
+	// 死亡
+	else if (m_state.TryDead())
+	{
+		return PlayerStateKind::kDead;
+	}
+	// 捕まれる
+	else if (m_state.TryGrabbed())
+	{
+		return PlayerStateKind::kGrabbed;
+	}
+
 	// 銃装備状態
 	if (!command->IsExecute(CommandKind::kAimGun, TimeKind::kCurrent) && camera_controller->IsReachedRecoilPeak())
 	{

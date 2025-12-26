@@ -465,6 +465,7 @@ void Zombie::Detected()
 {
 	m_look_dir_offset_speed = 8.0f;
 	AllowCalcLookDir();
+	CalcMoveSpeedStop();
 
 	const auto target_pos			= m_ai->GetTarget()->GetTransform()->GetPos(CoordinateKind::kWorld);
 	const auto target_pos_y0		= VGet(target_pos.x, 0.0f, target_pos.z);
@@ -480,7 +481,7 @@ void Zombie::Grab()
 	m_is_target_escaped = false;
 
 	const auto model_handle = m_modeler->GetModelHandle();
-	auto	   head_m		= MV1GetFrameLocalWorldMatrix(model_handle, GetHumanoidFrame()->GetHeadIndex(model_handle));
+	const auto head_m		= MV1GetFrameLocalWorldMatrix(model_handle, GetHumanoidFrame()->GetHeadIndex(model_handle));
 	const auto head_pos		= matrix::GetPos(head_m);
 
 	// 掴んだことを演出カメラに通知

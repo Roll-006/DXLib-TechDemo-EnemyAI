@@ -21,6 +21,8 @@ player_state::StealthKill::~StealthKill()
 
 void player_state::StealthKill::Update()
 {
+    m_animator->AttachResultAnim(static_cast<int>(PlayerAnimKind::kStealthKill));
+
     m_player.UpdateStealthKill();
 
     const auto play_rate = m_player.GetAnimator()->GetPlayRate(Animator::BodyKind::kUpperBody);
@@ -68,13 +70,15 @@ void player_state::StealthKill::Exit()
 
 const PlayerStateKind player_state::StealthKill::GetNextStateKind()
 {
-    //if (m_player.GetDeltaTime() <= 0.0f) return PlayerStateKind::kNone;
-
-    //// 動作終了後は NULL へ
-    //if (m_player.GetAnimator()->IsPlayEnd(Animator::BodyKind::kUpperBody))
-    //{
-    //    return PlayerStateKind::kActionNull;
-    //}
+    if (m_player.GetDeltaTime() <= 0.0f)
+    {
+        return PlayerStateKind::kNone;
+    }
+    // IDLE
+    else if (m_player.GetAnimator()->IsPlayEnd(Animator::BodyKind::kUpperBody))
+    {
+        return PlayerStateKind::kIdle;
+    }
 
     return PlayerStateKind::kNone;
 }

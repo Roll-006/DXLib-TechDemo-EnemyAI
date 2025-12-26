@@ -94,16 +94,17 @@ bool zombie_state::State::TryPatrol()
 {
 	const auto route_giver = m_zombie.GetPatrolRouteGiver();
 
-	if (!route_giver) { return false; }
-	if (route_giver->IsEnd()) { return false; }
-	if (m_zombie.IsDetectedTarget()) { return false; }
+	if (!route_giver)					{ return false; }
+	if (route_giver->IsEnd())			{ return false; }
+	if (m_zombie.IsDetectedTarget())	{ return false; }
 
 	return true;
 }
 
 bool zombie_state::State::TryTrack()
 {
-	if (!m_zombie.GetTarget()) { return false; }
+	if (!m_zombie.GetTarget())			{ return false; }
+	if (!m_zombie.IsDetectedTarget())	{ return false; }
 
 	const auto is_in_sight = m_zombie.IsDetectedTarget();
 
@@ -118,11 +119,6 @@ bool zombie_state::State::TryRunAttack()
 	const auto can_attack = m_zombie.CanAttack();
 
 	return is_in_sight && can_attack;
-}
-
-bool zombie_state::State::TryActionNullForcibly()
-{
-	return !m_zombie.CanAction();
 }
 
 bool zombie_state::State::TryDetected()
@@ -148,9 +144,9 @@ bool zombie_state::State::TryRun()
 	if (!m_zombie.GetTarget()) { return false; }
 	//if (m_move_state.at(TimeKind::kCurrent)->GetStateKind() != static_cast<int>(zombie_state::MoveStateKind::kMove)) { return false; }
 
-	const auto pos = m_zombie.GetTransform()->GetPos(CoordinateKind::kWorld);
-	const auto target_pos = m_zombie.GetTarget()->GetTransform()->GetPos(CoordinateKind::kWorld);
-	const auto distance = VSize(pos - target_pos);
+	const auto pos			= m_zombie.GetTransform()->GetPos(CoordinateKind::kWorld);
+	const auto target_pos	= m_zombie.GetTarget()->GetTransform()->GetPos(CoordinateKind::kWorld);
+	const auto distance		= VSize(pos - target_pos);
 
 	// TODO : 後に定数化
 	return distance > 160.0f;
@@ -163,12 +159,13 @@ bool zombie_state::State::TryStealthKilled()
 
 bool zombie_state::State::TryGrabRun()
 {
-	//const auto ai_state_kind = static_cast<zombie_state::AIStateKind>(GetAIState(TimeKind::kCurrent)->GetStateKind());
+	if (!m_zombie.IsDetectedTarget()) { return false; }
 
-	//const auto is_run_attack = ai_state_kind == zombie_state::AIStateKind::kRunAttack ? true : false;
+	const auto pos			= m_zombie.GetTransform()->GetPos(CoordinateKind::kWorld);
+	const auto target_pos	= m_zombie.GetTarget()->GetTransform()->GetPos(CoordinateKind::kWorld);
+	const auto distance		= VSize(pos - target_pos);
 
-	//return is_run_attack;
-	return false;
+	return distance < 90.0f;
 }
 
 bool zombie_state::State::TryKnockback()

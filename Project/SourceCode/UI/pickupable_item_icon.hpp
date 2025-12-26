@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include <memory>
 #include <vector>
 
@@ -13,7 +13,7 @@
 class PickupableItemIcon final
 {
 public:
-	PickupableItemIcon(const std::shared_ptr<const IItem>& pickupable_item, const std::vector<SpottedObjData>& pick_up_candidate_items);
+	PickupableItemIcon(std::shared_ptr<IItem>& pickupable_item, const std::vector<SpottedObjData>& pick_up_candidate_items);
 	~PickupableItemIcon();
 
 	void LateUpdate();
@@ -32,7 +32,7 @@ private:
 	static constexpr int					kOffset				= 85;
 	static constexpr Vector2D<int>			kScreenCenterPos	= { static_cast<int>(kScreenSize.x * 0.5f), static_cast<int>(kScreenSize.y * 0.5f) };
 
-	const std::shared_ptr<const IItem>		m_pickupable_item;
+	std::shared_ptr<IItem>&					m_pickupable_item;
 	const std::vector<SpottedObjData>&		m_pick_up_candidate_items;
 
 	std::shared_ptr<ButtonGraphicGetter>	m_button_graphic_resource;

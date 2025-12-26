@@ -73,10 +73,42 @@ const PlayerStateKind player_state::EquipGun::GetNextStateKind()
 		return PlayerStateKind::kNone;
 	}
 	//// 強制 NULL
-	//else if (m_state.TryActionNullForcibly())
+	//else if (m_state.())
 	//{
 	//	return PlayerStateKind::kActionNull;
 	//}
+	
+	// 勝利ポーズ
+	else if (m_player.IsVictoryPose())
+	{
+		return PlayerStateKind::kVictoryPose;
+	}
+	// 死亡
+	else if (m_state.TryDead())
+	{
+		return PlayerStateKind::kDead;
+	}
+	// メレー(正面蹴り)
+	else if (m_state.TryFrontKick())
+	{
+		return PlayerStateKind::kFrontKick;
+	}
+	// メレー(回し蹴り)
+	else if (m_state.TryRoundhouseKick())
+	{
+		return PlayerStateKind::kRoundhouseKick;
+	}
+	// ステルスキル
+	else if (m_state.TryStealthKill())
+	{
+		return PlayerStateKind::kStealthKill;
+	}
+	// 捕まれる
+	else if (m_state.TryGrabbed())
+	{
+		return PlayerStateKind::kGrabbed;
+	}
+
 	// 銃エイム
 	else if (m_player.CanControl()
 		&& CommandHandler::GetInstance()->IsExecute(CommandKind::kAimGun, TimeKind::kCurrent)

@@ -8,7 +8,7 @@
           "tag": "none",
           "play_speed": 10.0,
           "is_loop": true,
-          "is_self_blend": true,
+          "is_self_blend": false,
           "ground_play_rate": 1.0
         }
       },
@@ -348,7 +348,6 @@
           "is_self_blend": false,
           "ground_play_rate": 1.0
         },
-
         "36": {
           "index": 0,
           "path": "Data/Animation/SWAT/move_forward_injured.mv1",
@@ -568,7 +567,7 @@
           "index": 0,
           "path": "Data/Animation/Zombie/death_01.mv1",
           "tag": "none",
-          "play_speed": 20.0,
+          "play_speed": 60.0,
           "is_loop": false,
           "is_self_blend": false,
           "ground_play_rate": 1.0

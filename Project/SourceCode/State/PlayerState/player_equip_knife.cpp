@@ -56,6 +56,38 @@ const PlayerStateKind player_state::EquipKnife::GetNextStateKind()
 	//{
 	//	return PlayerStateKind::kIdle;
 	//}
+	
+	// 勝利ポーズ
+	else if (m_player.IsVictoryPose())
+	{
+		return PlayerStateKind::kVictoryPose;
+	}
+	// 死亡
+	else if (m_state.TryDead())
+	{
+		return PlayerStateKind::kDead;
+	}
+	// メレー(正面蹴り)
+	else if (m_state.TryFrontKick())
+	{
+		return PlayerStateKind::kFrontKick;
+	}
+	// メレー(回し蹴り)
+	else if (m_state.TryRoundhouseKick())
+	{
+		return PlayerStateKind::kRoundhouseKick;
+	}
+	// ステルスキル
+	else if (m_state.TryStealthKill())
+	{
+		return PlayerStateKind::kStealthKill;
+	}
+	// 捕まれる
+	else if (m_state.TryGrabbed())
+	{
+		return PlayerStateKind::kGrabbed;
+	}
+
 	// 回転斬り
 	else if (m_state.TrySpinningSlash())
 	{

@@ -89,7 +89,25 @@ void player_state::Shot::Exit()
 
 const PlayerStateKind player_state::Shot::GetNextStateKind()
 {
-    if (m_player.GetDeltaTime() <= 0.0f) return PlayerStateKind::kNone;
+    if (m_player.GetDeltaTime() <= 0.0f)
+    {
+        return PlayerStateKind::kNone;
+    }
+    // 勝利ポーズ
+    else if (m_player.IsVictoryPose())
+    {
+        return PlayerStateKind::kVictoryPose;
+    }
+    // 死亡
+    else if (m_state.TryDead())
+    {
+        return PlayerStateKind::kDead;
+    }
+    // 捕まれる
+    else if (m_state.TryGrabbed())
+    {
+        return PlayerStateKind::kGrabbed;
+    }
 
     // 銃エイミング状態に遷移
     return PlayerStateKind::kAimGun;

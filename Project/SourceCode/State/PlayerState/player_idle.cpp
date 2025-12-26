@@ -43,33 +43,65 @@ const PlayerStateKind player_state::Idle::GetNextStateKind()
 	{
 		return PlayerStateKind::kNone;
 	}
+
+	// 勝利ポーズ
+	else if (m_player.IsVictoryPose())
+	{
+		return PlayerStateKind::kVictoryPose;
+	}
+	// 死亡
+	else if (m_state.TryDead())
+	{
+		return PlayerStateKind::kDead;
+	}
+	// メレー(正面蹴り)
+	else if (m_state.TryFrontKick())
+	{
+		return PlayerStateKind::kFrontKick;
+	}
+	// メレー(回し蹴り)
+	else if (m_state.TryRoundhouseKick())
+	{
+		return PlayerStateKind::kRoundhouseKick;
+	}
+	// ステルスキル
+	else if (m_state.TryStealthKill())
+	{
+		return PlayerStateKind::kStealthKill;
+	}
+	// 捕まれる
+	else if (m_state.TryGrabbed())
+	{
+		return PlayerStateKind::kGrabbed;
+	}
+
 	// 銃装備状態
-	if (m_state.TryEquipGunShortcut())
+	else if (m_state.TryEquipGunShortcut())
 	{
 		return PlayerStateKind::kEquipGun;
 	}
 	// 銃装備状態
-	if (m_state.TryEquipGun())
+	else if (m_state.TryEquipGun())
 	{
 		return PlayerStateKind::kEquipGun;
 	}
 	// リロード
-	if (m_state.TryReload())
+	else if (m_state.TryReload())
 	{
 		return PlayerStateKind::kReload;
 	}
 	// ナイフ装備状態
-	if (m_state.GetPrevStateKind() == PlayerStateKind::kStealthKill)
+	else if (m_state.GetPrevStateKind() == PlayerStateKind::kStealthKill)
 	{
 		return PlayerStateKind::kEquipKnife;
 	}
 	// 回転切り
-	if (m_state.TrySpinningSlash())
+	else if (m_state.TrySpinningSlash())
 	{
 		return PlayerStateKind::kSpinningSlashKnife;
 	}
 	// 切り裂く(第一段階)
-	if (m_state.TryFirstSideSlashKnife())
+	else if (m_state.TryFirstSideSlashKnife())
 	{
 		return PlayerStateKind::kFirstSideSlashKnife;
 	}

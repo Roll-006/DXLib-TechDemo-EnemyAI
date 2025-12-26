@@ -219,6 +219,8 @@ void Player::Draw() const
 	//const auto p = m_transform->GetPos(CoordinateKind::kWorld);
 	//printfDx("%f, %f, %f\n", p.x, p.y, p.z);
 
+	//printfDx("player : %d\n", m_stealth_kill_target != nullptr);
+
 	//DrawColliders();
 }
 

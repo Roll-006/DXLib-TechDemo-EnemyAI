@@ -28,4 +28,7 @@ protected:
 	zombie_state::State&		m_state;
 	std::shared_ptr<Animator>	m_animator;
 	ZombieStateKind				m_state_kind;
+
+private:
+	bool						m_prev_run;
 };

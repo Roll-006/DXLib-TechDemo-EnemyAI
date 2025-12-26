@@ -33,7 +33,7 @@ public:
 	virtual void RemoveTopPriorityDownedChara()	abstract;
 	virtual void RemoveMeleeTarget()			abstract;
 	
-	[[nodiscard]] virtual const std::shared_ptr<const IMeleeHittable>	GetTopPriorityDownedChara()		abstract;
-	[[nodiscard]] virtual const std::shared_ptr<const IMeleeHittable>	GetMeleeTarget()				abstract;
-	[[nodiscard]] virtual const bool									CanSearchMeleeTarget() const	abstract;
+	[[nodiscard]] virtual std::shared_ptr<IMeleeHittable>&	GetTopPriorityDownedChara()		abstract;
+	[[nodiscard]] virtual std::shared_ptr<IMeleeHittable>&	GetMeleeTarget()				abstract;
+	[[nodiscard]] virtual const bool						CanSearchMeleeTarget() const	abstract;
 };

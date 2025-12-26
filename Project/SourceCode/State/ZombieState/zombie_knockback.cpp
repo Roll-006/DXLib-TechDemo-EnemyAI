@@ -18,11 +18,14 @@ zombie_state::Knockback::~Knockback()
 
 void zombie_state::Knockback::Update()
 {
+	m_animator->AttachResultAnim(static_cast<int>(ZombieAnimKind::kFlyingKnockbackDown));
+
 	if (m_zombie.CanAction())
 	{
 		m_zombie.CalcAttackIntervalTime();
 	}
 
+	m_zombie.CalcMoveSpeedStop();
 	m_zombie.DisallowStealthKill();
 	m_zombie.DisallowDecreaseKnockBackGauge();
 }

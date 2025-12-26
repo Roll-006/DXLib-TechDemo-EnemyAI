@@ -3,7 +3,7 @@
 #include "../Base/character_base.hpp"
 #include "../Command/command_handler.hpp"
 
-MeleeTargetIcon::MeleeTargetIcon(const std::shared_ptr<const IMeleeHittable>& melee_target, const std::shared_ptr<const IMeleeHittable>& visible_downed_character) :
+MeleeTargetIcon::MeleeTargetIcon(std::shared_ptr<IMeleeHittable>& melee_target, std::shared_ptr<IMeleeHittable>& visible_downed_character) :
 	m_melee_target						(melee_target),
 	m_visible_downed_character			(visible_downed_character),
 	m_button_graphic_resource			(std::make_shared<ButtonGraphicGetter>()),

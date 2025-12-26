@@ -91,6 +91,23 @@ const PlayerStateKind player_state::Reload::GetNextStateKind()
 	{
 		return PlayerStateKind::kNone;
 	}
+
+	// 勝利ポーズ
+	else if (m_player.IsVictoryPose())
+	{
+		return PlayerStateKind::kVictoryPose;
+	}
+	// 死亡
+	else if (m_state.TryDead())
+	{
+		return PlayerStateKind::kDead;
+	}
+	// 捕まれる
+	else if (m_state.TryGrabbed())
+	{
+		return PlayerStateKind::kGrabbed;
+	}
+
 	// 銃エイミング状態
 	else if (m_player.CanControl() && m_animator->IsPlayEnd(Animator::BodyKind::kUpperBody) && command->IsExecute(CommandKind::kAimGun, TimeKind::kCurrent))
 	{

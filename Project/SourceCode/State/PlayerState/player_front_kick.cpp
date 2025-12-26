@@ -24,6 +24,8 @@ player_state::FrontKick::~FrontKick()
 
 void player_state::FrontKick::Update()
 {
+	m_animator->AttachResultAnim(static_cast<int>(PlayerAnimKind::kFrontKick));
+
 	const auto command = CommandHandler::GetInstance();
 	command->InitCurrentTriggerInputCount(CommandKind::kCrouch);
 	command->InitCurrentTriggerInputCount(CommandKind::kRun);
@@ -85,15 +87,15 @@ void player_state::FrontKick::Exit()
 
 const PlayerStateKind player_state::FrontKick::GetNextStateKind()
 {
-	//if (m_player.GetDeltaTime() <= 0.0f)
-	//{
-	//	return PlayerStateKind::kNone;
-	//}
-
-	//if (m_animator->IsPlayEnd(Animator::BodyKind::kUpperBody))
-	//{
-	//	return PlayerStateKind::kActionNull;
-	//}
+	if (m_player.GetDeltaTime() <= 0.0f)
+	{
+		return PlayerStateKind::kNone;
+	}
+	// IDLE
+	else if (m_player.GetAnimator()->IsPlayEnd(Animator::BodyKind::kUpperBody))
+	{
+		return PlayerStateKind::kIdle;
+	}
 
 	return PlayerStateKind::kNone;
 }

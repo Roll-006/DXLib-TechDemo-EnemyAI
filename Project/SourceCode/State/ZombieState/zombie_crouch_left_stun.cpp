@@ -21,6 +21,10 @@ zombie_state::CrouchLeftStun::~CrouchLeftStun()
 
 void zombie_state::CrouchLeftStun::Update()
 {
+	m_animator->AttachResultAnim(static_cast<int>(ZombieAnimKind::kLeftCrouch));
+
+	m_zombie.CalcMoveSpeedStop();
+
 	if (m_zombie.CanAction())
 	{
 		m_stun_timer += m_zombie.GetDeltaTime();
@@ -77,30 +81,30 @@ void zombie_state::CrouchLeftStun::Exit()
 
 const ZombieStateKind zombie_state::CrouchLeftStun::GetNextStateKind()
 {
-	//if (m_zombie.GetDeltaTime() <= 0.0f)
-	//{
-	//	return ZombieStateKind::kNone;
-	//}
-	//// ステルスキル
-	//else if (m_state.TryStealthKilled())
-	//{
-	//	return ZombieStateKind::kStealthKilled;
-	//}
-	//// ノックバック
-	//else if (m_state.TryKnockback())
-	//{
-	//	return ZombieStateKind::kKnockback;
-	//}
-	//// 死亡
-	//else if (m_state.TryDead())
-	//{
-	//	return ZombieStateKind::kDead;
-	//}
-	//// スタン終了
-	//else if (m_stun_timer > kStunTime)
-	//{
-	//	return ZombieStateKind::kNone;
-	//}
+	if (m_zombie.GetDeltaTime() <= 0.0f)
+	{
+		return ZombieStateKind::kNone;
+	}
+	// ステルスキルされた
+	else if (m_state.TryStealthKilled())
+	{
+		return ZombieStateKind::kStealthKilled;
+	}
+	// 死亡
+	else if (m_state.TryDead())
+	{
+		return ZombieStateKind::kDead;
+	}
+	// ノックバック
+	else if (m_state.TryKnockback())
+	{
+		return ZombieStateKind::kKnockback;
+	}
+	// IDLE
+	else if (m_stun_timer > kStunTime)
+	{
+		return ZombieStateKind::kIdle;
+	}
 
 	return ZombieStateKind::kNone;
 }

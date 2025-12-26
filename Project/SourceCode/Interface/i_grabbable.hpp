@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include <DxLib.h>
 #include <memory>
 
@@ -16,7 +16,7 @@ public:
 	virtual void OnRelease() abstract;
 
 	[[nodiscard]] virtual const std::shared_ptr<const IGrabber>	GetGrabber()		const abstract;
-	[[nodiscard]] virtual const std::shared_ptr<const Gauge>		GetEscapeGauge()	const abstract;
+	[[nodiscard]] virtual const std::shared_ptr<const Gauge>	GetEscapeGauge()	const abstract;
 	[[nodiscard]] virtual const bool						CanEscape()			const abstract;
 	[[nodiscard]] virtual const bool						IsEscape()			const abstract;
 	[[nodiscard]] virtual const bool						IsGrabbed()			const abstract;

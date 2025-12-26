@@ -1,7 +1,7 @@
 ﻿#include "escape_icon.hpp"
 #include "../Command/command_handler.hpp"
 
-EscapeIcon::EscapeIcon(std::shared_ptr<IGrabbable> grab_target) :
+EscapeIcon::EscapeIcon(const std::shared_ptr<IGrabbable>& grab_target) :
 	m_grab_target				(grab_target),
 	m_current_input_mode_kind	(InputModeKind::kSingle),
 	m_basis_circle_screen		(std::make_shared<ScreenCreator>(kScreenSize)),

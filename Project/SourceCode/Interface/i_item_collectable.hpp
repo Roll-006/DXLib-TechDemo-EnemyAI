@@ -23,7 +23,7 @@ public:
 	virtual void AddPickupableItem(const std::shared_ptr<IItem>& item) abstract;
 	virtual void RemovePickupableItem() abstract;
 
-	[[nodiscard]] virtual const std::shared_ptr<const IItem>	GetPickupableItem()		abstract;
+	[[nodiscard]] virtual std::shared_ptr<IItem>&				GetPickupableItem()		abstract;
 	[[nodiscard]] virtual const std::vector<SpottedObjData>&	GetCandidateItems()		abstract;
 	[[nodiscard]] virtual const bool							CanAddPickupableItem()	abstract;
 };

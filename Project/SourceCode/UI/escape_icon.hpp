@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include "../Interface/i_grabbable.hpp"
 #include "../Part/button_graphic_getter.hpp"
 #include "../Part/screen_creator.hpp"
@@ -7,7 +7,7 @@
 class EscapeIcon final
 {
 public:
-	EscapeIcon(std::shared_ptr<IGrabbable> grab_target);
+	EscapeIcon(const std::shared_ptr<IGrabbable>& grab_target);
 	~EscapeIcon();
 
 	void LateUpdate();
@@ -30,7 +30,7 @@ private:
 	static constexpr Vector2D<int>	kHoldTextOffset		= { 0, -90 };
 	
 private:
-	std::shared_ptr<IGrabbable>				m_grab_target;
+	const std::shared_ptr<IGrabbable>		m_grab_target;
 	InputModeKind							m_current_input_mode_kind;
 
 	std::shared_ptr<ScreenCreator>			m_basis_circle_screen;

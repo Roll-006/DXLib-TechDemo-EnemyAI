@@ -18,6 +18,10 @@ zombie_state::BackwardKnockback::~BackwardKnockback()
 
 void zombie_state::BackwardKnockback::Update()
 {
+	m_animator->AttachResultAnim(static_cast<int>(ZombieAnimKind::kBackwardKnockback));
+
+	m_zombie.CalcMoveSpeedStop();
+
 	m_zombie.ActivateInvincibleForcibly();
 	m_zombie.DisallowDecreaseKnockBackGauge();
 	m_zombie.DisallowStealthKill();
@@ -44,22 +48,22 @@ void zombie_state::BackwardKnockback::Exit()
 
 const ZombieStateKind zombie_state::BackwardKnockback::GetNextStateKind()
 {
-	//if (m_zombie.GetDeltaTime() <= 0.0f)
-	//{
-	//	return ZombieStateKind::kNone;
-	//}
-	//// ノックバック終了
-	//else if (m_zombie.GetKnockBackSpeed() < math::kEpsilonLow)
-	//{
-	//	// 死亡
-	//	if (m_state.TryDead())
-	//	{
-	//		return ZombieStateKind::kDead;
-	//	}
+	if (m_zombie.GetDeltaTime() <= 0.0f)
+	{
+		return ZombieStateKind::kNone;
+	}
+	// ノックバック終了
+	else if (m_zombie.GetKnockBackSpeed() < math::kEpsilonLow)
+	{
+		// 死亡
+		if (m_state.TryDead())
+		{
+			return ZombieStateKind::kDead;
+		}
 
-	//	// NULL
-	//	return ZombieStateKind::kNone;
-	//}
+		// NULL
+		return ZombieStateKind::kIdle;
+	}
 
 	return ZombieStateKind::kNone;
 }

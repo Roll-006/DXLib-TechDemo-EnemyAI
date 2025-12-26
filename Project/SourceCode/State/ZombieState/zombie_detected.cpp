@@ -19,6 +19,8 @@ zombie_state::Detected::~Detected()
 
 void zombie_state::Detected::Update()
 {
+	m_animator->AttachResultAnim(static_cast<int>(ZombieAnimKind::kDetected));
+
 	m_zombie.Detected();
 }
 
@@ -41,68 +43,65 @@ void zombie_state::Detected::Exit()
 
 const ZombieStateKind zombie_state::Detected::GetNextStateKind()
 {
-	//if (m_zombie.GetDeltaTime() <= 0.0f)
-	//{
-	//	return ZombieStateKind::kNone;
-	//}
-	//// 強制NULL
-	//else if (m_state.TryActionNullForcibly())
-	//{
-	//	return ZombieStateKind::kNone;
-	//}
-	//// ステルスキル
-	//else if (m_state.TryStealthKilled())
-	//{
-	//	return ZombieStateKind::kStealthKilled;
-	//}
-	//// ノックバック
-	//else if (m_state.TryKnockback())
-	//{
-	//	return ZombieStateKind::kKnockback;
-	//}
-	//// ノックバック（後ろ）
-	//else if (m_state.TryBackwardKnockback())
-	//{
-	//	m_zombie.OnKnockback(-m_zombie.GetCurrentLookDir(), 70.0f, 60.0f);
-	//	return ZombieStateKind::kBackwardKnockback;
-	//}
-
-	//// 上半身アニメーション終了待ち
-	//if (!m_animator->IsPlayEnd(Animator::BodyKind::kUpperBody))
-	//{
-	//	return ZombieStateKind::kNone;
-	//}
-
-	//// 死亡
-	//if (m_state.TryDead())
-	//{
-	//	return ZombieStateKind::kDead;
-	//}
-	//// 左足ダウン
-	//else if (m_state.TryLeftCrouchStun())
-	//{
-	//	return ZombieStateKind::kCrouchLeftStun;
-	//}
-	//// 右足ダウン
-	//else if (m_state.TryRightCrouchStun())
-	//{
-	//	return ZombieStateKind::kCrouchRightStun;
-	//}
-	//// 立ちダウン
-	//else if (m_state.TryStandStun())
-	//{
-	//	return ZombieStateKind::kStandStun;
-	//}
-	//// ダッシュ掴み
-	//else if (m_state.TryGrabRun())
-	//{
-	//	return ZombieStateKind::kGrabRun;
-	//}
-	//// ダッシュ
-	//else if (m_state.TryRun())
-	//{
-	//	return ZombieStateKind::kRun;
-	//}
+	if (m_zombie.GetDeltaTime() <= 0.0f)
+	{
+		return ZombieStateKind::kNone;
+	}
+	else if (!m_animator->IsPlayEnd(Animator::BodyKind::kUpperBody))
+	{
+		return ZombieStateKind::kNone;
+	}
+	// 巡回
+	else if (m_state.TryPatrol())
+	{
+		return ZombieStateKind::kPatrol;
+	}
+	// 追跡
+	else if (m_state.TryTrack())
+	{
+		return ZombieStateKind::kTrack;
+	}
+	// 強制待機
+	else if (m_state.TryWaitForcibly())
+	{
+		return ZombieStateKind::kIdle;
+	}
+	// ステルスキル
+	else if (m_state.TryStealthKilled())
+	{
+		return ZombieStateKind::kStealthKilled;
+	}
+	// ノックバック
+	else if (m_state.TryKnockback())
+	{
+		return ZombieStateKind::kKnockback;
+	}
+	// ノックバック（後ろ）
+	else if (m_state.TryBackwardKnockback())
+	{
+		m_zombie.OnKnockback(-m_zombie.GetCurrentLookDir(), 70.0f, 60.0f);
+		return ZombieStateKind::kBackwardKnockback;
+	}
+	// 死亡
+	if (m_state.TryDead())
+	{
+		return ZombieStateKind::kDead;
+	}
+	// 左足ダウン
+	else if (m_state.TryLeftCrouchStun())
+	{
+		return ZombieStateKind::kCrouchLeftStun;
+	}
+	// 右足ダウン
+	else if (m_state.TryRightCrouchStun())
+	{
+		return ZombieStateKind::kCrouchRightStun;
+	}
+	// 立ちダウン
+	else if (m_state.TryStandStun())
+	{
+		return ZombieStateKind::kStandStun;
+	}
 
 	return ZombieStateKind::kNone;
 }

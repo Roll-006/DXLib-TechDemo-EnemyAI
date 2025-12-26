@@ -19,6 +19,9 @@ zombie_state::StealthKilled::~StealthKilled()
 
 void zombie_state::StealthKilled::Update()
 {
+	m_animator->AttachResultAnim(static_cast<int>(ZombieAnimKind::kStealthKilled));
+
+	m_zombie.CalcMoveSpeedStop();
 	m_zombie.DisallowStealthKill();
 }
 

@@ -23,7 +23,6 @@ namespace zombie_state
 		[[nodiscard]] bool TryPatrol();
 		[[nodiscard]] bool TryTrack();
 		[[nodiscard]] bool TryRunAttack();
-		[[nodiscard]] bool TryActionNullForcibly();
 		[[nodiscard]] bool TryDetected();
 		[[nodiscard]] bool TryWalk();
 		[[nodiscard]] bool TryRun();

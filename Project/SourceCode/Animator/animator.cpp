@@ -371,8 +371,6 @@ void Animator::NotifyOnGround()
 	const auto is_left		= play_rate >= 0.5f - notify_ground_range * 0.5f && play_rate < 0.5f + notify_ground_range * 0.5f;
 	const auto is_right		= play_rate <= notify_ground_range * 0.5f		 || play_rate > 1.0f - notify_ground_range * 0.5f;
 
-	printfDx("%d : %d\n", is_left, is_right);
-
 	if (is_left  && !m_prev_left_on_ground)	 { NotifyFoot(true,  tag); }
 	if (is_right && !m_prev_right_on_ground) { NotifyFoot(false, tag); }
 

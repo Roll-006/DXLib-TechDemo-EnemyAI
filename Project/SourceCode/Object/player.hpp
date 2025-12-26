@@ -22,7 +22,16 @@
 #include "../Part/frame_pos_corrector.hpp"
 #include "../Part/melee_target_searcher.hpp"
 
-class Player final : public CharacterBase, public IPlayableCharacter, public IHumanoid, public IItemCollectable, public IWeaponEquippable, public IFireable, public IGrabbable, public IMeleeAttackable, public IStealthKiller
+class Player final : 
+	public CharacterBase, 
+	public IPlayableCharacter, 
+	public IHumanoid, 
+	public IItemCollectable, 
+	public IWeaponEquippable, 
+	public IFireable, 
+	public IGrabbable, 
+	public IMeleeAttackable, 
+	public IStealthKiller
 {
 public:
 	Player();
@@ -68,7 +77,7 @@ public:
 	void AddPickupableItem(const std::shared_ptr<IItem>& item) override { m_pickupable_item = item; }
 	void RemovePickupableItem() override { m_pickupable_item = nullptr; }
 
-	[[nodiscard]] const std::shared_ptr<const IItem>	GetPickupableItem()		override { return m_pickupable_item; }
+	[[nodiscard]] std::shared_ptr<IItem>&				GetPickupableItem()		override { return m_pickupable_item; }
 	[[nodiscard]] const std::vector<SpottedObjData>&	GetCandidateItems()		override { return m_pick_up_candidate_items; }
 	[[nodiscard]] const bool							CanAddPickupableItem()	override { return m_can_add_acquirable_item; }
 	#pragma endregion
@@ -131,9 +140,9 @@ public:
 	void RemoveTopPriorityDownedChara()	override { m_top_priority_downed_chara = nullptr; }
 	void RemoveMeleeTarget()			override { m_melee_target = nullptr; }
 
-	[[nodiscard]] const std::shared_ptr<const IMeleeHittable>	GetMeleeTarget()					override	{ return m_melee_target; }
-	[[nodiscard]] const std::shared_ptr<const IMeleeHittable>	GetTopPriorityDownedChara()			override	{ return m_top_priority_downed_chara; }
-	[[nodiscard]] const bool									CanSearchMeleeTarget()		const	override	{ return m_can_search_melee_target; }
+	[[nodiscard]] std::shared_ptr<IMeleeHittable>&	GetMeleeTarget()					override	{ return m_melee_target; }
+	[[nodiscard]] std::shared_ptr<IMeleeHittable>&	GetTopPriorityDownedChara()			override	{ return m_top_priority_downed_chara; }
+	[[nodiscard]] const bool						CanSearchMeleeTarget()		const	override	{ return m_can_search_melee_target; }
 	#pragma endregion
 
 
@@ -145,7 +154,7 @@ public:
 	void AddStealthKillTarget(const std::shared_ptr<IStealthKillable>& stealth_kill_target) override { m_stealth_kill_target = stealth_kill_target; }
 	void RemoveStealthKillTarget() override { m_stealth_kill_target = nullptr; }
 
-	[[nodiscard]] const std::shared_ptr<const IStealthKillable>	GetStealthKillTarget() override { return m_stealth_kill_target; }
+	[[nodiscard]] std::shared_ptr<IStealthKillable>& GetStealthKillTarget() override { return m_stealth_kill_target; }
 	[[nodiscard]] const bool CanSearchStealthKillTarget() const	override { return m_can_search_stealth_kill_target; }
 	#pragma endregion
 

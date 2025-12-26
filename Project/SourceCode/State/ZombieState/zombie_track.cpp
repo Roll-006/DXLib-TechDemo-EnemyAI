@@ -19,7 +19,10 @@ zombie_state::Track::~Track()
 
 void zombie_state::Track::Update()
 {
-	// 追跡中の移動・向き制御などがあればここ
+	const auto target_pos = m_zombie.GetTarget()->GetTransform()->GetPos(CoordinateKind::kWorld);
+
+	Move();
+	m_zombie.TrackMove(target_pos);
 }
 
 void zombie_state::Track::LateUpdate()
@@ -49,14 +52,50 @@ const ZombieStateKind zombie_state::Track::GetNextStateKind()
 		return ZombieStateKind::kIdle;
 	}
 	// ダッシュ攻撃
-	else if (m_state.TryRunAttack())
+	else if (m_zombie.CanAttack() && m_state.TryGrabRun())
 	{
 		return ZombieStateKind::kGrabRun;
 	}
-	// 追跡終了 → 待機
+	// 待機
 	else if (!m_state.TryTrack() && !m_state.TryGrabRun())
 	{
 		return ZombieStateKind::kIdle;
+	}
+	// ステルスキル
+	else if (m_state.TryStealthKilled())
+	{
+		return ZombieStateKind::kStealthKilled;
+	}
+	// 死亡
+	else if (m_state.TryDead())
+	{
+		return ZombieStateKind::kDead;
+	}
+	// 左足ダウン
+	else if (m_state.TryLeftCrouchStun())
+	{
+		return ZombieStateKind::kCrouchLeftStun;
+	}
+	// 右足ダウン
+	else if (m_state.TryRightCrouchStun())
+	{
+		return ZombieStateKind::kCrouchRightStun;
+	}
+	// 立ちダウン
+	else if (m_state.TryStandStun())
+	{
+		return ZombieStateKind::kStandStun;
+	}
+	// ノックバック
+	else if (m_state.TryKnockback())
+	{
+		return ZombieStateKind::kKnockback;
+	}
+	// ノックバック（後ろ）
+	else if (m_state.TryBackwardKnockback())
+	{
+		m_zombie.OnKnockback(-m_zombie.GetCurrentLookDir(), 70.0f, 60.0f);
+		return ZombieStateKind::kBackwardKnockback;
 	}
 
 	return ZombieStateKind::kNone;

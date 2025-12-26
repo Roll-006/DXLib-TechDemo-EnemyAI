@@ -3,7 +3,7 @@
 #include "../Base/character_base.hpp"
 #include "../Command/command_handler.hpp"
 
-StealthKillTargetIcon::StealthKillTargetIcon(const std::shared_ptr<const IStealthKillable>& stealth_kill_target) :
+StealthKillTargetIcon::StealthKillTargetIcon(std::shared_ptr<IStealthKillable>& stealth_kill_target) :
 	m_stealth_kill_target		(stealth_kill_target),
 	m_button_graphic_resource	(std::make_shared<ButtonGraphicGetter>()),
 	m_button_icon_graphic		(nullptr),

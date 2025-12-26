@@ -5,7 +5,7 @@
 #include "../Object/assault_rifle_ammo_box.hpp"
 #include "../Object/rocket_bomb_box.hpp"
 
-PickupableItemIcon::PickupableItemIcon(const std::shared_ptr<const IItem>& pickupable_item, const std::vector<SpottedObjData>& pick_up_candidate_items) :
+PickupableItemIcon::PickupableItemIcon(std::shared_ptr<IItem>& pickupable_item, const std::vector<SpottedObjData>& pick_up_candidate_items) :
 	m_pickupable_item					(pickupable_item),
 	m_pick_up_candidate_items			(pick_up_candidate_items),
 	m_button_graphic_resource			(std::make_shared<ButtonGraphicGetter>()),

@@ -24,6 +24,10 @@ zombie_state::Grab::~Grab()
 
 void zombie_state::Grab::Update()
 {
+	m_animator->AttachResultAnim(static_cast<int>(ZombieAnimKind::kEnterNeckBite));
+
+	m_zombie.CalcMoveSpeedStop();
+
 	const float delta_time = m_zombie.GetDeltaTime();
 
 	m_damage_over_time_start_timer += delta_time;
@@ -63,15 +67,26 @@ void zombie_state::Grab::Exit()
 
 const ZombieStateKind zombie_state::Grab::GetNextStateKind()
 {
-	//if (m_zombie.GetDeltaTime() <= 0.0f)
-	//{
-	//	return ZombieStateKind::kNone;
-	//}
-	//// 強制NULL
-	//else if (m_state.TryActionNullForcibly())
-	//{
-	//	return ZombieStateKind::kNone;
-	//}
+	if (m_zombie.GetDeltaTime() <= 0.0f)
+	{
+		return ZombieStateKind::kNone;
+	}
+	// 強制待機
+	else if (m_state.TryWaitForcibly())
+	{
+		return ZombieStateKind::kIdle;
+	}
+	// 対象が逃げた
+	else if (m_zombie.IsTargetEscaped())
+	{
+		m_zombie.OnKnockback(-m_zombie.GetCurrentLookDir(), 70.0f, 60.0f);
+		return ZombieStateKind::kBackwardKnockback;
+	}
+	// 掴み時間終了
+	else if (m_grab_timer > kMaxGrabTime)
+	{
+		return ZombieStateKind::kIdle;
+	}
 	//// ステルスキル
 	//else if (m_state.TryStealthKilled())
 	//{
@@ -108,17 +123,6 @@ const ZombieStateKind zombie_state::Grab::GetNextStateKind()
 	//else if (m_state.TryStandStun())
 	//{
 	//	return ZombieStateKind::kStandStun;
-	//}
-	//// 対象が逃げた
-	//else if (m_zombie.IsTargetEscaped())
-	//{
-	//	m_zombie.OnKnockback(-m_zombie.GetCurrentLookDir(), 70.0f, 60.0f);
-	//	return ZombieStateKind::kBackwardKnockback;
-	//}
-	//// 掴み時間終了
-	//else if (m_grab_timer > kMaxGrabTime)
-	//{
-	//	return ZombieStateKind::kNone;
 	//}
 
 	return ZombieStateKind::kNone;
