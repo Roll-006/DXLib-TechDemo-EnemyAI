@@ -190,10 +190,10 @@ void HumanoidFootIKSolver::ApplyFootIK()
 
 void HumanoidFootIKSolver::ApplyLeftKneelCrouchIK()
 {
-	JudgeExecuteIK		();
-	CalcToeBaseOffset	();
-	ApplyRightLegIK		();
-	ApplyLeftKneelIK	();
+	JudgeExecuteIK();
+	CalcToeBaseOffset();
+	ApplyRightLegIK();
+	ApplyLeftKneelIK();
 
 	m_ray_data.left_leg_cast_pos		= std::nullopt;
 	m_ray_data.left_foot_cast_pos		= std::nullopt;
@@ -205,10 +205,10 @@ void HumanoidFootIKSolver::ApplyLeftKneelCrouchIK()
 
 void HumanoidFootIKSolver::ApplyRightKneelCrouchIK()
 {
-	JudgeExecuteIK		();
-	CalcToeBaseOffset	();
-	ApplyLeftLegIK		();
-	ApplyRightKneelIK	();
+	JudgeExecuteIK();
+	CalcToeBaseOffset();
+	ApplyLeftLegIK();
+	ApplyRightKneelIK();
 
 	m_ray_data.left_leg_cast_pos		= std::nullopt;
 	m_ray_data.left_foot_cast_pos		= std::nullopt;
@@ -371,7 +371,7 @@ void HumanoidFootIKSolver::UpHips()
 
 
 #pragma region IK処理
-void HumanoidFootIKSolver::ApplyLeftLegIK	()
+void HumanoidFootIKSolver::ApplyLeftLegIK()
 {
 	if (!m_can_left_foot_ik.at(TimeKind::kCurrent)) { return; }
 
@@ -405,7 +405,7 @@ void HumanoidFootIKSolver::ApplyLeftLegIK	()
 	}
 }
 
-void HumanoidFootIKSolver::ApplyRightLegIK	()
+void HumanoidFootIKSolver::ApplyRightLegIK()
 {
 	if (!m_can_right_foot_ik.at(TimeKind::kCurrent)) { return; }
 
@@ -439,7 +439,7 @@ void HumanoidFootIKSolver::ApplyRightLegIK	()
 	}
 }
 
-void HumanoidFootIKSolver::ApplyLeftKneelIK	()
+void HumanoidFootIKSolver::ApplyLeftKneelIK()
 {
 	if (!m_can_left_foot_ik.at(TimeKind::kCurrent)) { return; }
 
@@ -504,7 +504,7 @@ void HumanoidFootIKSolver::ApplyRightKneelIK()
 
 
 #pragma region ブレンドの起点を変更
-void HumanoidFootIKSolver::ChagneArmatureOriginMatrix	()
+void HumanoidFootIKSolver::ChagneArmatureOriginMatrix()
 {
 	const auto model_handle = m_modeler->GetModelHandle();
 

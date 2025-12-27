@@ -275,7 +275,6 @@
           "is_self_blend": true,
           "ground_play_rate": 1.0
         },
-
         "28": {
           "index": 0,
           "path": "Data/Animation/SWAT/move_forward_aim_gun.mv1",
@@ -660,6 +659,78 @@
           "play_speed": 50.0,
           "is_loop": true,
           "is_self_blend": true,
+          "ground_play_rate": 1.0
+        },
+        "18": {
+          "index": 0,
+          "path": "Data/Animation/Zombie/move_forward_walk.mv1",
+          "tag": "walk",
+          "play_speed": 55.0,
+          "is_loop": true,
+          "is_self_blend": false,
+          "ground_play_rate": 1.0
+        },
+        "19": {
+          "index": 0,
+          "path": "Data/Animation/Zombie/move_backward_aim_gun.mv1",
+          "tag": "walk",
+          "play_speed": 55.0,
+          "is_loop": true,
+          "is_self_blend": false,
+          "ground_play_rate": 1.0
+        },
+        "20": {
+          "index": 0,
+          "path": "Data/Animation/Zombie/move_left_aim_gun.mv1",
+          "tag": "walk",
+          "play_speed": 55.0,
+          "is_loop": true,
+          "is_self_blend": false,
+          "ground_play_rate": 1.0
+        },
+        "21": {
+          "index": 0,
+          "path": "Data/Animation/Zombie/move_right_aim_gun.mv1",
+          "tag": "walk",
+          "play_speed": 55.0,
+          "is_loop": true,
+          "is_self_blend": false,
+          "ground_play_rate": 1.0
+        },
+        "22": {
+          "index": 0,
+          "path": "Data/Animation/Zombie/move_forward_left_aim_gun.mv1",
+          "tag": "walk",
+          "play_speed": 55.0,
+          "is_loop": true,
+          "is_self_blend": false,
+          "ground_play_rate": 1.0
+        },
+        "23": {
+          "index": 0,
+          "path": "Data/Animation/Zombie/move_forward_right_aim_gun.mv1",
+          "tag": "walk",
+          "play_speed": 55.0,
+          "is_loop": true,
+          "is_self_blend": false,
+          "ground_play_rate": 1.0
+        },
+        "24": {
+          "index": 0,
+          "path": "Data/Animation/Zombie/move_backward_left_aim_gun.mv1",
+          "tag": "walk",
+          "play_speed": 55.0,
+          "is_loop": true,
+          "is_self_blend": false,
+          "ground_play_rate": 1.0
+        },
+        "25": {
+          "index": 0,
+          "path": "Data/Animation/Zombie/move_backward_right_aim_gun.mv1",
+          "tag": "walk",
+          "play_speed": 55.0,
+          "is_loop": true,
+          "is_self_blend": false,
           "ground_play_rate": 1.0
         }
       },

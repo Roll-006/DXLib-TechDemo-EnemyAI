@@ -122,12 +122,12 @@ const bool player_state::State::TryFrontKick()
 	auto dir = m_player.GetTransform()->GetPos(CoordinateKind::kWorld) - target_obj->GetTransform()->GetPos(CoordinateKind::kWorld);
 	dir.y = 0.0f;
 	dir = v3d::GetNormalizedV(dir);
-	if (math::GetAngleBetweenTwoVector(target_forward, dir) > 45.0f * math::kDegToRad) { return false; }
+	if (math::GetAngleBetweenTwoVectors(target_forward, dir) > 45.0f * math::kDegToRad) { return false; }
 
 	// プレイヤーの入力に即座に対応できるようにmove_dirを基準になす角を取得
-	const auto player_move_dir = m_player.GetCurrentMoveDir();
-	const auto player_dir = player_move_dir != v3d::GetZeroV() ? player_move_dir : m_player.GetCurrentLookDir();
-	const auto forward_angle = math::GetAngleBetweenTwoVector(target_forward, player_dir);
+	const auto player_move_dir	= m_player.GetMoveDir(TimeKind::kCurrent);
+	const auto player_dir		= player_move_dir != v3d::GetZeroV() ? player_move_dir : m_player.GetLookDir(TimeKind::kCurrent);
+	const auto forward_angle	= math::GetAngleBetweenTwoVectors(target_forward, player_dir);
 
 	// 正面から蹴った場合にステートを遷移
 	return forward_angle >= 135.0f * math::kDegToRad;

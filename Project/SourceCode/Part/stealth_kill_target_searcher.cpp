@@ -54,7 +54,7 @@ void StealthKillTargetSearcher::SearchTarget()
 			dir.y = 0.0f;
 			dir = v3d::GetNormalizedV(dir);
 
-			if (math::GetAngleBetweenTwoVector(target_forward, dir) >= 135.0f * math::kDegToRad)
+			if (math::GetAngleBetweenTwoVectors(target_forward, dir) >= 135.0f * math::kDegToRad)
 			{
 				++itr;
 				continue;

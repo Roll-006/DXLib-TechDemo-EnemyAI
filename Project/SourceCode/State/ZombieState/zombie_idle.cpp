@@ -25,7 +25,7 @@ void zombie_state::Idle::Update()
 
 void zombie_state::Idle::LateUpdate()
 {
-
+	m_zombie.OnFootIK();
 }
 
 void zombie_state::Idle::Enter()
@@ -97,7 +97,7 @@ const ZombieStateKind zombie_state::Idle::GetNextStateKind()
 	// ノックバック（後ろ）
 	else if (m_state.TryBackwardKnockback())
 	{
-		m_zombie.OnKnockback(-m_zombie.GetCurrentLookDir(), 70.0f, 60.0f);
+		m_zombie.OnKnockback(-m_zombie.GetLookDir(TimeKind::kCurrent), 70.0f, 60.0f);
 		return ZombieStateKind::kBackwardKnockback;
 	}
 

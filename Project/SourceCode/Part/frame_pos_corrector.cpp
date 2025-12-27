@@ -8,7 +8,7 @@ void FramePosCorrector::CorrectAimPoseFramePos(const int model_handle, const VEC
 	const auto spine2_index	= MV1SearchFrame(model_handle, FramePath.SPINE_2);
 
 	// 回転量を分割
-	auto angle				= math::GetAngleBetweenTwoVector(aim_dir, axis::GetWorldYAxis()) - 90.0f * math::kDegToRad;
+	auto angle				= math::GetAngleBetweenTwoVectors(aim_dir, axis::GetWorldYAxis()) - 90.0f * math::kDegToRad;
 	angle					+= kAimOffsetAngle * math::kDegToRad;
 	const auto spine_angle	= angle * kAimSpineAngleRate;
 	const auto spine1_angle	= angle * kAimSpine1AngleRate;

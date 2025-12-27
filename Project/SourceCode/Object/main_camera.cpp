@@ -101,7 +101,7 @@ void MainCamera::OnCollide(const ColliderPairOneToOneData& hit_collider_pair)
 					const auto owner_pos		= m_transform->GetPos(CoordinateKind::kWorld);
 					const auto target_transform = target_obj->GetTransform();
 					const auto target_pos		= target_transform->GetPos(CoordinateKind::kWorld);
-					const auto angle			= math::GetAngleBetweenTwoVector(m_transform->GetForward(CoordinateKind::kWorld), v3d::GetNormalizedV(target_pos - owner_pos));
+					const auto angle			= math::GetAngleBetweenTwoVectors(m_transform->GetForward(CoordinateKind::kWorld), v3d::GetNormalizedV(target_pos - owner_pos));
 
 					EventSystem::GetInstance()->Publish(OnDownedNearEnemySpottedEvent(target_obj->GetObjHandle(), angle, VSize(target_pos - owner_pos)));
 				}
@@ -114,7 +114,7 @@ void MainCamera::OnCollide(const ColliderPairOneToOneData& hit_collider_pair)
 				const auto owner_pos		= m_transform->GetPos(CoordinateKind::kWorld);
 				const auto target_transform = target_obj->GetTransform();
 				const auto target_pos		= target_transform->GetPos(CoordinateKind::kWorld);
-				const auto angle			= math::GetAngleBetweenTwoVector(m_transform->GetForward(CoordinateKind::kWorld), v3d::GetNormalizedV(target_pos - owner_pos));
+				const auto angle			= math::GetAngleBetweenTwoVectors(m_transform->GetForward(CoordinateKind::kWorld), v3d::GetNormalizedV(target_pos - owner_pos));
 
 				EventSystem::GetInstance()->Publish(OnNearEnemySpottedEvent(target_obj->GetObjHandle(), angle, VSize(target_pos - owner_pos)));
 			}
@@ -126,7 +126,7 @@ void MainCamera::OnCollide(const ColliderPairOneToOneData& hit_collider_pair)
 				const auto owner_pos		= m_transform->GetPos(CoordinateKind::kWorld);
 				const auto target_transform = target_obj->GetTransform();
 				const auto target_pos		= target_transform->GetPos(CoordinateKind::kWorld);
-				const auto angle			= math::GetAngleBetweenTwoVector(m_transform->GetForward(CoordinateKind::kWorld), v3d::GetNormalizedV(target_pos - owner_pos));
+				const auto angle			= math::GetAngleBetweenTwoVectors(m_transform->GetForward(CoordinateKind::kWorld), v3d::GetNormalizedV(target_pos - owner_pos));
 
 				EventSystem::GetInstance()->Publish(SpottedItemEvent(target_obj->GetObjHandle(), angle, VSize(target_pos - owner_pos)));
 			}
@@ -145,7 +145,7 @@ void MainCamera::OnCollide(const ColliderPairOneToOneData& hit_collider_pair)
 					const auto owner_pos		= m_transform->GetPos(CoordinateKind::kWorld);
 					const auto target_transform = target_obj->GetTransform();
 					const auto target_pos		= target_transform->GetPos(CoordinateKind::kWorld);
-					const auto angle			= math::GetAngleBetweenTwoVector(m_transform->GetForward(CoordinateKind::kWorld), v3d::GetNormalizedV(target_pos - owner_pos));
+					const auto angle			= math::GetAngleBetweenTwoVectors(m_transform->GetForward(CoordinateKind::kWorld), v3d::GetNormalizedV(target_pos - owner_pos));
 
 					const OnDownedFarEnemySpottedEvent event{ target_obj->GetObjHandle(), angle, VSize(target_pos - owner_pos) };
 					EventSystem::GetInstance()->Publish(event);

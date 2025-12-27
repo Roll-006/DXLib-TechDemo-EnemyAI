@@ -29,10 +29,7 @@ void zombie_state::StandUp::Update()
 
 	m_zombie.CalcMoveSpeedStop();
 
-	if (m_zombie.CanAction())
-	{
-		m_zombie.CalcAttackIntervalTime();
-	}
+	if (m_zombie.CanAction()) { m_zombie.CalcAttackIntervalTime(); }
 
 	m_zombie.DisallowStealthKill();
 }
@@ -77,7 +74,7 @@ const ZombieStateKind zombie_state::StandUp::GetNextStateKind()
 	else if (m_state.TryBackwardKnockback())
 	{
 		// TODO : ここに書くべきではない
-		m_zombie.OnKnockback(-m_zombie.GetCurrentLookDir(), 70.0f, 60.0f);
+		m_zombie.OnKnockback(-m_zombie.GetLookDir(TimeKind::kCurrent), 70.0f, 60.0f);
 		return ZombieStateKind::kBackwardKnockback;
 	}
 	// IDLE

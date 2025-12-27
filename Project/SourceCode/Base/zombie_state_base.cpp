@@ -22,40 +22,56 @@ ZombieStateBase::~ZombieStateBase()
 
 void ZombieStateBase::Move()
 {
-	m_zombie.Move();
+	const auto target_pos		= m_zombie.GetTarget()->GetTransform()->GetPos(CoordinateKind::kWorld);
+	const auto look_dir			= m_zombie.GetLookDir(TimeKind::kCurrent);
+	const auto move_dir			= m_zombie.GetMoveDir(TimeKind::kCurrent);
+
+	// 8方向で45°刻み
+	const auto angle_diff		= math::GetSignedAngleBetweenTwoVectorXZ(look_dir, move_dir);
+	const auto is_move_forward	= angle_diff <  67.5f * math::kDegToRad && angle_diff >  -67.5f * math::kDegToRad;
+	const auto is_move_backward = angle_diff > 112.5f * math::kDegToRad || angle_diff < -112.5f * math::kDegToRad;
+	const auto is_move_left		= angle_diff >  22.5f * math::kDegToRad && angle_diff <  157.5f * math::kDegToRad;
+	const auto is_move_right	= angle_diff < -22.5f * math::kDegToRad && angle_diff > -157.5f * math::kDegToRad;
+
+	m_animator->DivideFrame(FramePath.HIPS);
 
 	// ダッシュ
 	if (m_state.TryRun())
 	{
 		m_zombie.CalcMoveSpeedRun();
+		m_zombie.SyncMoveDirWithLookDir();
 		m_prev_run = true;
 
+		// アニメーションアタッチ
 		m_animator->AttachResultAnim(static_cast<int>(ZombieAnimKind::kMoveForwardRun));
 	}
 	// 歩く
 	else if (m_state.TryWalk())
 	{
 		m_zombie.CalcMoveSpeed();
+		m_zombie.LookAtTarget(target_pos);
 		m_prev_run = false;
 
-		m_animator->AttachResultAnim(static_cast<int>(ZombieAnimKind::kMoveForwardWalk));
+		// アニメーションアタッチ
+		m_animator->AttachAnimEightDir(static_cast<int>(ZombieAnimKind::kMoveForward), is_move_forward, is_move_backward, is_move_left, is_move_right, false);
+		m_animator->AttachAnim		  (static_cast<int>(ZombieAnimKind::kMoveForwardWalk), Animator::BodyKind::kUpperBody);
 	}
 	// どちらでもない場合は以前の状態を引き継ぐ
 	else if(m_prev_run)
 	{
 		m_zombie.CalcMoveSpeedRun();
+		m_zombie.SyncMoveDirWithLookDir();
 
+		// アニメーションアタッチ
 		m_animator->AttachResultAnim(static_cast<int>(ZombieAnimKind::kMoveForwardRun));
 	}
 	else
 	{
 		m_zombie.CalcMoveSpeed();
+		m_zombie.LookAtTarget(target_pos);
 
-		m_animator->AttachResultAnim(static_cast<int>(ZombieAnimKind::kMoveForwardWalk));
-	}
-
-	if (m_zombie.CanAction())
-	{
-		m_zombie.CalcAttackIntervalTime();
+		// アニメーションアタッチ
+		m_animator->AttachAnimEightDir(static_cast<int>(ZombieAnimKind::kMoveForward), is_move_forward, is_move_backward, is_move_left, is_move_right, false);
+		m_animator->AttachAnim		  (static_cast<int>(ZombieAnimKind::kMoveForwardWalk), Animator::BodyKind::kUpperBody);
 	}
 }

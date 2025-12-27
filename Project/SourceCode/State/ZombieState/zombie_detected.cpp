@@ -79,7 +79,7 @@ const ZombieStateKind zombie_state::Detected::GetNextStateKind()
 	// ノックバック（後ろ）
 	else if (m_state.TryBackwardKnockback())
 	{
-		m_zombie.OnKnockback(-m_zombie.GetCurrentLookDir(), 70.0f, 60.0f);
+		m_zombie.OnKnockback(-m_zombie.GetLookDir(TimeKind::kCurrent), 70.0f, 60.0f);
 		return ZombieStateKind::kBackwardKnockback;
 	}
 	// 死亡

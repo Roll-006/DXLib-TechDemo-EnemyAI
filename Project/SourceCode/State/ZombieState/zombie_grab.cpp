@@ -79,7 +79,7 @@ const ZombieStateKind zombie_state::Grab::GetNextStateKind()
 	// 対象が逃げた
 	else if (m_zombie.IsTargetEscaped())
 	{
-		m_zombie.OnKnockback(-m_zombie.GetCurrentLookDir(), 70.0f, 60.0f);
+		m_zombie.OnKnockback(-m_zombie.GetLookDir(TimeKind::kCurrent), 70.0f, 60.0f);
 		return ZombieStateKind::kBackwardKnockback;
 	}
 	// 掴み時間終了

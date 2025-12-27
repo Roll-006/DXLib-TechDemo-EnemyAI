@@ -22,9 +22,16 @@ void zombie_state::GrabRun::Update()
 	m_animator->AttachAnim(static_cast<int>(ZombieAnimKind::kMoveForwardRun), Animator::BodyKind::kLowerBody);
 	m_animator->AttachAnim(static_cast<int>(ZombieAnimKind::kGrab),			  Animator::BodyKind::kUpperBody);
 
-	m_track_timer += m_zombie.GetDeltaTime();
+	const auto target_pos = m_zombie.GetTarget()->GetTransform()->GetPos(CoordinateKind::kWorld);
 
-	m_zombie.Move();
+	// 一定時間追尾する
+	m_track_timer += m_zombie.GetDeltaTime();
+	if (m_track_timer < 1.0f)
+	{
+		m_zombie.TrackMove(target_pos, false);
+	}
+
+	m_zombie.SyncMoveDirWithLookDir();
 	m_zombie.UpdateGrabRun();
 }
 
@@ -80,7 +87,7 @@ const ZombieStateKind zombie_state::GrabRun::GetNextStateKind()
 	else if (m_state.TryBackwardKnockback())
 	{
 		// TODO : ここに書くべきではない
-		m_zombie.OnKnockback(-m_zombie.GetCurrentLookDir(), 70.0f, 60.0f);
+		m_zombie.OnKnockback(-m_zombie.GetLookDir(TimeKind::kCurrent), 70.0f, 60.0f);
 		return ZombieStateKind::kBackwardKnockback;
 	}
 	// 死亡

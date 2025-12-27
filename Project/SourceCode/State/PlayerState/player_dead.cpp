@@ -27,6 +27,8 @@ player_state::Dead::~Dead()
 
 void player_state::Dead::Update()
 {
+	m_animator->AttachResultAnim(static_cast<int>(PlayerAnimKind::kDead));
+
 	const auto game_time_manager = GameTimeManager::GetInstance();
 	const auto delta_time = game_time_manager->GetDeltaTime(TimeScaleLayerKind::kNoneScale);
 	m_elapsed_time += delta_time;

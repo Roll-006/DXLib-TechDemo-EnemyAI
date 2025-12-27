@@ -34,15 +34,14 @@ public:
 	[[nodiscard]] const bool								IsGoUpHill(const Triangle& hit_triangle) const;
 	[[nodiscard]] const std::shared_ptr<Modeler>			GetModeler()		const				{ return m_modeler; }
 	[[nodiscard]] const std::shared_ptr<const Animator>		GetAnimator()		const				{ return m_animator; }
-	[[nodiscard]] const VECTOR								GetCurrentMoveDir()	const				{ return m_move_dir.at(TimeKind::kCurrent); }
-	[[nodiscard]] const VECTOR								GetCurrentLookDir()	const				{ return m_look_dir.at(TimeKind::kCurrent); }
-	[[nodiscard]] const VECTOR								GetNextLookDir()	const				{ return m_look_dir.at(TimeKind::kNext); }
+	[[nodiscard]] const VECTOR								GetMoveDir(const TimeKind kind)	const	{ return m_move_dir.at(kind); }
+	[[nodiscard]] const VECTOR								GetLookDir(const TimeKind kind)	const	{ return m_look_dir.at(kind); }
 	[[nodiscard]] const std::shared_ptr<Gauge>				GetHealth(const HealthPartKind kind)	{ return m_health.at(kind); }
 	#pragma endregion
 
 protected:
 	/// @brief 見ている方向を回転に適用する
-	void ApplyLookDirToRot(const VECTOR& look_dir);
+	void ApplyLookDirToRot();
 
 	void CalcMoveDir();
 	void CalcLookDir();

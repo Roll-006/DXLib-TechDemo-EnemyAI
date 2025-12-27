@@ -35,7 +35,7 @@ Zombie::Zombie(const std::string& id) :
 
 	m_transform->SetPos(CoordinateKind::kWorld, v3d::GetZeroV());
 	m_look_dir.at(TimeKind::kNext) = m_look_dir.at(TimeKind::kCurrent) = VGet(0.0f, 0.0f, 1.0);
-	ApplyLookDirToRot(m_look_dir.at(TimeKind::kCurrent));
+	ApplyLookDirToRot();
 
 	// TODO : JSON指定
 	m_health[HealthPartKind::kMain]		= std::make_shared<Gauge>(1684.0f);
@@ -98,10 +98,10 @@ void Zombie::Update()
 	JudgeTargetInSight();
 
 	m_look_dir_offset_speed			= data.look_dir_offset_speed;
+	m_move_dir_offset_speed			= data.move_dir_offset_speed;
 	m_is_allow_stealth_kill			= true;
 	m_can_decrease_knock_back_gauge = true;
 
-	const auto humanoid = std::dynamic_pointer_cast<IHumanoid>(shared_from_this());
 	m_state				->Update();
 	m_animator			->Update();
 	m_humanoid_foot_ik	->Update();
@@ -111,7 +111,7 @@ void Zombie::Update()
 	CalcLookDir();
 	CalcMoveVelocity();
 
-	ApplyLookDirToRot(m_look_dir.at(TimeKind::kCurrent));
+	ApplyLookDirToRot();
 }
 
 void Zombie::LateUpdate()
@@ -236,7 +236,9 @@ void Zombie::OnCollide(const ColliderPairOneToOneData& hit_collider_pair)
 			const auto damage = dynamic_cast<Bullet*>(target_obj)->GetPower();
 
 			// ダウン中は部位HPは減少させない
-			if (state_kind != ZombieStateKind::kStandStun)
+			if (   state_kind != ZombieStateKind::kStandStun
+				&& state_kind != ZombieStateKind::kCrouchLeftStun
+				&& state_kind != ZombieStateKind::kCrouchRightStun)
 			{
 				OnDamage(HealthPartKind::kHead, damage);
 			}
@@ -454,7 +456,7 @@ void Zombie::OnRespawn(const VECTOR& pos, const VECTOR& look_dir)
 	m_transform->SetPos(CoordinateKind::kWorld, pos);
 
 	m_look_dir.at(TimeKind::kNext) = m_look_dir.at(TimeKind::kCurrent) = v3d::GetNormalizedV(look_dir);
-	ApplyLookDirToRot(m_look_dir.at(TimeKind::kCurrent));
+	ApplyLookDirToRot();
 
 	m_collider_creator->CalcCapsuleColliderPos	(m_modeler, m_colliders);
 	m_collider_creator->CalcLandingTriggerPos	(m_modeler, m_colliders);
@@ -553,23 +555,29 @@ const bool Zombie::IsCrouchStun() const
 #pragma endregion
 
 
-void Zombie::Move()
-{
-	m_move_dir_offset_speed = data.move_dir_offset_speed;
-
-	if (m_move_dir.at(TimeKind::kCurrent) != v3d::GetZeroV())
-	{
-		m_look_dir.at(TimeKind::kNext) = m_move_dir.at(TimeKind::kCurrent);
-	}
-}
-
-void Zombie::TrackMove(const VECTOR& target_pos)
+void Zombie::TrackMove(const VECTOR& target_pos, const bool is_distance_limit)
 {
 	const auto pos				= m_transform->GetPos(CoordinateKind::kWorld);
 	const auto pos_y0			= VGet(pos.x, 0.0f, pos.z);
 	const auto target_pos_y0	= VGet(target_pos.x, 0.0f, target_pos.z);
+	const auto distance			= VSize(target_pos - pos);
+	auto	   next_move_dir	= v3d::GetNormalizedV(target_pos_y0 - pos_y0);
 
-	m_move_dir.at(TimeKind::kNext) = v3d::GetNormalizedV(target_pos_y0 - pos_y0);
+	if (is_distance_limit)
+	{
+		const float distance = VSize(target_pos - pos);
+
+		if (distance < 50.0f)
+		{
+			next_move_dir *= -1;
+		}
+		else if (distance <= 60.0f)
+		{
+			next_move_dir = v3d::GetZeroV();
+		}
+	}
+
+	m_move_dir.at(TimeKind::kNext) = next_move_dir;
 }
 
 void Zombie::OnFootIK()

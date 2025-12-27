@@ -63,15 +63,15 @@ const bool CharacterBase::IsGoUpHill(const Triangle& hit_triangle) const
 	horizontal_v = v3d::GetNormalizedV(horizontal_v);
 
 	// 移動方向との角度の差を取得
-	const auto angle = math::GetAngleBetweenTwoVector(m_move_dir.at(TimeKind::kCurrent), horizontal_v);
+	const auto angle = math::GetAngleBetweenTwoVectors(m_move_dir.at(TimeKind::kCurrent), horizontal_v);
 
 	// 角度の差が90度より大きい場合は上り坂に向かっている
 	return angle * math::kRadToDeg > 90.0f;
 }
 
-void CharacterBase::ApplyLookDirToRot(const VECTOR& look_dir)
+void CharacterBase::ApplyLookDirToRot()
 {
-	m_transform->SetRot  (CoordinateKind::kWorld, look_dir);
+	m_transform->SetRot(CoordinateKind::kWorld, m_look_dir.at(TimeKind::kCurrent));
 }
 
 void CharacterBase::CalcMoveDir()
@@ -102,7 +102,7 @@ void CharacterBase::CalcLookDir()
 	m_look_dir.at(TimeKind::kCurrent) = math::GetRotatedPos(m_look_dir.at(TimeKind::kCurrent), rot_q);
 
 	// 終了判定
-	const auto angle = math::GetYawBetweenTwoVector(m_look_dir.at(TimeKind::kNext), m_look_dir.at(TimeKind::kCurrent));
+	const auto angle = math::GetAngleBetweenTwoVectorsXZ(m_look_dir.at(TimeKind::kNext), m_look_dir.at(TimeKind::kCurrent));
 	const auto dynamic_threshold = std::abs(look_dir_offset_speed * math::kStopThreshold);
 	if (angle < dynamic_threshold)
 	{

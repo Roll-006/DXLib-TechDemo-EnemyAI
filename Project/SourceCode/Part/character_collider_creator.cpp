@@ -108,16 +108,16 @@ void CharacterColliderCreator::CalcCapsuleColliderPos(std::shared_ptr<Modeler>& 
 	if (!collider.contains(ColliderKind::kCollider)) { return; }
 
 	modeler->ApplyMatrix();
-	const auto model_handle = modeler->GetModelHandle();
-	const auto transform	= modeler->GetTransform();
+	const auto model_handle		= modeler->GetModelHandle();
+	const auto transform		= modeler->GetTransform();
 
 	// 位置を取得
-	auto	   head_top_m = MV1GetFrameLocalWorldMatrix(model_handle, MV1SearchFrame(model_handle, FramePath.HEAD_TOP_END));
-	const auto pos = transform->GetPos(CoordinateKind::kWorld);
+	auto	   head_top_m		= MV1GetFrameLocalWorldMatrix(model_handle, MV1SearchFrame(model_handle, FramePath.HEAD_TOP_END));
+	const auto pos				= transform->GetPos(CoordinateKind::kWorld);
 
-	const auto capsule = std::static_pointer_cast<Capsule>(collider.at(ColliderKind::kCollider)->GetShape());
-	const auto begin_pos = VGet(pos.x, pos.y + capsule->GetRadius(), pos.z);
-	const auto capsule_length = VSize(pos - matrix::GetPos(head_top_m)) - capsule->GetRadius() * 2.0f;
+	const auto capsule			= std::static_pointer_cast<Capsule>(collider.at(ColliderKind::kCollider)->GetShape());
+	const auto begin_pos		= VGet(pos.x, pos.y + capsule->GetRadius(), pos.z);
+	const auto capsule_length	= VSize(pos - matrix::GetPos(head_top_m)) - capsule->GetRadius() * 2.0f;
 	capsule->SetSegmentBeginPos(begin_pos, true);
 	capsule->SetSegmentEndPos(begin_pos + transform->GetUp(CoordinateKind::kWorld) * capsule_length, true);
 }
@@ -129,9 +129,9 @@ void CharacterColliderCreator::CalcLandingTriggerPos(std::shared_ptr<Modeler>& m
 	modeler->ApplyMatrix();
 	const auto model_handle = modeler->GetModelHandle();
 
-	const auto sphere = std::static_pointer_cast<Sphere> (collider.at(ColliderKind::kLandingTrigger)->GetShape());
-	const auto capsule = std::static_pointer_cast<Capsule>(collider.at(ColliderKind::kCollider)->GetShape());
-	const auto pos = capsule->GetSegment().GetBeginPos() - VGet(0.0f, 1.5f, 0.0f);
+	const auto sphere	= std::static_pointer_cast<Sphere> (collider.at(ColliderKind::kLandingTrigger)->GetShape());
+	const auto capsule	= std::static_pointer_cast<Capsule>(collider.at(ColliderKind::kCollider)->GetShape());
+	const auto pos		= capsule->GetSegment().GetBeginPos() - VGet(0.0f, 1.5f, 0.0f);
 
 	sphere->SetPos(pos);
 }
@@ -143,9 +143,9 @@ void CharacterColliderCreator::CalcProjectRayPos(std::shared_ptr<Modeler>& model
 	modeler->ApplyMatrix();
 	const auto model_handle = modeler->GetModelHandle();
 
-	const auto segment = std::static_pointer_cast<Segment>(collider.at(ColliderKind::kProjectRay)->GetShape());
-	const auto capsule = std::static_pointer_cast<Capsule>(collider.at(ColliderKind::kCollider)->GetShape());
-	const auto pos = capsule->GetSegment().GetBeginPos();
+	const auto segment	= std::static_pointer_cast<Segment>(collider.at(ColliderKind::kProjectRay)->GetShape());
+	const auto capsule	= std::static_pointer_cast<Capsule>(collider.at(ColliderKind::kCollider)->GetShape());
+	const auto pos		= capsule->GetSegment().GetBeginPos();
 
 	segment->SetBeginPos(pos, false);
 }
@@ -163,9 +163,9 @@ void CharacterColliderCreator::CalcVisionTriggerPos(std::shared_ptr<Modeler>& mo
 	const auto model_handle = modeler->GetModelHandle();
 
 	// 位置を取得
-	auto head_m = MV1GetFrameLocalWorldMatrix(modeler->GetModelHandle(), MV1SearchFrame(modeler->GetModelHandle(), FramePath.HEAD));
-	const auto head_pos = matrix::GetPos(head_m);
-	const auto head_axis = math::ConvertRotMatrixToAxis(head_m);
+	const auto head_m		= MV1GetFrameLocalWorldMatrix(modeler->GetModelHandle(), MV1SearchFrame(modeler->GetModelHandle(), FramePath.HEAD));
+	const auto head_pos		= matrix::GetPos(head_m);
+	const auto head_axis	= math::ConvertRotMatrixToAxis(head_m);
 
 	const auto cone = std::static_pointer_cast<Cone>(collider.at(ColliderKind::kMiddleVisionTrigger)->GetShape());
 	cone->SetDir(-head_axis.z_axis);
@@ -178,8 +178,8 @@ void CharacterColliderCreator::CalcVisibleTriggerPos(std::shared_ptr<Modeler>& m
 	const auto model_handle = modeler->GetModelHandle();
 
 	// 位置を取得
-	auto spine2_m = MV1GetFrameLocalWorldMatrix(modeler->GetModelHandle(), MV1SearchFrame(modeler->GetModelHandle(), FramePath.SPINE_2));
-	const auto spine2_pos = matrix::GetPos(spine2_m);
+	const auto spine2_m		= MV1GetFrameLocalWorldMatrix(modeler->GetModelHandle(), MV1SearchFrame(modeler->GetModelHandle(), FramePath.SPINE_2));
+	const auto spine2_pos	= matrix::GetPos(spine2_m);
 
 	const auto cone = std::static_pointer_cast<Point>(collider.at(ColliderKind::kVisibleTrigger)->GetShape());
 	cone->SetPos(spine2_pos);
@@ -191,7 +191,7 @@ void CharacterColliderCreator::CalcHeadTriggerPos(std::shared_ptr<Modeler>& mode
 	const auto model_handle = modeler->GetModelHandle();
 
 	// 位置を取得
-	auto head_m = MV1GetFrameLocalWorldMatrix(modeler->GetModelHandle(), MV1SearchFrame(modeler->GetModelHandle(), FramePath.HEAD));
+	const auto head_m	= MV1GetFrameLocalWorldMatrix(modeler->GetModelHandle(), MV1SearchFrame(modeler->GetModelHandle(), FramePath.HEAD));
 	const auto head_pos = matrix::GetPos(head_m);
 
 	std::static_pointer_cast<Sphere>(collider.at(ColliderKind::kHeadTrigger)->GetShape())->SetPos(head_pos);

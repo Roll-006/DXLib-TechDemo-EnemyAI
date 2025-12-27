@@ -421,7 +421,7 @@ const HumanoidArmIKSolver::ResultKind HumanoidArmIKSolver::ApplyRightHandIKOnThi
 	return ResultKind::kSuccess;
 }
 
-const HumanoidArmIKSolver::ResultKind HumanoidArmIKSolver::ApplyLeftArmIKOnGround	()
+const HumanoidArmIKSolver::ResultKind HumanoidArmIKSolver::ApplyLeftArmIKOnGround()
 {
 	m_left_ik_kind.at(TimeKind::kCurrent) = IKKind::kHandOnGround;
 
@@ -435,8 +435,6 @@ const HumanoidArmIKSolver::ResultKind HumanoidArmIKSolver::ApplyLeftArmIKOnGroun
 	const auto left_fore_arm_world_axis = math::ConvertRotMatrixToAxis(left_fore_arm_world_m);
 	auto	   left_hand_world_m		= MV1GetFrameLocalWorldMatrix(model_handle, humanoid_frame->GetLeftHandIndex(model_handle));
 	const auto left_hand_world_pos		= matrix::GetPos(left_hand_world_m);
-	//auto	   left_hand_middle4_world_m	= MV1GetFrameLocalWorldMatrix(model_handle, humanoid_frame->GetLeftHandMiddle4Index(model_handle));
-	//const auto left_hand_middle4_world_pos	= matrix::GetPos(left_hand_middle4_world_m);
 
 	if (m_ray_data.left_hand_cast_pos)
 	{

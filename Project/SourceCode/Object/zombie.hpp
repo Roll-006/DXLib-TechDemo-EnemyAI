@@ -73,8 +73,7 @@ public:
 
 
 	#pragma region State
-	void Move();
-	void TrackMove(const VECTOR& target_pos);
+	void TrackMove(const VECTOR& target_pos, const bool is_distance_limit);
 
 	void OnFootIK();
 	void OnLeftCrouchIK();

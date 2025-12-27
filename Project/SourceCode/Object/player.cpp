@@ -170,7 +170,7 @@ void Player::Update()
 
 	JudgeVictoryPose();
 
-	ApplyLookDirToRot(m_look_dir.at(TimeKind::kCurrent));
+	ApplyLookDirToRot();
 }
 
 void Player::LateUpdate()
@@ -923,7 +923,7 @@ void Player::CalcInputSlopeFromCommand()
 	m_input_slope = v3d::GetNormalizedV(current_input_slope) * InputChecker::kStickMaxSlope;
 
 	// 継続して入力されていたvelocityが、現在のvelocityと逆を向いていた場合現在のvelocityを縮める
-	if (std::abs(math::GetAngleBetweenTwoVector(m_input_slope, continue_input_slope) - DX_PI_F) < math::kEpsilonLow)
+	if (std::abs(math::GetAngleBetweenTwoVectors(m_input_slope, continue_input_slope) - DX_PI_F) < math::kEpsilonLow)
 	{
 		m_input_slope += continue_input_slope;
 	}

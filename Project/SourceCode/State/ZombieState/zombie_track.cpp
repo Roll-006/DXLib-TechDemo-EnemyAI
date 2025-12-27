@@ -21,13 +21,23 @@ void zombie_state::Track::Update()
 {
 	const auto target_pos = m_zombie.GetTarget()->GetTransform()->GetPos(CoordinateKind::kWorld);
 
-	Move();
-	m_zombie.TrackMove(target_pos);
+	m_zombie.TrackMove(target_pos, true);
+
+	if (m_zombie.GetMoveDir(TimeKind::kNext) != v3d::GetZeroV())
+	{
+		Move();
+	}
+	else
+	{
+		m_animator->AttachResultAnim(static_cast<int>(ZombieAnimKind::kIdle));
+	}
+
+	if (m_zombie.CanAction()) { m_zombie.CalcAttackIntervalTime(); }
 }
 
 void zombie_state::Track::LateUpdate()
 {
-
+	m_zombie.OnFootIK();
 }
 
 void zombie_state::Track::Enter()
@@ -94,7 +104,7 @@ const ZombieStateKind zombie_state::Track::GetNextStateKind()
 	// ノックバック（後ろ）
 	else if (m_state.TryBackwardKnockback())
 	{
-		m_zombie.OnKnockback(-m_zombie.GetCurrentLookDir(), 70.0f, 60.0f);
+		m_zombie.OnKnockback(-m_zombie.GetLookDir(TimeKind::kCurrent), 70.0f, 60.0f);
 		return ZombieStateKind::kBackwardKnockback;
 	}
 

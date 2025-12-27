@@ -21,13 +21,13 @@ void zombie_state::Patrol::Update()
 	m_animator->AttachResultAnim(static_cast<int>(ZombieAnimKind::kMoveForwardWalk));
 
 	m_zombie.CalcMoveSpeed();
-	m_zombie.Move();
+	m_zombie.SyncMoveDirWithLookDir();
 	m_zombie.ChangePatrolDestination();
 }
 
 void zombie_state::Patrol::LateUpdate()
 {
-
+	m_zombie.OnFootIK();
 }
 
 void zombie_state::Patrol::Enter()
@@ -99,7 +99,7 @@ const ZombieStateKind zombie_state::Patrol::GetNextStateKind()
 	// ノックバック（後ろ）
 	else if (m_state.TryBackwardKnockback())
 	{
-		m_zombie.OnKnockback(-m_zombie.GetCurrentLookDir(), 70.0f, 60.0f);
+		m_zombie.OnKnockback(-m_zombie.GetLookDir(TimeKind::kCurrent), 70.0f, 60.0f);
 		return ZombieStateKind::kBackwardKnockback;
 	}
 
