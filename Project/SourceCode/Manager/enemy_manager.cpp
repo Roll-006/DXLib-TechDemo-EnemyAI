@@ -69,9 +69,23 @@ void EnemyManager::Init()
 
 void EnemyManager::Update()
 {
-	for (const auto& enemy : m_active_enemies)
+	for (const auto& owner_enemy : m_active_enemies)
 	{
-		enemy->Update();
+		const auto owner_pos = owner_enemy->GetTransform()->GetPos(CoordinateKind::kWorld);
+		for (const auto& target_enemy : m_active_enemies)
+		{
+			if (owner_enemy == target_enemy) { continue; }
+
+			const auto target_pos	= target_enemy->GetTransform()->GetPos(CoordinateKind::kWorld);
+			const auto dir			= v3d::GetNormalizedV(target_pos - owner_pos);
+			const auto distance		= VSize(target_pos - owner_pos);
+			if (distance < 60.0f)
+			{
+				owner_enemy->OnPush(-dir, 20.0f);
+			}
+		}
+
+		owner_enemy->Update();
 	}
 }
 

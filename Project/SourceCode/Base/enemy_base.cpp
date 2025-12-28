@@ -60,6 +60,11 @@ void EnemyBase::OnRotate(const float angle, const RotDirKind rot_dir_kind)
 	m_look_dir.at(TimeKind::kNext) = math::GetRotatedPos(m_look_dir.at(TimeKind::kCurrent), quat::CreateQuaternion(up, result_angle));
 }
 
+void EnemyBase::OnPush(const VECTOR& push_dir, const float push_distance)
+{
+	m_velocity += push_dir * push_distance;
+}
+
 void EnemyBase::SyncMoveDirWithLookDir()
 {
 	if (m_move_dir.at(TimeKind::kCurrent) != v3d::GetZeroV())

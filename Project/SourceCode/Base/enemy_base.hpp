@@ -26,6 +26,8 @@ public:
 	/// @param rot_dir_kind 回転方向
 	void OnRotate(const float angle, const RotDirKind rot_dir_kind);
 
+	void OnPush(const VECTOR& push_dir, const float push_distance);
+
 	/// @brief 見ている方向を移動方向と同期させる
 	void SyncMoveDirWithLookDir();
 
