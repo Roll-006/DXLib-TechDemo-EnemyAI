@@ -15,7 +15,9 @@ Zombie::Zombie(const std::string& id) :
 	m_can_grab_target		(false),
 	m_is_target_escaped		(false),
 	m_is_allow_stealth_kill	(true),
-	m_on_stealth_kill		(false)
+	m_on_stealth_kill		(false),
+	m_is_forward_walk		(false),
+	m_is_backward_walk		(false)
 {
 	enemy_id = id;
 
@@ -106,12 +108,6 @@ void Zombie::Update()
 	m_animator			->Update();
 	m_humanoid_foot_ik	->Update();
 	m_humanoid_arm_ik	->Update();
-
-	CalcMoveDir();
-	CalcLookDir();
-	CalcMoveVelocity();
-
-	ApplyLookDirToRot();
 }
 
 void Zombie::LateUpdate()
@@ -557,6 +553,9 @@ const bool Zombie::IsCrouchStun() const
 
 void Zombie::TrackMove(const VECTOR& target_pos, const bool is_distance_limit)
 {
+	constexpr float kBackwardEnterDist	= 50.0f;
+	constexpr float kBackwardExitDist	= 60.0f;
+
 	const auto pos				= m_transform->GetPos(CoordinateKind::kWorld);
 	const auto pos_y0			= VGet(pos.x, 0.0f, pos.z);
 	const auto target_pos_y0	= VGet(target_pos.x, 0.0f, target_pos.z);
@@ -565,13 +564,26 @@ void Zombie::TrackMove(const VECTOR& target_pos, const bool is_distance_limit)
 
 	if (is_distance_limit)
 	{
-		const float distance = VSize(target_pos - pos);
-
-		if (distance < 50.0f)
+		if (m_is_backward_walk)
 		{
-			next_move_dir *= -1;
+			if (distance >= kBackwardExitDist)
+			{
+				m_is_backward_walk = false;
+			}
 		}
-		else if (distance <= 60.0f)
+		else
+		{
+			if (distance < kBackwardEnterDist)
+			{
+				m_is_backward_walk = true;
+			}
+		}
+
+		if (m_is_backward_walk)
+		{
+			next_move_dir *= -1.0f;
+		}
+		else if (distance < kBackwardExitDist)
 		{
 			next_move_dir = v3d::GetZeroV();
 		}
@@ -598,7 +610,7 @@ void Zombie::OnLeftCrouchIK()
 void Zombie::OnRightCrouchIK()
 {
 	const auto humanoid = std::dynamic_pointer_cast<IHumanoid>(shared_from_this());
-
+	
 	m_humanoid_foot_ik->CalcRightLegRayPos();
 	m_humanoid_arm_ik ->CalcRightHandRayPos();
 	m_humanoid_foot_ik->ApplyRightKneelCrouchIK();

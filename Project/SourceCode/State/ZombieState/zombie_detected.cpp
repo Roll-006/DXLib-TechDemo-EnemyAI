@@ -19,9 +19,13 @@ zombie_state::Detected::~Detected()
 
 void zombie_state::Detected::Update()
 {
-	m_animator->AttachResultAnim(static_cast<int>(ZombieAnimKind::kDetected));
-
 	m_zombie.Detected();
+	m_zombie.CalcMoveSpeedStop();
+	m_zombie.InitMoveOffset();
+
+	m_zombie.UpdateLocomotion();
+
+	m_animator->AttachResultAnim(static_cast<int>(ZombieAnimKind::kDetected));
 }
 
 void zombie_state::Detected::LateUpdate()

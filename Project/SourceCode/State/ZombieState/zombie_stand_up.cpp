@@ -18,6 +18,15 @@ zombie_state::StandUp::~StandUp()
 
 void zombie_state::StandUp::Update()
 {
+	m_zombie.CalcMoveSpeedStop();
+	m_zombie.InitMoveOffset();
+
+	if (m_zombie.CanAction()) { m_zombie.CalcAttackIntervalTime(); }
+
+	m_zombie.DisallowStealthKill();
+
+	m_zombie.UpdateLocomotion();
+
 	if (m_state.GetPrevStateKind() == ZombieStateKind::kStealthKilled)
 	{
 		m_animator->AttachResultAnim(static_cast<int>(ZombieAnimKind::kStandUpkStandUpStealthKill));
@@ -26,12 +35,6 @@ void zombie_state::StandUp::Update()
 	{
 		m_animator->AttachResultAnim(static_cast<int>(ZombieAnimKind::kStandUp));
 	}
-
-	m_zombie.CalcMoveSpeedStop();
-
-	if (m_zombie.CanAction()) { m_zombie.CalcAttackIntervalTime(); }
-
-	m_zombie.DisallowStealthKill();
 }
 
 void zombie_state::StandUp::LateUpdate()

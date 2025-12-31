@@ -21,9 +21,8 @@ zombie_state::CrouchLeftStun::~CrouchLeftStun()
 
 void zombie_state::CrouchLeftStun::Update()
 {
-	m_animator->AttachResultAnim(static_cast<int>(ZombieAnimKind::kLeftCrouch));
-
 	m_zombie.CalcMoveSpeedStop();
+	m_zombie.InitMoveOffset();
 
 	if (m_zombie.CanAction())
 	{
@@ -32,6 +31,10 @@ void zombie_state::CrouchLeftStun::Update()
 
 	m_zombie.DisallowDecreaseKnockBackGauge();
 	m_zombie.AllowCalcLookDir();
+
+	m_zombie.UpdateLocomotion();
+
+	m_animator->AttachResultAnim(static_cast<int>(ZombieAnimKind::kLeftCrouch));
 }
 
 void zombie_state::CrouchLeftStun::LateUpdate()

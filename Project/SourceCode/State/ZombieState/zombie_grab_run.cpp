@@ -19,9 +19,6 @@ zombie_state::GrabRun::~GrabRun()
 
 void zombie_state::GrabRun::Update()
 {
-	m_animator->AttachAnim(static_cast<int>(ZombieAnimKind::kMoveForwardRun), Animator::BodyKind::kLowerBody);
-	m_animator->AttachAnim(static_cast<int>(ZombieAnimKind::kGrab),			  Animator::BodyKind::kUpperBody);
-
 	const auto target_pos = m_zombie.GetTarget()->GetTransform()->GetPos(CoordinateKind::kWorld);
 
 	// 一定時間追尾する
@@ -33,6 +30,11 @@ void zombie_state::GrabRun::Update()
 
 	m_zombie.SyncMoveDirWithLookDir();
 	m_zombie.UpdateGrabRun();
+
+	m_zombie.UpdateLocomotion();
+
+	m_animator->AttachAnim(static_cast<int>(ZombieAnimKind::kMoveForwardRun), Animator::BodyKind::kLowerBody);
+	m_animator->AttachAnim(static_cast<int>(ZombieAnimKind::kGrab),			  Animator::BodyKind::kUpperBody);
 }
 
 void zombie_state::GrabRun::LateUpdate()

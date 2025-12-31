@@ -8,13 +8,13 @@ Houses::Houses() :
 {	
 	mass_kind = MassKind::kStatic;
 
-	//SetColliderModelHandle(m_collision_modeler->GetModelHandle());
+	SetColliderModelHandle(m_collision_modeler->GetModelHandle());
 
-	//m_transform->SetPos (CoordinateKind::kWorld, kPos);
-	//m_modeler->ApplyMatrix();
-	//m_collision_modeler->ApplyMatrix();
+	m_transform->SetPos (CoordinateKind::kWorld, kPos);
+	m_modeler->ApplyMatrix();
+	m_collision_modeler->ApplyMatrix();
 
-	//AddCollider(std::make_shared<Collider>(ColliderKind::kCollider, m_collision_modeler->GetModelHandle(), this));
+	AddCollider(std::make_shared<Collider>(ColliderKind::kCollider, m_collision_modeler->GetModelHandle(), this));
 }
 
 Houses::~Houses()
@@ -41,7 +41,7 @@ void Houses::Draw() const
 {
 	if (!IsActive()) { return; }
 
-	//m_modeler->Draw();
+	m_modeler->Draw();
 }
 
 void Houses::OnCollide(const ColliderPairOneToOneData& hit_collider_pair)
@@ -56,20 +56,20 @@ void Houses::OnProjectPos()
 
 void Houses::AddToObjManager()
 {
-	//const auto physical_obj = std::dynamic_pointer_cast<PhysicalObjBase>(shared_from_this());
+	const auto physical_obj = std::dynamic_pointer_cast<PhysicalObjBase>(shared_from_this());
 
-	//ObjAccessor		::GetInstance()->AddObj			(shared_from_this());
-	//CollisionManager::GetInstance()->AddCollideObj	(physical_obj);
-	//PhysicsManager	::GetInstance()->AddPhysicalObj	(physical_obj);
+	ObjAccessor		::GetInstance()->AddObj			(shared_from_this());
+	CollisionManager::GetInstance()->AddCollideObj	(physical_obj);
+	PhysicsManager	::GetInstance()->AddPhysicalObj	(physical_obj);
 }
 
 void Houses::RemoveToObjManager()
 {
-	//const auto obj_handle = GetObjHandle();
+	const auto obj_handle = GetObjHandle();
 
-	//CollisionManager::GetInstance()->RemoveCollideObj	(obj_handle);
-	//PhysicsManager	::GetInstance()->RemovePhysicalObj	(obj_handle);
-	//ObjAccessor		::GetInstance()->RemoveObj			(obj_handle);
+	CollisionManager::GetInstance()->RemoveCollideObj	(obj_handle);
+	PhysicsManager	::GetInstance()->RemovePhysicalObj	(obj_handle);
+	ObjAccessor		::GetInstance()->RemoveObj			(obj_handle);
 }
 
 const float Houses::GetDeltaTime() const

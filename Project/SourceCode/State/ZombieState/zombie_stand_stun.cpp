@@ -20,10 +20,8 @@ zombie_state::StandStun::~StandStun()
 
 void zombie_state::StandStun::Update()
 {
-	m_animator->AttachAnim(static_cast<int>(ZombieAnimKind::kIdle),		 Animator::BodyKind::kLowerBody);
-	m_animator->AttachAnim(static_cast<int>(ZombieAnimKind::kStandStun), Animator::BodyKind::kUpperBody);
-
 	m_zombie.CalcMoveSpeedStop();
+	m_zombie.InitMoveOffset();
 
 	if (m_zombie.CanAction())
 	{
@@ -31,6 +29,11 @@ void zombie_state::StandStun::Update()
 	}
 
 	m_zombie.DisallowDecreaseKnockBackGauge();
+
+	m_zombie.UpdateLocomotion();
+
+	m_animator->AttachAnim(static_cast<int>(ZombieAnimKind::kIdle),		 Animator::BodyKind::kLowerBody);
+	m_animator->AttachAnim(static_cast<int>(ZombieAnimKind::kStandStun), Animator::BodyKind::kUpperBody);
 }
 
 void zombie_state::StandStun::LateUpdate()

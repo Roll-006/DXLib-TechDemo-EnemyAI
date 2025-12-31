@@ -26,7 +26,8 @@ public:
 	/// @param rot_dir_kind 回転方向
 	void OnRotate(const float angle, const RotDirKind rot_dir_kind);
 
-	void OnPush(const VECTOR& push_dir, const float push_distance);
+	/// @brief 移動velocityを補正する
+	void CorrectMoveVelocity(const VECTOR& target_pos);
 
 	/// @brief 見ている方向を移動方向と同期させる
 	void SyncMoveDirWithLookDir();
@@ -73,6 +74,7 @@ protected:
 	std::shared_ptr<PatrolRouteGiver>	m_patrol_route_giver;
 	VECTOR								m_patrol_destination_pos;
 
+	bool  m_is_stop;
 	float m_attack_interval_timer;
 	bool  m_can_action;
 	bool  m_is_disallow_action_forcibly;

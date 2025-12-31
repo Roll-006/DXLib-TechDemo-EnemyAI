@@ -36,11 +36,13 @@ void player_state::Dead::Update()
 	if (m_elapsed_time > 6.5f && !m_is_seted_time_scale)
 	{
 		m_is_seted_time_scale = true;
-		game_time_manager->SetTimeScale(TimeScaleLayerKind::kWorld, 0.0f);
+		game_time_manager->SetTimeScale(TimeScaleLayerKind::kWorld,  0.0f);
 		game_time_manager->SetTimeScale(TimeScaleLayerKind::kPlayer, 0.0f);
 		game_time_manager->SetTimeScale(TimeScaleLayerKind::kEffect, 0.0f);
 		game_time_manager->SetTimeScale(TimeScaleLayerKind::kCamera, 0.0f);
 	}
+
+	m_player.CalcMoveSpeedStop();
 }
 
 void player_state::Dead::LateUpdate()

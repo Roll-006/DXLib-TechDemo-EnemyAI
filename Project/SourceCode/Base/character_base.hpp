@@ -18,6 +18,9 @@ public:
 	void AddToObjManager()		override;
 	void RemoveToObjManager()	override;
 
+	void UpdateLocomotion();
+
+	void InitMoveOffset();
 	void CalcCorrectMoveDir();
 	void AllowCalcLookDir() { m_is_calc_look_dir = true; }
 
@@ -36,18 +39,20 @@ public:
 	[[nodiscard]] const std::shared_ptr<const Animator>		GetAnimator()		const				{ return m_animator; }
 	[[nodiscard]] const VECTOR								GetMoveDir(const TimeKind kind)	const	{ return m_move_dir.at(kind); }
 	[[nodiscard]] const VECTOR								GetLookDir(const TimeKind kind)	const	{ return m_look_dir.at(kind); }
+	[[nodiscard]] const VECTOR								GetMoveVelocity()	const				{ return m_move_velocity; }
 	[[nodiscard]] const std::shared_ptr<Gauge>				GetHealth(const HealthPartKind kind)	{ return m_health.at(kind); }
 	#pragma endregion
 
 protected:
+	void JudgeInvincible();
+
 	/// @brief 見ている方向を回転に適用する
 	void ApplyLookDirToRot();
 
+private:
 	void CalcMoveDir();
 	void CalcLookDir();
 	void CalcMoveVelocity();
-
-	void JudgeInvincible();
 
 protected:
 	float invincible_time;
@@ -58,6 +63,7 @@ protected:
 
 	std::unordered_map<TimeKind, VECTOR>		m_move_dir;					// 移動方向(WARNING : 長さは0～1の範囲を取る)
 	std::unordered_map<TimeKind, VECTOR>		m_look_dir;					// 向いている方向
+	VECTOR										m_move_offset;				// 移動velocityを補正
 	VECTOR										m_destination_pos;			// 補正先座標
 	float										m_move_speed;
 	float										m_move_dir_offset_speed;	// 移動方向を補正する速度

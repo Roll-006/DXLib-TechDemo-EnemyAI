@@ -18,13 +18,15 @@ zombie_state::BackwardKnockback::~BackwardKnockback()
 
 void zombie_state::BackwardKnockback::Update()
 {
-	m_animator->AttachResultAnim(static_cast<int>(ZombieAnimKind::kBackwardKnockback));
-
 	m_zombie.CalcMoveSpeedStop();
 
 	m_zombie.ActivateInvincibleForcibly();
 	m_zombie.DisallowDecreaseKnockBackGauge();
 	m_zombie.DisallowStealthKill();
+
+	m_zombie.UpdateLocomotion();
+
+	m_animator->AttachResultAnim(static_cast<int>(ZombieAnimKind::kBackwardKnockback));
 }
 
 void zombie_state::BackwardKnockback::LateUpdate()

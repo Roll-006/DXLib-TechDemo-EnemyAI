@@ -24,9 +24,8 @@ zombie_state::Grab::~Grab()
 
 void zombie_state::Grab::Update()
 {
-	m_animator->AttachResultAnim(static_cast<int>(ZombieAnimKind::kEnterNeckBite));
-
 	m_zombie.CalcMoveSpeedStop();
+	m_zombie.InitMoveOffset();
 
 	const float delta_time = m_zombie.GetDeltaTime();
 
@@ -34,6 +33,10 @@ void zombie_state::Grab::Update()
 	m_grab_timer += delta_time;
 
 	DamageOverTime();
+
+	m_zombie.UpdateLocomotion();
+
+	m_animator->AttachResultAnim(static_cast<int>(ZombieAnimKind::kEnterNeckBite));
 }
 
 void zombie_state::Grab::LateUpdate()

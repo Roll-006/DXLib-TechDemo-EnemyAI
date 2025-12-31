@@ -29,7 +29,10 @@ void zombie_state::Track::Update()
 	}
 	else
 	{
+		printfDx("IDLE\n");
 		m_animator->AttachResultAnim(static_cast<int>(ZombieAnimKind::kIdle));
+
+		m_zombie.InitMoveOffset();
 	}
 
 	if (m_zombie.CanAction()) { m_zombie.CalcAttackIntervalTime(); }
@@ -61,11 +64,11 @@ const ZombieStateKind zombie_state::Track::GetNextStateKind()
 	{
 		return ZombieStateKind::kIdle;
 	}
-	// ダッシュ攻撃
-	else if (m_zombie.CanAttack() && m_state.TryGrabRun())
-	{
-		return ZombieStateKind::kGrabRun;
-	}
+	//// ダッシュ攻撃
+	//else if (m_zombie.CanAttack() && m_state.TryGrabRun())
+	//{
+	//	return ZombieStateKind::kGrabRun;
+	//}
 	// 待機
 	else if (!m_state.TryTrack() && !m_state.TryGrabRun())
 	{

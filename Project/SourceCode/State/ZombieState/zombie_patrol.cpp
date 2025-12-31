@@ -18,11 +18,13 @@ zombie_state::Patrol::~Patrol()
 
 void zombie_state::Patrol::Update()
 {
-	m_animator->AttachResultAnim(static_cast<int>(ZombieAnimKind::kMoveForwardWalk));
-
 	m_zombie.CalcMoveSpeed();
 	m_zombie.SyncMoveDirWithLookDir();
 	m_zombie.ChangePatrolDestination();
+
+	m_zombie.UpdateLocomotion();
+
+	m_animator->AttachResultAnim(static_cast<int>(ZombieAnimKind::kMoveForwardWalk));
 }
 
 void zombie_state::Patrol::LateUpdate()

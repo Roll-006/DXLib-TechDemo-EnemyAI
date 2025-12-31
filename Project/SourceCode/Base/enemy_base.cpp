@@ -4,7 +4,7 @@ EnemyBase::EnemyBase(const std::string& name) :
 	CharacterBase					(name, ObjTag.ENEMY),
 	m_patrol_route_giver			(nullptr),
 	m_patrol_destination_pos		(v3d::GetZeroV()),
-	attack_interval_time			(0.0f),
+	m_is_stop						(false),
 	m_attack_interval_timer			(0.0f),
 	m_can_action					(true),
 	m_is_disallow_action_forcibly	(false),
@@ -60,9 +60,16 @@ void EnemyBase::OnRotate(const float angle, const RotDirKind rot_dir_kind)
 	m_look_dir.at(TimeKind::kNext) = math::GetRotatedPos(m_look_dir.at(TimeKind::kCurrent), quat::CreateQuaternion(up, result_angle));
 }
 
-void EnemyBase::OnPush(const VECTOR& push_dir, const float push_distance)
+void EnemyBase::CorrectMoveVelocity(const VECTOR& target_pos)
 {
-	m_velocity += push_dir * push_distance;
+	const auto pos		= m_transform->GetPos(CoordinateKind::kWorld);
+	const auto dir		= v3d::GetNormalizedV(target_pos - pos);
+	const auto distance = VSize(target_pos - pos);
+
+	if (distance < 80.0f)
+	{
+		m_move_offset += -dir * 50.0f;
+	}
 }
 
 void EnemyBase::SyncMoveDirWithLookDir()
@@ -75,9 +82,9 @@ void EnemyBase::SyncMoveDirWithLookDir()
 
 void EnemyBase::LookAtTarget(const VECTOR& target_pos)
 {
-	const auto pos = m_transform->GetPos(CoordinateKind::kWorld);
-	const auto pos_y0 = VGet(pos.x, 0.0f, pos.z);
-	const auto target_pos_y0 = VGet(target_pos.x, 0.0f, target_pos.z);
+	const auto pos				= m_transform->GetPos(CoordinateKind::kWorld);
+	const auto pos_y0			= VGet(pos.x, 0.0f, pos.z);
+	const auto target_pos_y0	= VGet(target_pos.x, 0.0f, target_pos.z);
 
 	m_look_dir.at(TimeKind::kNext) = v3d::GetNormalizedV(target_pos_y0 - pos_y0);
 }

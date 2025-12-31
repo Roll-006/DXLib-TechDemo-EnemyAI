@@ -9,6 +9,7 @@ CharacterBase::CharacterBase(const std::string& name, const std::string& tag) :
 	m_collider_creator		(std::make_shared<CharacterColliderCreator>()),
 	m_move_dir				{ {TimeKind::kCurrent, v3d::GetZeroV()},{TimeKind::kNext, v3d::GetZeroV()} },
 	m_look_dir				{ {TimeKind::kCurrent, v3d::GetZeroV()},{TimeKind::kNext, v3d::GetZeroV()} },
+	m_move_offset			(v3d::GetZeroV()),
 	m_destination_pos		(v3d::GetZeroV()),
 	m_move_speed			(0.0f),
 	m_move_dir_offset_speed	(0.0f),
@@ -37,6 +38,20 @@ void CharacterBase::RemoveToObjManager()
 	CollisionManager::GetInstance()->RemoveCollideObj (obj_handle);
 	PhysicsManager	::GetInstance()->RemovePhysicalObj(obj_handle);
 	ObjAccessor		::GetInstance()->RemoveObj		  (obj_handle);
+}
+
+void CharacterBase::UpdateLocomotion()
+{
+	CalcMoveDir();
+	CalcLookDir();
+	CalcMoveVelocity();
+
+	ApplyLookDirToRot();
+}
+
+void CharacterBase::InitMoveOffset()
+{
+	m_move_offset = v3d::GetZeroV();
 }
 
 void CharacterBase::CalcCorrectMoveDir()
@@ -112,7 +127,7 @@ void CharacterBase::CalcLookDir()
 
 void CharacterBase::CalcMoveVelocity()
 {
-	m_move_velocity = m_move_dir.at(TimeKind::kCurrent) * m_move_speed;
+	m_move_velocity = m_move_dir.at(TimeKind::kCurrent) * m_move_speed + m_move_offset;
 	m_velocity += m_move_velocity;
 }
 

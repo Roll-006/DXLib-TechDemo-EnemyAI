@@ -1,9 +1,9 @@
 ﻿#include "enemy_manager.hpp"
 
 EnemyManager::EnemyManager() :
-	m_enemy_size		(0),
+	m_enemy_size			(0),
 	m_dead_enemy_contains	(0),
-	m_object_pool		(std::make_shared<EnemyObjectPool>())
+	m_object_pool			(std::make_shared<EnemyObjectPool>())
 {
 	// イベント登録
 	EventSystem::GetInstance()->Subscribe<ReleaseEvent>			(this, &EnemyManager::NotifyAllowAction);
@@ -71,18 +71,13 @@ void EnemyManager::Update()
 {
 	for (const auto& owner_enemy : m_active_enemies)
 	{
-		const auto owner_pos = owner_enemy->GetTransform()->GetPos(CoordinateKind::kWorld);
+		owner_enemy->InitMoveOffset();
+
 		for (const auto& target_enemy : m_active_enemies)
 		{
 			if (owner_enemy == target_enemy) { continue; }
 
-			const auto target_pos	= target_enemy->GetTransform()->GetPos(CoordinateKind::kWorld);
-			const auto dir			= v3d::GetNormalizedV(target_pos - owner_pos);
-			const auto distance		= VSize(target_pos - owner_pos);
-			if (distance < 60.0f)
-			{
-				owner_enemy->OnPush(-dir, 20.0f);
-			}
+			owner_enemy->CorrectMoveVelocity(target_enemy->GetTransform()->GetPos(CoordinateKind::kWorld));
 		}
 
 		owner_enemy->Update();

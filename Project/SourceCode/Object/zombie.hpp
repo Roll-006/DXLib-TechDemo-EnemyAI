@@ -115,6 +115,8 @@ private:
 	bool									m_is_target_escaped;
 	bool									m_is_allow_stealth_kill;
 	bool									m_on_stealth_kill;
+	bool									m_is_forward_walk;
+	bool									m_is_backward_walk;
 
 	friend void from_json(const nlohmann::json& j_data, Zombie& zombie);
 	friend void to_json  (nlohmann::json& j_data, const Zombie& zombie);

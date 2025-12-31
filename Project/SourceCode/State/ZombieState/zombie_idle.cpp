@@ -18,9 +18,12 @@ zombie_state::Idle::~Idle()
 
 void zombie_state::Idle::Update()
 {
-	m_animator->AttachResultAnim(static_cast<int>(ZombieAnimKind::kIdle));
-
 	m_zombie.CalcMoveSpeedStop();
+	m_zombie.InitMoveOffset();
+
+	m_zombie.UpdateLocomotion();
+
+	m_animator->AttachResultAnim(static_cast<int>(ZombieAnimKind::kIdle));
 }
 
 void zombie_state::Idle::LateUpdate()

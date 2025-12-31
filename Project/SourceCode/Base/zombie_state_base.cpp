@@ -24,7 +24,7 @@ void ZombieStateBase::Move()
 {
 	const auto target_pos		= m_zombie.GetTarget()->GetTransform()->GetPos(CoordinateKind::kWorld);
 	const auto look_dir			= m_zombie.GetLookDir(TimeKind::kCurrent);
-	const auto move_dir			= m_zombie.GetMoveDir(TimeKind::kCurrent);
+	const auto move_dir			= v3d::GetNormalizedV(m_zombie.GetMoveVelocity());
 
 	// 8方向で45°刻み
 	const auto angle_diff		= math::GetSignedAngleBetweenTwoVectorXZ(look_dir, move_dir);
@@ -38,8 +38,10 @@ void ZombieStateBase::Move()
 	// ダッシュ
 	if (m_state.TryRun())
 	{
+		printfDx("RUN\n");
 		m_zombie.CalcMoveSpeedRun();
 		m_zombie.SyncMoveDirWithLookDir();
+		m_zombie.UpdateLocomotion();
 		m_prev_run = true;
 
 		// アニメーションアタッチ
@@ -48,8 +50,10 @@ void ZombieStateBase::Move()
 	// 歩く
 	else if (m_state.TryWalk())
 	{
+		printfDx("WALK\n");
 		m_zombie.CalcMoveSpeed();
 		m_zombie.LookAtTarget(target_pos);
+		m_zombie.UpdateLocomotion();
 		m_prev_run = false;
 
 		// アニメーションアタッチ
@@ -59,16 +63,20 @@ void ZombieStateBase::Move()
 	// どちらでもない場合は以前の状態を引き継ぐ
 	else if(m_prev_run)
 	{
+		printfDx("RUN\n");
 		m_zombie.CalcMoveSpeedRun();
 		m_zombie.SyncMoveDirWithLookDir();
+		m_zombie.UpdateLocomotion();
 
 		// アニメーションアタッチ
 		m_animator->AttachResultAnim(static_cast<int>(ZombieAnimKind::kMoveForwardRun));
 	}
 	else
 	{
+		printfDx("WALK\n");
 		m_zombie.CalcMoveSpeed();
 		m_zombie.LookAtTarget(target_pos);
+		m_zombie.UpdateLocomotion();
 
 		// アニメーションアタッチ
 		m_animator->AttachAnimEightDir(static_cast<int>(ZombieAnimKind::kMoveForward), is_move_forward, is_move_backward, is_move_left, is_move_right, false);

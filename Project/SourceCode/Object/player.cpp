@@ -164,13 +164,9 @@ void Player::Update()
 	m_animator					->Update();
 	//m_humanoid_foot_ik			->Update(std::dynamic_pointer_cast<IHumanoid>(shared_from_this()));
 
-	CalcMoveDir();
-	CalcLookDir();
-	CalcMoveVelocity();
+	UpdateLocomotion();
 
 	JudgeVictoryPose();
-
-	ApplyLookDirToRot();
 }
 
 void Player::LateUpdate()
