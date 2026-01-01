@@ -56,7 +56,7 @@ private:
 	bool							m_can_calc_wait_time;
 	bool							m_is_continue;
 	bool							m_is_quit_game;
-	float							m_active_wait_timer;
+	float							m_blend_wait_timer;
 	int								m_alpha_blend_num;
 
 	std::shared_ptr<GameOverText>	m_game_over_text;

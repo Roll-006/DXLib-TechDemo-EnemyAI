@@ -17,7 +17,8 @@
       },
       "fade_in_speed": 100,
       "fade_out_speed": 100,
-      "draw_wait_time": 5.0
+      "blend_wait_time": 5.0,
+      "draw_time": 2.0
     },
     "purpose": {
 

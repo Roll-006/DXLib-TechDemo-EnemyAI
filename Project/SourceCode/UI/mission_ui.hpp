@@ -7,7 +7,7 @@
 class MissionUI final
 {
 public:
-	MissionUI();
+	MissionUI(const std::string& json_name);
 	~MissionUI();
 
 	void Init();
@@ -18,7 +18,8 @@ public:
 
 private:
 	void CalcAlphaBlendNum();
-	void CalcWaitTime();
+	void CalcBlendWaitTime();
+	void CalcDrawTime();
 	void CreateScreen();
 
 private:
@@ -27,9 +28,11 @@ private:
 	std::shared_ptr<ScreenCreator>	m_screen;
 	Vector2D<int>					m_text_center_pos;
 	int								m_alpha_blend_num;
-	float							m_wait_timer;
+	float							m_blend_wait_timer;
+	float							m_draw_timer;
 	bool							m_is_active;
-	bool							m_is_wait;
+	bool							m_is_wait_blend;
+	bool							m_is_fade_out;
 
 	friend void from_json(const nlohmann::json& j_data, MissionUI& mission_ui);
 	friend void to_json  (nlohmann::json& j_data, const MissionUI& mission_ui);

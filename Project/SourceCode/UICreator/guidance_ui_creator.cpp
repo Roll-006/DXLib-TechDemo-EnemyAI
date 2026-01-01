@@ -4,7 +4,7 @@ GuidanceUICreator::GuidanceUICreator() :
 	m_name		(UICreatorName.GUIDANCE_UI_CREATOR),
 	m_priority	(10),
 	m_is_active	(true),
-	m_mission_ui(std::make_shared<MissionUI>())
+	m_mission_ui(std::make_shared<MissionUI>("mission"))
 {
 	// ƒCƒxƒ“ƒg“o˜^
 	EventSystem::GetInstance()->Subscribe<ChangeSceneEvent>(this, &GuidanceUICreator::ActivateMissionUI);

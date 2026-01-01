@@ -11,10 +11,10 @@ namespace player_state
         ShotRocketLauncher(Player& player, State& state, const std::shared_ptr<Animator>& animator);
         ~ShotRocketLauncher();
 
-        void Update() override;
-        void LateUpdate() override;
-        void Enter() override;
-        void Exit() override;
+        void Update()       override;
+        void LateUpdate()   override;
+        void Enter()        override;
+        void Exit()         override;
 
         [[nodiscard]] const PlayerStateKind GetNextStateKind() override;
 

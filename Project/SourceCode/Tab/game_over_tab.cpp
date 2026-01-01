@@ -8,7 +8,7 @@ GameOverTab::GameOverTab() :
 	m_can_calc_wait_time(false),
 	m_is_continue		(false),
 	m_is_quit_game		(false),
-	m_active_wait_timer	(0.0f),
+	m_blend_wait_timer	(0.0f),
 	m_alpha_blend_num	(0),
 	m_game_over_text	(std::make_shared<GameOverText>()),
 	m_ui_selector		(std::make_shared<UISelector>(0, true, true)),
@@ -113,8 +113,8 @@ void GameOverTab::JudgeActive()
 
 	// プレイヤーの死亡通知を受け取ってから一定時間後にアクティブ化
 	const auto delta_time = GameTimeManager::GetInstance()->GetDeltaTime(TimeScaleLayerKind::kUI);
-	m_active_wait_timer += delta_time;
-	if (m_active_wait_timer > kActiveWaitTime)
+	m_blend_wait_timer += delta_time;
+	if (m_blend_wait_timer > kActiveWaitTime)
 	{
 		m_is_active = true;
 	}
