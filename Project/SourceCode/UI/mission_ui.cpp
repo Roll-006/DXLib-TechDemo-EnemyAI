@@ -17,7 +17,7 @@ MissionUI::MissionUI() :
 		mission_ui_data.text_data.font_handle	= FontHandler::GetInstance()->GetFontHandle(mission_ui_data.text_data.font_path);
 		mission_ui_data.text_data.font_size		= { GetDrawStringWidthToHandle(mission_ui_data.text_data.text.c_str(), -1, mission_ui_data.text_data.font_handle), GetFontSizeToHandle(mission_ui_data.text_data.font_handle) };
 
-		m_screen = std::make_shared<ScreenCreator>(mission_ui_data.screen_size, Vector2D<int>(static_cast<int>(mission_ui_data.screen_size.x * 0.5f), static_cast<int>(mission_ui_data.screen_size.y * mission_ui_data.height_ratio)));
+		m_screen = std::make_shared<ScreenCreator>(mission_ui_data.screen_size, Vector2D<int>(Window::kCenterPos.x, Window::kScreenSize.y * mission_ui_data.height_ratio));
 		m_text_center_pos = m_screen->GetHalfScreenSize();
 	}
 }
@@ -37,8 +37,8 @@ void MissionUI::LateUpdate()
 {
 	if (!m_is_active) { return; }
 
-	CalcAlphaBlendNum();
 	CalcWaitTime();
+	CalcAlphaBlendNum();
 	CreateScreen();
 }
 
@@ -51,8 +51,10 @@ void MissionUI::Draw() const
 
 void MissionUI::CalcAlphaBlendNum()
 {
+	if (m_is_wait) { return; }
+
 	const auto delta_time = GameTimeManager::GetInstance()->GetDeltaTime(TimeScaleLayerKind::kUI);
-	if (m_alpha_blend_num < UCHAR_MAX && m_is_wait)
+	if (m_alpha_blend_num < UCHAR_MAX)
 	{
 		math::Increase(m_alpha_blend_num, static_cast<int>(mission_ui_data.fade_in_speed * delta_time), UCHAR_MAX, false);
 	}
@@ -61,12 +63,12 @@ void MissionUI::CalcAlphaBlendNum()
 		math::Decrease(m_alpha_blend_num, static_cast<int>(mission_ui_data.fade_out_speed * delta_time), 0);
 		m_is_active = m_alpha_blend_num <= 0;
 	}
+
+	m_screen->GetGraphicer()->SetBlendNum(m_alpha_blend_num);
 }
 
 void MissionUI::CalcWaitTime()
 {
-	if (m_alpha_blend_num < UCHAR_MAX) { return; }
-
 	m_wait_timer += GameTimeManager::GetInstance()->GetDeltaTime(TimeScaleLayerKind::kUI);
 	if (m_wait_timer > mission_ui_data.draw_wait_time)
 	{
@@ -76,6 +78,8 @@ void MissionUI::CalcWaitTime()
 
 void MissionUI::CreateScreen()
 {
+	if (m_is_wait) { return; }
+
 	m_screen->UseScreen();
 
 	DrawStringToHandle(

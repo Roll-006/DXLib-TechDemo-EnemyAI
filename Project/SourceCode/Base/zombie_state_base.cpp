@@ -38,7 +38,7 @@ void ZombieStateBase::Move()
 	// ダッシュ
 	if (m_state.TryRun())
 	{
-		printfDx("RUN\n");
+		//printfDx("RUN\n");
 		m_zombie.CalcMoveSpeedRun();
 		m_zombie.SyncMoveDirWithLookDir();
 		m_zombie.UpdateLocomotion();
@@ -50,7 +50,7 @@ void ZombieStateBase::Move()
 	// 歩く
 	else if (m_state.TryWalk())
 	{
-		printfDx("WALK\n");
+		//printfDx("WALK\n");
 		m_zombie.CalcMoveSpeed();
 		m_zombie.LookAtTarget(target_pos);
 		m_zombie.UpdateLocomotion();
@@ -63,7 +63,7 @@ void ZombieStateBase::Move()
 	// どちらでもない場合は以前の状態を引き継ぐ
 	else if(m_prev_run)
 	{
-		printfDx("RUN\n");
+		//printfDx("RUN\n");
 		m_zombie.CalcMoveSpeedRun();
 		m_zombie.SyncMoveDirWithLookDir();
 		m_zombie.UpdateLocomotion();
@@ -73,7 +73,7 @@ void ZombieStateBase::Move()
 	}
 	else
 	{
-		printfDx("WALK\n");
+		//printfDx("WALK\n");
 		m_zombie.CalcMoveSpeed();
 		m_zombie.LookAtTarget(target_pos);
 		m_zombie.UpdateLocomotion();

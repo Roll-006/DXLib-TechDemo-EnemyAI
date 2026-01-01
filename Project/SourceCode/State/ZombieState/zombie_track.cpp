@@ -29,7 +29,6 @@ void zombie_state::Track::Update()
 	}
 	else
 	{
-		printfDx("IDLE\n");
 		m_animator->AttachResultAnim(static_cast<int>(ZombieAnimKind::kIdle));
 
 		m_zombie.InitMoveOffset();

@@ -8,7 +8,7 @@ EnemyManager::EnemyManager() :
 	// イベント登録
 	EventSystem::GetInstance()->Subscribe<ReleaseEvent>			(this, &EnemyManager::NotifyAllowAction);
 	EventSystem::GetInstance()->Subscribe<GrabEvent>			(this, &EnemyManager::NotifyDisallowActionForcibly);
-	EventSystem::GetInstance()->Subscribe<DeadAllEnemyEvent>	(this, &EnemyManager::NotifyDisallowActionForcibly);
+	//EventSystem::GetInstance()->Subscribe<DeadAllEnemyEvent>	(this, &EnemyManager::NotifyDisallowActionForcibly);
 	EventSystem::GetInstance()->Subscribe<OnTargetDetectedEvent>(this, &EnemyManager::NotifyDetectedTarget);
 	EventSystem::GetInstance()->Subscribe<DeadEnemyEvent>		(this, &EnemyManager::CountDeadEnemy);
 
@@ -46,7 +46,7 @@ EnemyManager::~EnemyManager()
 	// イベントの登録解除
 	EventSystem::GetInstance()->Unsubscribe<ReleaseEvent>			(this, &EnemyManager::NotifyAllowAction);
 	EventSystem::GetInstance()->Unsubscribe<GrabEvent>				(this, &EnemyManager::NotifyDisallowActionForcibly);
-	EventSystem::GetInstance()->Unsubscribe<DeadAllEnemyEvent>		(this, &EnemyManager::NotifyDisallowActionForcibly);
+	//EventSystem::GetInstance()->Unsubscribe<DeadAllEnemyEvent>		(this, &EnemyManager::NotifyDisallowActionForcibly);
 	EventSystem::GetInstance()->Unsubscribe<OnTargetDetectedEvent>	(this, &EnemyManager::NotifyDetectedTarget);
 	EventSystem::GetInstance()->Unsubscribe<DeadEnemyEvent>			(this, &EnemyManager::CountDeadEnemy);
 
@@ -136,11 +136,11 @@ void EnemyManager::NotifyDisallowActionForcibly(const GrabEvent& event)
 	NotifyDisallowActionForcibly(event.enemy_id);
 }
 
-void EnemyManager::NotifyDisallowActionForcibly(const DeadAllEnemyEvent& event)
-{
-	// 死亡した本人以外の敵の行動をすべて停止させる
-	//NotifyDisallowActionForcibly(event.enemy_id);
-}
+//void EnemyManager::NotifyDisallowActionForcibly(const DeadAllEnemyEvent& event)
+//{
+//	// 死亡した本人以外の敵の行動をすべて停止させる
+//	NotifyDisallowActionForcibly(event.enemy_id);
+//}
 
 void EnemyManager::NotifyDetectedTarget(const OnTargetDetectedEvent& event)
 {
