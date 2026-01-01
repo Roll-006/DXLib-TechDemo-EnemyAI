@@ -385,6 +385,7 @@
     <ClInclude Include="SourceCode\Data\game_over_text_data.hpp" />
     <ClInclude Include="SourceCode\Data\humanoid_arm_matrix_data.hpp" />
     <ClInclude Include="SourceCode\Data\humanoid_arm_ray_data.hpp" />
+    <ClInclude Include="SourceCode\Data\purpose_ui_data.hpp" />
     <ClInclude Include="SourceCode\Data\single_button_prompt_data.hpp" />
     <ClInclude Include="SourceCode\Data\button_prompt_data.hpp" />
     <ClInclude Include="SourceCode\Data\sound_volume_data.hpp" />

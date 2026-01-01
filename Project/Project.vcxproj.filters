@@ -1785,6 +1785,9 @@
     <ClInclude Include="SourceCode\Sound\sound_volume_settings.hpp">
       <Filter>SourceCode\Sound</Filter>
     </ClInclude>
+    <ClInclude Include="SourceCode\Data\purpose_ui_data.hpp">
+      <Filter>SourceCode\Data</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="SourceCode">

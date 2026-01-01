@@ -15,8 +15,8 @@
           "y": 0
         }
       },
-      "fade_in_speed": 100,
-      "fade_out_speed": 100,
+      "fade_in_speed": 200,
+      "fade_out_speed": 200,
       "blend_wait_time": 5.0,
       "draw_time": 2.0
     },
