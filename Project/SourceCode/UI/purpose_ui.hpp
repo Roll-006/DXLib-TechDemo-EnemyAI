@@ -17,6 +17,10 @@ public:
 	void Activate() { m_is_active = true; }
 
 private:
+	void CalcAlphaBlendNum();
+	void CalcBlendWaitTime();
+	void CalcDrawTime();
+	void CreateScreen();
 
 private:
 	PurposeUIData					purpose_ui_data;
